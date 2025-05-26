@@ -10,11 +10,17 @@ export interface Event {
   imageHint?: string;
 }
 
-export interface Speaker {
-  id: string;
+// export interface Speaker {
+//   id: string;
+//   name: string;
+//   title: string;
+//   bio: string;
+//   photo: string;
+//   photoHint?: string;
+// }
+
+export interface SpeakerCardProps {
   name: string;
-  title: string;
-  bio: string;
-  photo: string;
-  photoHint?: string;
+  imageUrl: string;
+  imageHint?: string;
 }
