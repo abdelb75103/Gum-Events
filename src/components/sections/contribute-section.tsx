@@ -7,45 +7,81 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Gift, Repeat, Euro } from "lucide-react"; // Replaced DollarSign with Euro
+import { Gift, Repeat, Euro } from "lucide-react";
+import { loadStripe } from '@stripe/stripe-js';
+
+// TODO: Replace with your actual Stripe publishable key
+const STRIPE_PUBLISHABLE_KEY = "pk_test_YOUR_STRIPE_PUBLISHABLE_KEY"; 
+let stripePromise: Promise<any>;
+
+const getStripe = () => {
+  if (!stripePromise) {
+    stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY);
+  }
+  return stripePromise;
+};
 
 export default function ContributeSection() {
   const [amount, setAmount] = useState<string>("10.00"); // Default amount
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // Placeholder function for initiating a one-time contribution
-  const handleOneTimeContribution = async () => {
-    console.log(`Initiating one-time contribution of EUR ${amount}`);
-    // TODO: In a real application:
-    // 1. Send `amount` to your backend.
-    // 2. Your backend creates a Stripe Checkout Session for a one-time payment.
-    // 3. Your backend returns the session ID or URL.
-    // 4. Redirect the user to Stripe's Checkout page:
-    //    e.g., window.location.href = stripeCheckoutUrl;
-    // For now, this is a placeholder:
-    alert(`One-Time Contribution (EUR ${amount}): This would redirect to Stripe after server-side processing.`);
-    // Or, if you have pre-defined Stripe Payment Links for various amounts, you could select one here.
-    // window.open("https://stripe.com", "_blank"); // Example placeholder action
-  };
+  const handleContribution = async (contributionType: 'one-time' | 'recurring') => {
+    setIsLoading(true);
+    setErrorMessage(null);
+    console.log(`Initiating ${contributionType} contribution of EUR ${amount}`);
 
-  // Placeholder function for initiating monthly support
-  const handleMonthlySupport = async () => {
-    console.log(`Initiating monthly support of EUR ${amount}`);
     // TODO: In a real application:
-    // 1. Send `amount` to your backend.
-    // 2. Your backend creates a Stripe Checkout Session for a recurring payment (subscription).
-    // 3. Your backend returns the session ID or URL.
-    // 4. Redirect the user to Stripe's Checkout page:
-    //    e.g., window.location.href = stripeCheckoutUrl;
-    // For now, this is a placeholder:
-    alert(`Monthly Support (EUR ${amount}): This would redirect to Stripe after server-side processing.`);
-    // Or, if you have pre-defined Stripe Payment Links for various recurring amounts, you could select one here.
-    // window.open("https://stripe.com", "_blank"); // Example placeholder action
+    // 1. Validate the amount.
+    // 2. Replace '/api/stripe/create-checkout-session' with your actual backend endpoint.
+    // 3. Your backend should create a Stripe Checkout Session and return its ID.
+    try {
+      const response = await fetch('/api/stripe/create-checkout-session', { // PLACEHOLDER_API_ENDPOINT
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          amount: parseFloat(amount) * 100, // Stripe expects amount in cents
+          currency: 'eur',
+          contributionType: contributionType,
+         }),
+      });
+
+      const session = await response.json();
+
+      if (response.ok && session.id) {
+        const stripe = await getStripe();
+        if (!stripe) {
+            setErrorMessage("Stripe.js failed to load.");
+            setIsLoading(false);
+            return;
+        }
+        const { error } = await stripe.redirectToCheckout({
+          sessionId: session.id,
+        });
+        if (error) {
+          console.error("Stripe redirection error:", error.message);
+          setErrorMessage(error.message);
+        }
+      } else {
+        console.error("Failed to create Stripe session:", session.error || "Unknown error");
+        setErrorMessage(session.error || "Could not create payment session. Please try again.");
+      }
+    } catch (error: any) {
+      console.error("Error during contribution process:", error);
+      setErrorMessage(error.message || "An unexpected error occurred. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <section id="contribute" className="py-16 sm:py-24 bg-background">
       <Container className="text-center">
-        <Gift className="mx-auto h-12 w-12 text-primary mb-4" />
+        <div className="inline-block">
+          <Gift className="mx-auto h-12 w-12 text-primary mb-4" />
+        </div>
         <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
           Support Our Mission
         </h2>
@@ -72,6 +108,7 @@ export default function ContributeSection() {
                 onChange={(e) => setAmount(e.target.value)}
                 aria-label="Contribution Amount in Euros"
                 min="1" // Basic validation
+                disabled={isLoading}
               />
             </div>
           </div>
@@ -80,22 +117,28 @@ export default function ContributeSection() {
             <Button 
               size="lg" 
               className="bg-accent hover:bg-accent/90 text-accent-foreground w-full sm:w-auto"
-              onClick={handleOneTimeContribution}
+              onClick={() => handleContribution('one-time')}
+              disabled={isLoading}
             >
               <Gift className="mr-2 h-5 w-5" />
-              One-Time Contribution
+              {isLoading ? 'Processing...' : 'One-Time Contribution'}
             </Button>
             <Button 
               size="lg" 
               className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto"
-              onClick={handleMonthlySupport}
+              onClick={() => handleContribution('recurring')}
+              disabled={isLoading}
             >
               <Repeat className="mr-2 h-5 w-5" />
-              Monthly Support
+              {isLoading ? 'Processing...' : 'Monthly Support'}
             </Button>
           </div>
         </div>
         
+        {errorMessage && (
+            <p className="mt-4 text-sm text-destructive">{errorMessage}</p>
+        )}
+
         <p className="mt-6 text-sm text-muted-foreground">
           We use Stripe for secure and easy online contributions. Thank you for your support!
         </p>
