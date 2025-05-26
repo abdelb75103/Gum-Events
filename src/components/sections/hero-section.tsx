@@ -107,13 +107,12 @@ export default function HeroSection() {
                 />
               </div>
               <Button
-                size="lg"
                 asChild
-                className="bg-gradient-to-r from-primary to-accent text-primary-foreground hover:brightness-90 shadow-xl text-lg px-6 py-3"
+                className="bg-[hsl(40,80%,60%)] hover:bg-[hsl(40,80%,55%)] text-amber-900 shadow-xl text-base px-6 py-3"
               >
                 <Link href={upcomingEvent.registrationLink || "#events"}>
                   Buy Tickets
-                  <Ticket className="ml-2 h-5 w-5" />
+                  <Ticket className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
             </div>
@@ -149,7 +148,7 @@ export default function HeroSection() {
           <Button
             variant="ghost"
             size="icon"
-            className="absolute left-2 sm:left-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-transparent hover:bg-black/10 dark:hover:bg-white/10 text-foreground h-10 w-10 sm:h-12 sm:w-12"
+            className="absolute left-4 sm:left-6 lg:left-8 top-1/2 z-20 -translate-y-1/2 rounded-full bg-transparent hover:bg-black/10 dark:hover:bg-white/10 text-foreground h-10 w-10 sm:h-12 sm:w-12"
             onClick={handleArrowClick}
             aria-label="Previous slide"
           >
@@ -158,7 +157,7 @@ export default function HeroSection() {
           <Button
             variant="ghost"
             size="icon"
-            className="absolute right-2 sm:right-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-transparent hover:bg-black/10 dark:hover:bg-white/10 text-foreground h-10 w-10 sm:h-12 sm:w-12"
+            className="absolute right-4 sm:right-6 lg:right-8 top-1/2 z-20 -translate-y-1/2 rounded-full bg-transparent hover:bg-black/10 dark:hover:bg-white/10 text-foreground h-10 w-10 sm:h-12 sm:w-12"
             onClick={handleArrowClick}
             aria-label="Next slide"
           >

@@ -5,7 +5,7 @@ import { Copyright } from "lucide-react";
 export default function Footer() {
   return (
     <footer className="border-t border-border/40 bg-background py-8 text-center text-muted-foreground">
-      <div className="container mx-auto flex max-w-7xl flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto flex max-w-7xl flex-col items-center justify-center px-6 sm:px-8 lg:px-10">
         <div className="mb-4">
           <Image
             src="/images/logo.png" 
