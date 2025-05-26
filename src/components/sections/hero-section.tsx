@@ -1,53 +1,51 @@
 
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import Container from "@/components/ui/container";
-import { MoveRight, Ticket } from "lucide-react";
+import Container from "@/components/ui/container"; // Keep for general hero structure if needed, but main layout changes
+import { MoveRight, Ticket, ChevronLeft, ChevronRight } from "lucide-react";
 import { events } from "@/lib/data";
 import type { Event } from "@/lib/types";
 
 export default function HeroSection() {
-  const [showEventHero, setShowEventHero] = useState(true);
   const upcomingEvent: Event | null = events.length > 0 ? events[0] : null;
+  const [activeHeroType, setActiveHeroType] = useState<'event' | 'general'>(
+    upcomingEvent ? 'event' : 'general'
+  );
 
-  useEffect(() => {
-    if (upcomingEvent) {
-      const timer = setTimeout(() => {
-        setShowEventHero(false);
-      }, 3000); // 3 seconds
+  const hasMultipleHeroes = !!upcomingEvent;
 
-      return () => clearTimeout(timer); // Cleanup timer on component unmount
-    } else {
-      // If no upcoming event, immediately show the general hero
-      setShowEventHero(false);
+  const navigateHero = (targetType: 'event' | 'general') => {
+    if (hasMultipleHeroes) {
+      setActiveHeroType(targetType);
     }
-  }, [upcomingEvent]);
+  };
 
   const generalHeroContent = {
     title: "Growing Up Muslim",
     description: "Events, insights, and community for young Muslims navigating faith and life. Join us as we grow together.",
     buttons: (
       <>
-        <Button size="lg" asChild>
+        <Button size="lg" asChild className="px-6 py-3 text-base sm:text-lg">
           <Link href="#events">
             View Upcoming Events
             <MoveRight className="ml-2 h-5 w-5" />
           </Link>
         </Button>
-        <Button size="lg" variant="outline" asChild>
+        <Button size="lg" variant="outline" asChild className="px-6 py-3 text-base sm:text-lg">
           <Link href="#community">Join Our Community</Link>
         </Button>
       </>
     ),
   };
 
-  if (showEventHero && upcomingEvent) {
-    return (
-      <section id="hero" className="relative overflow-hidden py-24 sm:py-32 lg:py-40">
+  const renderEventHero = () => (
+    // Aspect ratio container for 16:9
+    <div className="relative w-full pt-[56.25%]"> 
+      {upcomingEvent && (
         <Image
           src={upcomingEvent.image}
           alt="Blurred event background"
@@ -57,47 +55,84 @@ export default function HeroSection() {
           priority
           data-ai-hint={upcomingEvent.imageHint || "event background"}
         />
-        <div className="relative z-10 flex h-full flex-col items-center justify-center text-center px-4">
-          <div className="mb-6 w-full max-w-[280px] sm:max-w-xs md:max-w-sm">
-            <Image
-              src={upcomingEvent.image}
-              alt={upcomingEvent.title}
-              width={1080}
-              height={1350}
-              className="rounded-lg shadow-2xl w-full h-auto"
-              priority
-              data-ai-hint={upcomingEvent.imageHint || "event poster"}
-            />
-          </div>
-          <Button
-            size="lg"
-            asChild
-            className="bg-gradient-to-r from-[hsl(145,68%,65%)] to-[hsl(30,95%,70%)] text-primary-foreground hover:from-[hsl(145,68%,60%)] hover:to-[hsl(30,95%,65%)] shadow-xl font-bold text-lg"
-          >
-            <Link href={upcomingEvent.registrationLink || "#events"}>
-              Buy Tickets
-              <Ticket className="ml-2 h-5 w-5" />
-            </Link>
-          </Button>
-        </div>
-      </section>
-    );
-  }
+      )}
+      {/* Content wrapper */}
+      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center p-4 sm:p-6 md:p-8">
+        {upcomingEvent && (
+          <>
+            <div className="mb-4 sm:mb-6 w-full max-w-[240px] xs:max-w-[280px] sm:max-w-xs md:max-w-sm">
+              <Image
+                src={upcomingEvent.image}
+                alt={upcomingEvent.title}
+                width={1080} 
+                height={1350}
+                className="rounded-lg shadow-2xl w-full h-auto"
+                priority
+                data-ai-hint={upcomingEvent.imageHint || "event poster"}
+              />
+            </div>
+            <Button
+              size="lg"
+              asChild
+              className="bg-gradient-to-r from-[hsl(145,68%,65%)] to-[hsl(30,95%,70%)] text-primary-foreground hover:from-[hsl(145,68%,60%)] hover:to-[hsl(30,95%,65%)] shadow-xl font-bold text-lg px-6 py-3"
+            >
+              <Link href={upcomingEvent.registrationLink || "#events"}>
+                Buy Tickets
+                <Ticket className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
+          </>
+        )}
+      </div>
+    </div>
+  );
 
-  // General Hero
-  return (
-    <section id="hero" className="bg-gradient-to-b from-background to-secondary py-24 sm:py-32 lg:py-40">
-      <Container className="text-center">
-        <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-6xl lg:text-7xl">
+  const renderGeneralHero = () => (
+    // Aspect ratio container for 16:9
+    <div className="relative w-full pt-[56.25%] bg-gradient-to-b from-background to-secondary">
+      {/* Content wrapper */}
+      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center p-4 sm:p-6 md:p-8">
+        <h1 className="text-3xl font-bold tracking-tight text-foreground xs:text-4xl sm:text-5xl lg:text-6xl">
           {generalHeroContent.title}
         </h1>
-        <p className="mt-6 max-w-3xl mx-auto text-lg leading-8 text-muted-foreground sm:text-xl">
+        <p className="mt-4 max-w-xl mx-auto text-base leading-relaxed text-muted-foreground sm:text-lg sm:max-w-2xl md:text-xl md:max-w-3xl">
           {generalHeroContent.description}
         </p>
-        <div className="mt-10 flex items-center justify-center gap-x-6">
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-4 sm:gap-x-6">
           {generalHeroContent.buttons}
         </div>
-      </Container>
+      </div>
+    </div>
+  );
+
+  return (
+    <section id="hero" className="relative w-full overflow-hidden">
+      {activeHeroType === 'event' && upcomingEvent ? renderEventHero() : renderGeneralHero()}
+
+      {hasMultipleHeroes && (
+        <>
+          <Button
+            variant="outline"
+            size="icon"
+            className="absolute left-2 sm:left-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-background/60 hover:bg-background/80 text-foreground border-border/70 hover:border-border h-10 w-10 sm:h-12 sm:w-12"
+            onClick={() => navigateHero('event')}
+            aria-label="Previous slide"
+            disabled={activeHeroType === 'event'}
+          >
+            <ChevronLeft className="h-6 w-6 sm:h-7 sm:w-7" />
+          </Button>
+          <Button
+            variant="outline"
+            size="icon"
+            className="absolute right-2 sm:right-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-background/60 hover:bg-background/80 text-foreground border-border/70 hover:border-border h-10 w-10 sm:h-12 sm:w-12"
+            onClick={() => navigateHero('general')}
+            aria-label="Next slide"
+            disabled={activeHeroType === 'general'}
+          >
+            <ChevronRight className="h-6 w-6 sm:h-7 sm:w-7" />
+          </Button>
+        </>
+      )}
     </section>
   );
 }
