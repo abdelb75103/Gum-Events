@@ -36,7 +36,7 @@ export default function SpeakersSection() {
           </p>
         </div>
         {featuredSpeakers.length > 0 ? (
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6">
             {featuredSpeakers.map((speaker) => (
               <SpeakerCard key={speaker.name} speaker={speaker} />
             ))}
@@ -50,3 +50,4 @@ export default function SpeakersSection() {
     </section>
   );
 }
+
