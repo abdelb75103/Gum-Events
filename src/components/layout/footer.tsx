@@ -1,9 +1,22 @@
+
+import Image from "next/image";
 import { Copyright } from "lucide-react";
 
 export default function Footer() {
   return (
     <footer className="border-t border-border/40 bg-background py-8 text-center text-muted-foreground">
       <div className="container mx-auto flex max-w-7xl flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
+        <div className="mb-4">
+          {/* User should place their logo at public/images/gum-logo.svg or update path below */}
+          <Image
+            src="/images/gum-logo.svg" 
+            alt="GUM Events Logo"
+            width={32} 
+            height={32}
+            className="h-8 w-8"
+            data-ai-hint="logo"
+          />
+        </div>
         <div className="flex items-center">
           <Copyright className="mr-2 h-4 w-4" />
           <p className="text-sm">
