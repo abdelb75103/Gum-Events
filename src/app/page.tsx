@@ -3,6 +3,7 @@ import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import HeroSection from "@/components/sections/hero-section";
 import OurStorySection from "@/components/sections/our-story-section";
+import OurImpactSection from "@/components/sections/our-impact-section";
 import EventsSection from "@/components/sections/events-section";
 import SpeakersSection from "@/components/sections/speakers-section";
 import CommunitySection from "@/components/sections/community-section";
@@ -17,6 +18,7 @@ export default function Home() {
       <main className="flex-grow">
         <HeroSection />
         <OurStorySection />
+        <OurImpactSection />
         <EventsSection />
         <SpeakersSection />
         <CommunitySection />
