@@ -32,9 +32,9 @@ export default function Header() {
             <Image
               src="/images/logo.png"
               alt="GUM Events Logo"
-              width={48}
-              height={48}
-              className="h-12 w-12"
+              width={52}
+              height={52}
+              className="h-[52px] w-[52px]"
               data-ai-hint="logo"
               priority
             />
@@ -56,9 +56,9 @@ export default function Header() {
           <Image
             src="/images/logo.png"
             alt="GUM Events Logo"
-            width={48}
-            height={48}
-            className="h-12 w-12"
+            width={52}
+            height={52}
+            className="h-[52px] w-[52px]"
             data-ai-hint="logo"
             priority
           />
@@ -86,9 +86,9 @@ export default function Header() {
                   <Image
                     src="/images/logo.png"
                     alt="GUM Events Logo"
-                    width={40}
-                    height={40}
-                    className="h-10 w-10"
+                    width={44}
+                    height={44}
+                    className="h-11 w-11"
                     data-ai-hint="logo"
                   />
                 </Link>
