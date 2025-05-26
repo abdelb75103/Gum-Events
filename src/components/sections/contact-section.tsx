@@ -1,3 +1,4 @@
+
 import Container from "@/components/ui/container";
 import ContactForm from "@/components/forms/contact-form";
 import { Send } from "lucide-react";
@@ -11,6 +12,7 @@ export default function ContactSection() {
           <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
             Get In Touch
           </h2>
+          <div className="mt-2 mx-auto h-[3px] w-24 rounded-full bg-gradient-to-r from-primary to-accent"></div>
           <p className="mt-4 text-lg leading-8 text-muted-foreground">
             Have questions, feedback, or suggestions? We'd love to hear from you.
           </p>

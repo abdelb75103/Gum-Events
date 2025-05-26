@@ -1,3 +1,4 @@
+
 import Container from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { Gift, ExternalLink } from "lucide-react";
@@ -10,6 +11,7 @@ export default function ContributeSection() {
         <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
           Support Our Mission
         </h2>
+        <div className="mt-2 mx-auto h-[3px] w-24 rounded-full bg-gradient-to-r from-primary to-accent"></div>
         <p className="mt-6 max-w-2xl mx-auto text-lg leading-8 text-muted-foreground">
           Your generous contributions help us continue our work, organize impactful events, 
           and support the GUM community. Every donation, big or small, makes a difference.

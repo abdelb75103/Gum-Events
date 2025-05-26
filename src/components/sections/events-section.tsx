@@ -17,6 +17,7 @@ export default function EventsSection() {
           <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
             Upcoming Event
           </h2>
+          <div className="mt-2 mx-auto h-[3px] w-24 rounded-full bg-gradient-to-r from-primary to-accent"></div>
           <p className="mt-4 text-lg leading-8 text-muted-foreground">
             Don't miss out on our feature event.
           </p>
@@ -37,10 +38,10 @@ export default function EventsSection() {
                 <Button
                   asChild
                   size="lg"
-                  className="w-full bg-gradient-to-r from-primary to-accent text-primary-foreground hover:brightness-90 shadow-xl text-lg px-6 py-3"
+                  className="w-full bg-[hsl(40,80%,60%)] hover:bg-[hsl(40,80%,55%)] text-amber-900 shadow-xl text-base px-4 py-2"
                 >
                   <Link href={upcomingEvent.registrationLink}>
-                    Buy Tickets <Ticket className="ml-2 h-5 w-5" />
+                    Buy Tickets <Ticket className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
               </div>

@@ -3,23 +3,6 @@
 
 import { TrendingUp, UsersRound, Trophy, CalendarCheck } from "lucide-react";
 import Container from "@/components/ui/container";
-// Chart related imports are kept in case they are needed later, but the chart itself is removed.
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  Tooltip,
-  Area,
-  ResponsiveContainer,
-} from "recharts";
-import {
-  ChartContainer,
-  ChartTooltipContent,
-  type ChartConfig,
-} from "@/components/ui/chart";
-import { Card, CardContent } from "@/components/ui/card";
-
 
 const achievements = [
   {
@@ -42,23 +25,6 @@ const achievements = [
   },
 ];
 
-// Chart data and config are kept commented out in case they are needed later
-// const chartData = [
-//   { year: "2023", members: 500 },
-//   { year: "Early '24", members: 1200 },
-//   { year: "Mid '24", members: 2500 },
-//   { year: "Late '24", members: 4000 },
-//   { year: "Mid '25", members: 5500 },
-//   { year: "Late '25", members: 7000 },
-// ];
-
-// const chartConfig = {
-//   members: {
-//     label: "Community Members",
-//     color: "hsl(var(--primary))",
-//   },
-// } satisfies ChartConfig;
-
 export default function OurImpactSection() {
   return (
     <section id="our-impact" className="py-16 sm:py-24 bg-background">
@@ -68,6 +34,7 @@ export default function OurImpactSection() {
           <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
             Our Impact
           </h2>
+          <div className="mt-2 mx-auto h-[3px] w-24 rounded-full bg-gradient-to-r from-primary to-accent"></div>
           <p className="mt-4 text-lg leading-8 text-muted-foreground">
             Making a difference, together. Here's a glimpse of our journey.
           </p>
@@ -86,9 +53,6 @@ export default function OurImpactSection() {
             </div>
           ))}
         </div>
-
-        {/* Graph section has been removed */}
-        
       </Container>
     </section>
   );

@@ -1,3 +1,4 @@
+
 import Container from "@/components/ui/container";
 import SpeakerCard from "@/components/speaker-card";
 import { speakers } from "@/lib/data";
@@ -12,6 +13,7 @@ export default function SpeakersSection() {
           <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
             Our Esteemed Speakers
           </h2>
+          <div className="mt-2 mx-auto h-[3px] w-24 rounded-full bg-gradient-to-r from-primary to-accent"></div>
           <p className="mt-4 text-lg leading-8 text-muted-foreground">
             Learn from inspiring individuals shaping our community.
           </p>

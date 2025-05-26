@@ -14,6 +14,7 @@ export default function OurStorySection() {
                 Our Story
               </h2>
             </div>
+            <div className="mt-2 h-[3px] w-24 rounded-full bg-gradient-to-r from-primary to-accent"></div>
             <p className="text-lg leading-8 text-muted-foreground">
               Discover the journey and inspiration behind Growing Up Muslim. We are dedicated to fostering a vibrant community through engaging events, insightful discussions, and shared experiences that resonate with young Muslims navigating faith and contemporary life.
             </p>

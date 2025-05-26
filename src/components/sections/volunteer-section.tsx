@@ -1,3 +1,4 @@
+
 import Container from "@/components/ui/container";
 import VolunteerForm from "@/components/forms/volunteer-form";
 import { HeartHandshake } from "lucide-react";
@@ -11,6 +12,7 @@ export default function VolunteerSection() {
           <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
             Get Involved - Volunteer With Us
           </h2>
+          <div className="mt-2 mx-auto h-[3px] w-24 rounded-full bg-gradient-to-r from-primary to-accent"></div>
           <p className="mt-4 text-lg leading-8 text-muted-foreground">
             Make a difference in our community. We're looking for passionate individuals to help with our events and initiatives.
           </p>
