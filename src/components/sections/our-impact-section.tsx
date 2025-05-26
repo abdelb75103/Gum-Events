@@ -13,6 +13,7 @@ import {
   Tooltip,
   Area,
   ResponsiveContainer,
+  type TooltipProps, // Import TooltipProps
 } from "recharts";
 import {
   ChartContainer,
@@ -123,7 +124,28 @@ export default function OurImpactSection() {
                   />
                   <Tooltip
                     cursor={{ stroke: "hsl(var(--primary))", strokeWidth: 1, strokeDasharray: "3 3" }}
-                    content={<ChartTooltipContent indicator="line" hideLabel />}
+                    content={
+                      <ChartTooltipContent
+                        hideLabel // Hides the default top label (e.g., year) from tooltip
+                        formatter={(value, name, itemProps) => {
+                          // value is the numerical value (e.g., 100)
+                          // name is the dataKey ("members")
+                          // itemProps.payload contains the original data point, e.g., { year: "2023", members: 100 }
+                          // itemProps.color is the color of the series
+                          return (
+                            <div className="flex items-center gap-2 text-sm">
+                              <span
+                                className="h-2.5 w-2.5 shrink-0 rounded-[2px]"
+                                style={{ backgroundColor: itemProps.color }}
+                              />
+                              <span>{itemProps.payload.year}</span>
+                              {/* Numerical value is intentionally omitted */}
+                            </div>
+                          );
+                        }}
+                        indicator="line"
+                      />
+                    }
                   />
                   <Line
                     dataKey="members"
@@ -158,3 +180,4 @@ export default function OurImpactSection() {
     </section>
   );
 }
+
