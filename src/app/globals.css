@@ -14,16 +14,16 @@
     --popover: 0 0% 100%;
     --popover-foreground: 220 15% 25%;
 
-    --primary: 145 60% 42%; /* Green from logo */
+    --primary: 104 50% 50%; /* Main Green */
     --primary-foreground: 0 0% 100%; /* White text for contrast on green */
 
-    --secondary: 145 50% 96%; /* Very light, subtle green (for section backgrounds) */
-    --secondary-foreground: 145 60% 30%; /* Darker green text for contrast on light green */
+    --secondary: 104 40% 96%; /* Very light, subtle green (for section backgrounds) */
+    --secondary-foreground: 104 50% 30%; /* Darker green text for contrast on light green */
 
     --muted: 0 0% 94%; /* Light gray for muted elements */
     --muted-foreground: 220 10% 45%; /* Medium gray for muted text */
 
-    --accent: 30 85% 53%; /* Orange from logo */
+    --accent: 30 90% 60%; /* Main Orange */
     --accent-foreground: 0 0% 100%; /* White text for contrast on orange */
 
     --destructive: 0 84.2% 60.2%;
@@ -31,19 +31,27 @@
 
     --border: 0 0% 89%; /* Light gray border */
     --input: 0 0% 89%;
-    --ring: 145 60% 48%; /* Green for focus rings */
+    --ring: 104 50% 55%; /* Green for focus rings */
 
     --radius: 0.5rem;
+
+    /* Chart variables */
+    --chart-1: var(--primary);
+    --chart-2: var(--accent);
+    --chart-3: 200 70% 50%; /* Example blue */
+    --chart-4: 50 80% 55%;  /* Example yellow */
+    --chart-5: 300 65% 60%; /* Example purple */
+
 
     /* Sidebar variables */
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 145 60% 42%; /* Match app primary */
+    --sidebar-primary: 104 50% 50%; /* Match app primary */
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 145 50% 92%; /* Light green accent for sidebar */
-    --sidebar-accent-foreground: 145 60% 30%;
+    --sidebar-accent: 104 40% 92%; /* Light green accent for sidebar */
+    --sidebar-accent-foreground: 104 50% 30%;
     --sidebar-border: 0 0% 89%;
-    --sidebar-ring: 145 60% 48%;
+    --sidebar-ring: 104 50% 55%;
   }
 
   .dark {
@@ -56,16 +64,16 @@
     --popover: 220 12% 8%; /* Consistent with card */
     --popover-foreground: 0 0% 96%;
 
-    --primary: 145 60% 55%; /* Brighter green for dark mode */
+    --primary: 104 50% 60%; /* Brighter green for dark mode */
     --primary-foreground: 0 0% 100%; /* White text on primary */
 
     --secondary: 220 15% 7%; /* Subtly different dark bg for section alternation */
-    --secondary-foreground: 145 60% 70%; /* Lighter green text on dark secondary */
+    --secondary-foreground: 104 50% 70%; /* Lighter green text on dark secondary */
 
     --muted: 220 10% 15%; /* Darker muted elements */
     --muted-foreground: 0 0% 60%; /* Lighter muted text */
 
-    --accent: 30 85% 60%; /* Vibrant orange for dark mode */
+    --accent: 30 90% 65%; /* Vibrant orange for dark mode */
     --accent-foreground: 0 0% 100%; /* White text on accent */
 
     --destructive: 0 70% 50%;
@@ -73,17 +81,24 @@
 
     --border: 220 10% 18%; /* Subtle dark border */
     --input: 220 10% 18%; /* Consistent with border for inputs */
-    --ring: 145 60% 55%; /* Primary green for focus rings */
+    --ring: 104 50% 60%; /* Primary green for focus rings */
+
+    /* Chart variables for dark mode */
+    --chart-1: var(--primary);
+    --chart-2: var(--accent);
+    --chart-3: 200 70% 60%;
+    --chart-4: 50 80% 60%;
+    --chart-5: 300 65% 65%;
     
     /* Dark Sidebar variables */
     --sidebar-background: 220 15% 6%;
     --sidebar-foreground: 0 0% 92%;
-    --sidebar-primary: 145 60% 55%;
+    --sidebar-primary: 104 50% 60%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 220 12% 10%;
     --sidebar-accent-foreground: 0 0% 98%;
     --sidebar-border: 220 10% 18%;
-    --sidebar-ring: 145 60% 55%;
+    --sidebar-ring: 104 50% 60%;
   }
 }
 
