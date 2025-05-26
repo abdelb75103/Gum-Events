@@ -2,18 +2,14 @@
 "use client";
 
 import { TrendingUp, UsersRound, Trophy, CalendarCheck } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import Container from "@/components/ui/container";
 import {
   LineChart,
   Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
   Tooltip,
   Area,
   ResponsiveContainer,
-  type TooltipProps, // Import TooltipProps
 } from "recharts";
 import {
   ChartContainer,
@@ -43,9 +39,15 @@ const achievements = [
 ];
 
 const chartData = [
-  { year: "2023", members: 100 },
-  { year: "2024", members: 5000 },
-  { year: "2025", members: 6500 },
+  { year: "2023 Early", members: 20 },
+  { year: "2023 Mid", members: 150 },
+  { year: "2023 Late", members: 100 }, // Achieved initial target
+  { year: "2024 Early", members: 1500 },
+  { year: "2024 Mid", members: 4500 },
+  { year: "2024 Late", members: 5000 }, // Achieved target
+  { year: "2025 Early", members: 5800 },
+  { year: "2025 Mid", members: 7200 }, // Surpassed target
+  { year: "2025 Late", members: 6500 }, // Settled at target
 ];
 
 const chartConfig = {
@@ -97,41 +99,24 @@ export default function OurImpactSection() {
                   accessibilityLayer
                   data={chartData}
                   margin={{
-                    top: 5,
-                    right: 10,
-                    left: -15, 
-                    bottom: 5,
+                    top: 20,
+                    right: 20,
+                    left: 20, 
+                    bottom: 20,
                   }}
                 >
                   <defs>
                     <linearGradient id="fillMembers" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="var(--color-members)" stopOpacity={0.5}/>
-                      <stop offset="95%" stopColor="var(--color-members)" stopOpacity={0.1}/>
+                      <stop offset="5%" stopColor="var(--color-members)" stopOpacity={0.6}/>
+                      <stop offset="95%" stopColor="var(--color-members)" stopOpacity={0.2}/>
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} strokeOpacity={0.2} />
-                  <XAxis
-                    dataKey="year"
-                    tickLine={false}
-                    axisLine={false}
-                    tickMargin={8}
-                    fontSize={12}
-                  />
-                  <YAxis
-                    tickLine={false}
-                    axisLine={false}
-                    tick={false} 
-                  />
                   <Tooltip
-                    cursor={{ stroke: "hsl(var(--primary))", strokeWidth: 1, strokeDasharray: "3 3" }}
+                    cursor={{ stroke: "hsl(var(--primary))", strokeWidth: 1.5, strokeDasharray: "3 3" }}
                     content={
                       <ChartTooltipContent
-                        hideLabel // Hides the default top label (e.g., year) from tooltip
+                        hideLabel 
                         formatter={(value, name, itemProps) => {
-                          // value is the numerical value (e.g., 100)
-                          // name is the dataKey ("members")
-                          // itemProps.payload contains the original data point, e.g., { year: "2023", members: 100 }
-                          // itemProps.color is the color of the series
                           return (
                             <div className="flex items-center gap-2 text-sm">
                               <span
@@ -139,7 +124,6 @@ export default function OurImpactSection() {
                                 style={{ backgroundColor: itemProps.color }}
                               />
                               <span>{itemProps.payload.year}</span>
-                              {/* Numerical value is intentionally omitted */}
                             </div>
                           );
                         }}
@@ -149,24 +133,24 @@ export default function OurImpactSection() {
                   />
                   <Line
                     dataKey="members"
-                    type="monotone"
+                    type="natural" // For a smoother, "squiggly" curve
                     stroke="var(--color-members)"
-                    strokeWidth={2.5} 
+                    strokeWidth={3} 
                     dot={{
-                      r: 4,
+                      r: 5,
                       fill: "var(--color-members)",
                       strokeWidth: 2,
                       stroke: "hsl(var(--background))", 
                     }}
                     activeDot={{
-                      r: 7, 
+                      r: 8, 
                       strokeWidth: 2,
                       stroke: "hsl(var(--background))",
                       fill: "var(--color-members)",
                     }}
                   />
                   <Area
-                    type="monotone"
+                    type="natural" // Match the line type
                     dataKey="members"
                     stroke="none"
                     fill="url(#fillMembers)"
@@ -180,4 +164,3 @@ export default function OurImpactSection() {
     </section>
   );
 }
-
