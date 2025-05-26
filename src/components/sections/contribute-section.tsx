@@ -8,13 +8,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Card } from "@/components/ui/card";
-import { Gift, Euro } from "lucide-react"; // Assuming Euro is still desired
+import { Gift, Euro } from "lucide-react";
 import { loadStripe } from '@stripe/stripe-js';
 import { cn } from "@/lib/utils";
 
 // REPLACE WITH YOUR ACTUAL STRIPE PUBLISHABLE KEY
 const STRIPE_PUBLISHABLE_KEY = "pk_test_YOUR_STRIPE_PUBLISHABLE_KEY";
-let stripePromise: Promise<any>; // This will store the Stripe object promise
+let stripePromise: Promise<any>; 
 
 const getStripe = () => {
   if (!stripePromise) {
@@ -24,8 +24,8 @@ const getStripe = () => {
 };
 
 export default function ContributeSection() {
-  const [amount, setAmount] = useState<string>("10.00"); // Default amount
-  const [donationType, setDonationType] = useState<'once-off' | 'monthly'>('once-off');
+  const [amount, setAmount] = useState<string>("10.00"); 
+  const [contributionType, setContributionType] = useState<'once-off' | 'monthly'>('once-off');
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -40,12 +40,12 @@ export default function ContributeSection() {
       return;
     }
 
-    console.log(`Initiating ${donationType} contribution of EUR ${numericAmount.toFixed(2)}`);
+    console.log(`Initiating ${contributionType} contribution of EUR ${numericAmount.toFixed(2)}`);
 
     // TODO: In a real application:
     // 1. Replace '/api/stripe/create-checkout-session' with your actual backend endpoint.
     // 2. Your backend should create a Stripe Checkout Session using your Stripe SECRET KEY
-    //    and return its ID. It should handle the amount (in cents) and donationType.
+    //    and return its ID. It should handle the amount (in cents) and contributionType.
     try {
       // THIS IS A PLACEHOLDER ENDPOINT - YOU NEED TO IMPLEMENT THIS ON YOUR BACKEND
       const response = await fetch('/api/stripe/create-checkout-session', {
@@ -56,7 +56,7 @@ export default function ContributeSection() {
         body: JSON.stringify({
           amount: numericAmount * 100, // Stripe expects amount in cents
           currency: 'eur',
-          contributionType: donationType, // Send the selected donation type
+          contributionType: contributionType, 
         }),
       });
 
@@ -151,30 +151,30 @@ export default function ContributeSection() {
 
             <div>
               <Label className="text-base font-medium text-foreground mb-2 block">
-                Select donation type
+                Select contribution type
               </Label>
               <div className="grid grid-cols-2 gap-3">
                 <Button
-                  variant={donationType === 'once-off' ? "default" : "outline"}
-                  onClick={() => setDonationType('once-off')}
+                  variant={contributionType === 'once-off' ? "default" : "outline"}
+                  onClick={() => setContributionType('once-off')}
                   className={cn(
                     "py-3 text-base rounded-md",
-                    donationType === 'once-off'
+                    contributionType === 'once-off'
                       ? "bg-primary text-primary-foreground hover:bg-primary/90"
-                      : "bg-card text-foreground border-input hover:bg-muted"
+                      : "bg-card text-foreground border-border hover:bg-muted"
                   )}
                   disabled={isLoading}
                 >
                   Once-off
                 </Button>
                 <Button
-                  variant={donationType === 'monthly' ? "default" : "outline"}
-                  onClick={() => setDonationType('monthly')}
+                  variant={contributionType === 'monthly' ? "default" : "outline"}
+                  onClick={() => setContributionType('monthly')}
                   className={cn(
                     "py-3 text-base rounded-md",
-                    donationType === 'monthly'
+                    contributionType === 'monthly'
                       ? "bg-accent text-accent-foreground hover:bg-accent/90"
-                      : "bg-card text-foreground border-input hover:bg-muted"
+                      : "bg-card text-foreground border-border hover:bg-muted"
                   )}
                   disabled={isLoading}
                 >
@@ -187,7 +187,7 @@ export default function ContributeSection() {
               size="lg"
               className={cn(
                 "w-full text-lg py-3 rounded-md",
-                donationType === 'once-off' 
+                contributionType === 'once-off' 
                   ? "bg-primary text-primary-foreground hover:bg-primary/90" 
                   : "bg-accent text-accent-foreground hover:bg-accent/90"
               )}
