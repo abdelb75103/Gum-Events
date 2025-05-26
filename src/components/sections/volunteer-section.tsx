@@ -1,9 +1,15 @@
 
+"use client";
+
 import Container from "@/components/ui/container";
-import VolunteerForm from "@/components/forms/volunteer-form";
-import { HeartHandshake } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { HeartHandshake, ExternalLink } from "lucide-react";
+import Link from "next/link";
 
 export default function VolunteerSection() {
+  // Replace with your actual Google Form link
+  const googleFormLink = "https://forms.gle/your-volunteer-form-id"; 
+
   return (
     <section id="volunteer" className="py-16 sm:py-24 bg-secondary">
       <Container>
@@ -13,15 +19,22 @@ export default function VolunteerSection() {
             Get Involved - Volunteer With Us
           </h2>
           <div className="mt-2 mx-auto h-[3px] w-24 rounded-full bg-gradient-to-r from-primary to-accent"></div>
-          <p className="mt-4 text-lg leading-8 text-muted-foreground">
-            Make a difference in our community. We're looking for passionate individuals to help with our events and initiatives.
+          <p className="mt-4 text-lg leading-8 text-muted-foreground max-w-2xl mx-auto">
+            Make a difference in our community! We're looking for passionate individuals to help with our events and initiatives. Click the button below to access our volunteer sign-up form.
           </p>
         </div>
         
-        <div className="mx-auto max-w-2xl">
-          <div className="rounded-lg border bg-card p-8 shadow-lg">
-            <VolunteerForm />
-          </div>
+        <div className="text-center">
+          <Button
+            asChild
+            size="lg"
+            className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground text-lg py-4 px-8 font-semibold shadow-lg"
+          >
+            <Link href={googleFormLink} target="_blank" rel="noopener noreferrer">
+              Sign Up to Volunteer
+              <ExternalLink className="ml-2 h-5 w-5" />
+            </Link>
+          </Button>
         </div>
       </Container>
     </section>
