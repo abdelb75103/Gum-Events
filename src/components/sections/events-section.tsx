@@ -33,7 +33,7 @@ export default function EventsSection() {
                 data-ai-hint={upcomingEvent.imageHint}
                 priority // Good to add for LCP images
               />
-              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 via-black/50 to-transparent">
+              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-primary/70 via-accent/50 to-transparent">
                 <Button asChild size="lg" className="w-full">
                   <Link href={upcomingEvent.registrationLink}>
                     Buy Tickets <Ticket className="ml-2 h-4 w-4" />
