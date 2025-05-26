@@ -104,8 +104,8 @@ export default function OurImpactSection() {
                 >
                   <defs>
                     <linearGradient id="fillMembers" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="var(--color-members)" stopOpacity={0.6}/>
-                      <stop offset="95%" stopColor="var(--color-members)" stopOpacity={0.1}/>
+                      <stop offset="5%" stopColor="var(--color-members)" stopOpacity={0.7}/>
+                      <stop offset="95%" stopColor="var(--color-members)" stopOpacity={0.2}/>
                     </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} strokeOpacity={0.5} />
