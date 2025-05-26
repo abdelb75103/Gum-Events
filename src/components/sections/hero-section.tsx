@@ -20,10 +20,11 @@ export default function HeroSection() {
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const cycleHero = useCallback(() => {
+    if (!hasMultipleHeroes) return;
     setActiveHeroType(currentType =>
       currentType === 'event' ? 'general' : 'event'
     );
-  }, []);
+  }, [hasMultipleHeroes]);
 
   const startAutoScroll = useCallback(() => {
     if (intervalRef.current) {
@@ -45,7 +46,7 @@ export default function HeroSection() {
     };
   }, [startAutoScroll]);
 
-  const handleArrowClick = () => {
+  const handleArrowClick = (direction: 'next' | 'prev') => {
     if (hasMultipleHeroes) {
       cycleHero();
       startAutoScroll(); // Restart interval on manual navigation
@@ -57,13 +58,13 @@ export default function HeroSection() {
     description: "Events, insights, and community for young Muslims navigating faith and life. Join us as we grow together.",
     buttons: (
       <>
-        <Button size="default" asChild className="px-4 py-2 text-sm sm:text-base">
+        <Button size="default" asChild className="text-xs xs:text-sm px-3 xs:px-4 py-1.5 xs:py-2 sm:text-base">
           <Link href="#events">
             View Upcoming Events
-            <MoveRight className="ml-2 h-4 w-4" />
+            <MoveRight className="ml-2 h-3 w-3 xs:h-4 xs:w-4" />
           </Link>
         </Button>
-        <Button size="default" variant="outline" asChild className="px-4 py-2 text-sm sm:text-base">
+        <Button size="default" variant="outline" asChild className="text-xs xs:text-sm px-3 xs:px-4 py-1.5 xs:py-2 sm:text-base">
           <Link href="#community">Join Our Community</Link>
         </Button>
       </>
@@ -74,14 +75,16 @@ export default function HeroSection() {
 
   return (
     <section id="hero" className="relative w-full overflow-hidden">
-      {/* Aspect ratio container */}
-      <div className="relative w-full pt-[37.5%]"> {/* 8:3 aspect ratio (height is 2/3 of 16:9) */}
+      {/* Responsive Aspect ratio container */}
+      <div className="relative w-full pt-[62.5%] md:pt-[50%] lg:pt-[43.75%]"> {/* Taller on mobile, wider on desktop */}
         
         {/* Event Hero Content Wrapper */}
         {upcomingEvent && (
           <div
             className={cn(
               heroWrapperBaseClasses,
+              "flex flex-col items-center justify-center text-center",
+              "p-3 xs:p-4 sm:p-6 md:p-8",
               activeHeroType === 'event'
                 ? 'opacity-100 transform translateX-0'
                 : 'opacity-0 transform -translateX-full pointer-events-none'
@@ -96,8 +99,8 @@ export default function HeroSection() {
               priority
               data-ai-hint={upcomingEvent.imageHint || "event background"}
             />
-            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center p-4 sm:p-6 md:p-8">
-              <div className="mb-4 w-full max-w-[200px] sm:max-w-[240px] md:max-w-[280px]">
+            <div className="relative z-10 flex flex-col items-center justify-center">
+              <div className="mb-3 w-full max-w-[100px] xs:max-w-[140px] sm:max-w-[180px] md:max-w-[220px] lg:max-w-[280px]">
                 <Image
                   src={upcomingEvent.image}
                   alt={upcomingEvent.title}
@@ -125,20 +128,22 @@ export default function HeroSection() {
         <div
           className={cn(
             heroWrapperBaseClasses,
+            "flex flex-col items-center justify-center text-center",
+            "p-3 xs:p-4 sm:p-6 md:p-8",
             activeHeroType === 'general'
               ? 'opacity-100 transform translateX-0'
               : 'opacity-0 transform translateX-full pointer-events-none'
           )}
         >
           <div className="absolute inset-0 bg-gradient-to-b from-background to-secondary"></div>
-          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center p-4 sm:p-6 md:p-8">
-            <h1 className="text-2xl font-bold tracking-tight text-foreground xs:text-3xl sm:text-4xl lg:text-5xl">
+          <div className="relative z-10 flex flex-col items-center justify-center">
+            <h1 className="font-bold tracking-tight text-foreground text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
               {generalHeroContent.title}
             </h1>
-            <p className="mt-3 max-w-xl mx-auto text-sm leading-relaxed text-muted-foreground sm:text-base sm:max-w-2xl md:text-lg md:max-w-3xl">
+            <p className="mt-2 max-w-md mx-auto leading-relaxed text-muted-foreground text-xs xs:text-sm sm:text-base md:text-lg md:max-w-xl lg:max-w-2xl">
               {generalHeroContent.description}
             </p>
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-3 sm:gap-x-4">
+            <div className="mt-4 flex flex-wrap items-center justify-center gap-2 xs:gap-3 sm:gap-x-4">
               {generalHeroContent.buttons}
             </div>
           </div>
@@ -151,7 +156,7 @@ export default function HeroSection() {
             variant="ghost"
             size="icon"
             className="absolute left-4 sm:left-6 lg:left-8 top-1/2 z-20 -translate-y-1/2 rounded-full bg-transparent hover:bg-black/10 dark:hover:bg-white/10 text-foreground h-10 w-10 sm:h-12 sm:w-12"
-            onClick={handleArrowClick}
+            onClick={() => handleArrowClick('prev')}
             aria-label="Previous slide"
           >
             <ChevronLeft className="h-6 w-6 sm:h-7 sm:w-7" />
@@ -160,7 +165,7 @@ export default function HeroSection() {
             variant="ghost"
             size="icon"
             className="absolute right-4 sm:right-6 lg:right-8 top-1/2 z-20 -translate-y-1/2 rounded-full bg-transparent hover:bg-black/10 dark:hover:bg-white/10 text-foreground h-10 w-10 sm:h-12 sm:w-12"
-            onClick={handleArrowClick}
+            onClick={() => handleArrowClick('next')}
             aria-label="Next slide"
           >
             <ChevronRight className="h-6 w-6 sm:h-7 sm:w-7" />
