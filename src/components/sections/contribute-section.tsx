@@ -7,11 +7,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Gift, Repeat, Euro } from "lucide-react";
+import { Card } from "@/components/ui/card"; // Added Card
+import { Gift, Euro } from "lucide-react"; // Removed Repeat, will use state for type
 import { loadStripe } from '@stripe/stripe-js';
+import { cn } from "@/lib/utils";
 
 // TODO: Replace with your actual Stripe publishable key
-const STRIPE_PUBLISHABLE_KEY = "pk_test_YOUR_STRIPE_PUBLISHABLE_KEY"; 
+const STRIPE_PUBLISHABLE_KEY = "pk_test_YOUR_STRIPE_PUBLISHABLE_KEY";
 let stripePromise: Promise<any>;
 
 const getStripe = () => {
@@ -22,14 +24,15 @@ const getStripe = () => {
 };
 
 export default function ContributeSection() {
-  const [amount, setAmount] = useState<string>("10.00"); // Default amount
+  const [amount, setAmount] = useState<string>("10.00");
+  const [donationType, setDonationType] = useState<'once-off' | 'monthly'>('once-off');
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleContribution = async (contributionType: 'one-time' | 'recurring') => {
+  const handleContribution = async (selectedDonationType: 'once-off' | 'monthly') => {
     setIsLoading(true);
     setErrorMessage(null);
-    
+
     const numericAmount = parseFloat(amount);
     if (isNaN(numericAmount) || numericAmount <= 0) {
       setErrorMessage("Please enter a valid amount.");
@@ -37,24 +40,24 @@ export default function ContributeSection() {
       return;
     }
 
-    console.log(`Initiating ${contributionType} contribution of EUR ${numericAmount.toFixed(2)}`);
+    console.log(`Initiating ${selectedDonationType} contribution of EUR ${numericAmount.toFixed(2)}`);
 
     // TODO: In a real application:
     // 1. Replace '/api/stripe/create-checkout-session' with your actual backend endpoint.
-    // 2. Your backend should create a Stripe Checkout Session using your Stripe SECRET KEY 
-    //    and return its ID. It should handle the amount (in cents) and contributionType.
+    // 2. Your backend should create a Stripe Checkout Session using your Stripe SECRET KEY
+    //    and return its ID. It should handle the amount (in cents) and donationType.
     try {
       // THIS IS A PLACEHOLDER ENDPOINT - YOU NEED TO IMPLEMENT THIS ON YOUR BACKEND
-      const response = await fetch('/api/stripe/create-checkout-session', { 
+      const response = await fetch('/api/stripe/create-checkout-session', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           amount: numericAmount * 100, // Stripe expects amount in cents
           currency: 'eur',
-          contributionType: contributionType,
-         }),
+          contributionType: selectedDonationType, // Use selectedDonationType
+        }),
       });
 
       const session = await response.json();
@@ -62,9 +65,9 @@ export default function ContributeSection() {
       if (response.ok && session.id) {
         const stripe = await getStripe();
         if (!stripe) {
-            setErrorMessage("Stripe.js failed to load.");
-            setIsLoading(false);
-            return;
+          setErrorMessage("Stripe.js failed to load.");
+          setIsLoading(false);
+          return;
         }
         const { error } = await stripe.redirectToCheckout({
           sessionId: session.id,
@@ -85,6 +88,8 @@ export default function ContributeSection() {
     }
   };
 
+  const displayAmount = parseFloat(amount || "0").toFixed(2);
+
   return (
     <section id="contribute" className="py-16 sm:py-24 bg-background">
       <Container className="text-center">
@@ -96,7 +101,7 @@ export default function ContributeSection() {
         </h2>
         <div className="mt-2 mx-auto h-[3px] w-24 rounded-full bg-gradient-to-r from-primary to-accent"></div>
         <p className="mt-6 max-w-2xl mx-auto text-lg leading-8 text-muted-foreground">
-          Your generous contributions help us continue our work, organize impactful events, 
+          Your generous contributions help us continue our work, organize impactful events,
           and support the GUM community. Choose how you'd like to make a difference.
         </p>
         <p className="mt-4 max-w-2xl mx-auto text-lg leading-8 text-muted-foreground">
@@ -104,33 +109,35 @@ export default function ContributeSection() {
         </p>
 
         <div className="my-10 mx-auto max-w-xl">
-            <video
-              width="100%"
-              controls
-              controlsList="nodownload"
-              preload="metadata"
-              className="rounded-xl shadow-xl aspect-video"
-              aria-label="Our Mission Video"
-            >
-              <source src="/videos/intro.mp4" type="video/mp4" />
-              Your browser does not support the video tag. Consider updating to a more modern browser.
-            </video>
+          <video
+            width="100%"
+            controls
+            controlsList="nodownload"
+            preload="metadata"
+            className="rounded-xl shadow-xl aspect-video"
+            aria-label="Our Mission Video"
+          >
+            <source src="/videos/intro.mp4" type="video/mp4" />
+            Your browser does not support the video tag. Consider updating to a more modern browser.
+          </video>
         </div>
 
-        <div className="mx-auto max-w-md space-y-8">
-          <div>
-            <Label htmlFor="contribution-amount" className="sr-only">Contribution Amount (EUR)</Label>
-            <div className="mt-1 rounded-lg p-0.5 bg-gradient-to-r from-primary to-accent shadow-sm">
-              <div className="relative flex items-center rounded-md bg-background">
+        <Card className="p-6 sm:p-8 shadow-xl mx-auto max-w-sm text-left">
+          <div className="space-y-6">
+            <div>
+              <Label htmlFor="contribution-amount-styled" className="text-base font-medium text-foreground mb-2 block">
+                Choose your contribution amount
+              </Label>
+              <div className="relative">
                 <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                   <Euro className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
                 </div>
                 <Input
                   type="number"
-                  name="contribution-amount"
-                  id="contribution-amount"
-                  className="w-full border-transparent bg-transparent pl-10 pr-4 text-center text-foreground placeholder:text-muted-foreground focus-visible:ring-0 sm:text-sm"
-                  placeholder="10.00"
+                  name="contribution-amount-styled"
+                  id="contribution-amount-styled"
+                  className="w-full border-input bg-background pl-10 pr-4 text-foreground placeholder:text-muted-foreground focus-visible:ring-primary sm:text-sm"
+                  placeholder="Enter amount"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
                   aria-label="Contribution Amount in Euros"
@@ -139,32 +146,52 @@ export default function ContributeSection() {
                 />
               </div>
             </div>
-          </div>
 
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Button 
-              size="lg" 
-              className="bg-accent hover:bg-accent/90 text-accent-foreground w-full sm:flex-1"
-              onClick={() => handleContribution('one-time')}
-              disabled={isLoading}
+            <div>
+              <Label className="text-base font-medium text-foreground mb-2 block">
+                Select donation type
+              </Label>
+              <div className="grid grid-cols-2 gap-3">
+                <Button
+                  variant="outline"
+                  onClick={() => setDonationType('once-off')}
+                  className={cn(
+                    "py-3 text-base rounded-md",
+                    donationType === 'once-off'
+                      ? "bg-primary/10 border-primary text-primary hover:bg-primary/20"
+                      : "bg-card text-foreground border-border hover:bg-muted"
+                  )}
+                >
+                  Once-off
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => setDonationType('monthly')}
+                  className={cn(
+                    "py-3 text-base rounded-md",
+                    donationType === 'monthly'
+                      ? "bg-primary/10 border-primary text-primary hover:bg-primary/20"
+                      : "bg-card text-foreground border-border hover:bg-muted"
+                  )}
+                >
+                  Monthly
+                </Button>
+              </div>
+            </div>
+
+            <Button
+              size="lg"
+              className="w-full bg-primary/20 hover:bg-primary/30 text-primary text-lg py-3 rounded-md"
+              onClick={() => handleContribution(donationType)}
+              disabled={isLoading || !amount || parseFloat(amount) <= 0}
             >
-              <Gift className="mr-2 h-5 w-5" />
-              {isLoading ? 'Processing...' : 'One-Time Contribution'}
-            </Button>
-            <Button 
-              size="lg" 
-              className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:flex-1"
-              onClick={() => handleContribution('recurring')}
-              disabled={isLoading}
-            >
-              <Repeat className="mr-2 h-5 w-5" />
-              {isLoading ? 'Processing...' : 'Monthly Support'}
+              {isLoading ? 'Processing...' : `Contribute €${displayAmount}`}
             </Button>
           </div>
-        </div>
-        
+        </Card>
+
         {errorMessage && (
-            <p className="mt-4 text-sm text-destructive">{errorMessage}</p>
+          <p className="mt-4 text-sm text-destructive">{errorMessage}</p>
         )}
 
         <p className="mt-8 text-sm text-muted-foreground">
