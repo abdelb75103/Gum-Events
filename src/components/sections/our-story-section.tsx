@@ -4,7 +4,7 @@ import { BookOpenText } from "lucide-react";
 
 export default function OurStorySection() {
   return (
-    <section id="our-story" className="py-16 sm:py-24 bg-secondary">
+    <section id="our-story" className="py-16 sm:py-24 bg-card"> {/* Changed bg-secondary to bg-card */}
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10 items-center">
           <div className="space-y-6 md:order-1">
