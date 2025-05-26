@@ -12,7 +12,7 @@ import {
   CartesianGrid,
   Tooltip,
   Area,
-  ResponsiveContainer, // Added ResponsiveContainer for proper chart rendering
+  ResponsiveContainer,
 } from "recharts";
 import {
   ChartContainer,
@@ -42,7 +42,6 @@ const achievements = [
 ];
 
 const chartData = [
-  { year: "Start", members: 0 },
   { year: "2023", members: 100 },
   { year: "2024", members: 5000 },
   { year: "2025", members: 6500 },
@@ -86,7 +85,7 @@ export default function OurImpactSection() {
         <div className="text-center mb-8">
           <h3 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">Community Growth</h3>
           <p className="mt-2 text-md leading-8 text-muted-foreground">
-            Tracking our journey from the beginning.
+            Tracking our journey.
           </p>
         </div>
         <Card className="shadow-lg">
@@ -120,14 +119,7 @@ export default function OurImpactSection() {
                   <YAxis
                     tickLine={false}
                     axisLine={false}
-                    tickMargin={8}
-                    fontSize={12}
-                    tick={{ fillOpacity: 0.6 }}
-                    tickFormatter={(value) => {
-                      if (value >= 1000) return `${value / 1000}k`;
-                      return value.toString();
-                    }}
-                    domain={[0, 'dataMax + 500']}
+                    tick={false} 
                   />
                   <Tooltip
                     cursor={{ stroke: "hsl(var(--primary))", strokeWidth: 1, strokeDasharray: "3 3" }}
@@ -137,15 +129,15 @@ export default function OurImpactSection() {
                     dataKey="members"
                     type="monotone"
                     stroke="var(--color-members)"
-                    strokeWidth={2.5} // Slightly adjusted
+                    strokeWidth={2.5} 
                     dot={{
                       r: 4,
                       fill: "var(--color-members)",
-                      strokeWidth: 2, // make dot border more visible
+                      strokeWidth: 2,
                       stroke: "hsl(var(--background))", 
                     }}
                     activeDot={{
-                      r: 7, // Larger active dot
+                      r: 7, 
                       strokeWidth: 2,
                       stroke: "hsl(var(--background))",
                       fill: "var(--color-members)",
