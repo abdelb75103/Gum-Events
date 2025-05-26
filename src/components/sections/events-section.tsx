@@ -5,6 +5,7 @@ import { CalendarFold, Ticket } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card"; // Added import for Card
 
 export default function EventsSection() {
   const upcomingEvent = events.length > 0 ? events[0] : null;
@@ -23,30 +24,28 @@ export default function EventsSection() {
           </p>
         </div>
         {upcomingEvent ? (
-          <div className="mx-auto max-w-xs"> {/* Scaled down poster container further */}
-            <div className="relative overflow-hidden rounded-lg shadow-xl group">
-              <Image
-                src={upcomingEvent.image}
-                alt={upcomingEvent.title}
-                width={1080}
-                height={1350}
-                className="w-full h-auto object-cover" // Ensure image covers and scales
-                data-ai-hint={upcomingEvent.imageHint || "event poster"}
-                priority // Good to add for LCP images
-              />
-              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 via-black/40 to-transparent">
-                <Button
-                  asChild
-                  size="lg"
-                  className="w-full bg-[hsl(40,80%,60%)] hover:bg-[hsl(40,80%,55%)] text-amber-900 shadow-xl text-base px-4 py-2"
-                >
-                  <Link href={upcomingEvent.registrationLink}>
-                    Buy Tickets <Ticket className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-              </div>
+          <Card className="mx-auto max-w-xs aspect-[2/3] relative overflow-hidden rounded-lg shadow-lg transition-shadow hover:shadow-xl group">
+            <Image
+              src={upcomingEvent.image}
+              alt={upcomingEvent.title}
+              layout="fill"
+              objectFit="cover"
+              className="transition-transform duration-300 group-hover:scale-105"
+              data-ai-hint={upcomingEvent.imageHint || "event poster"}
+              priority // Good to add for LCP images
+            />
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/60 to-transparent p-3 transition-opacity duration-300">
+              <Button
+                asChild
+                size="lg" // size="lg" gives h-11, px-8. We need px-4 py-2.
+                className="w-full bg-[hsl(40,80%,60%)] hover:bg-[hsl(40,80%,55%)] text-amber-900 shadow-xl text-base px-4 py-2 h-auto" // Adjusted size classes
+              >
+                <Link href={upcomingEvent.registrationLink}>
+                  Buy Tickets <Ticket className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
             </div>
-          </div>
+          </Card>
         ) : (
           <p className="text-center text-muted-foreground">
             No upcoming events at the moment. Check back soon!
