@@ -89,7 +89,7 @@ export default function OurImpactSection() {
             Tracking our journey.
           </p>
         </div>
-        <Card className="shadow-lg">
+        <Card className="border bg-transparent shadow-none">
           <CardContent className="p-4 sm:p-6">
             <ChartContainer config={chartConfig} className="h-[250px] w-full sm:h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
@@ -105,11 +105,11 @@ export default function OurImpactSection() {
                 >
                   <defs>
                     <linearGradient id="fillMembers" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="var(--color-members)" stopOpacity={0.8}/>
-                      <stop offset="95%" stopColor="var(--color-members)" stopOpacity={0.3}/>
+                      <stop offset="5%" stopColor="var(--color-members)" stopOpacity={0.5}/>
+                      <stop offset="95%" stopColor="var(--color-members)" stopOpacity={0.1}/>
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} strokeOpacity={0.5} />
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} strokeOpacity={0.2} />
                   <XAxis
                     dataKey="year"
                     tickLine={false}
