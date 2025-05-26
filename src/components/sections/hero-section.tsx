@@ -109,7 +109,7 @@ export default function HeroSection() {
               <Button
                 size="lg"
                 asChild
-                className="bg-gradient-to-r from-[hsl(145,68%,65%)] to-[hsl(30,95%,70%)] text-primary-foreground hover:from-[hsl(145,68%,60%)] hover:to-[hsl(30,95%,65%)] shadow-xl font-bold text-lg px-6 py-3"
+                className="bg-gradient-to-r from-primary to-accent text-primary-foreground hover:brightness-90 shadow-xl text-lg px-6 py-3"
               >
                 <Link href={upcomingEvent.registrationLink || "#events"}>
                   Buy Tickets
@@ -147,18 +147,18 @@ export default function HeroSection() {
       {hasMultipleHeroes && (
         <>
           <Button
-            variant="outline"
+            variant="ghost"
             size="icon"
-            className="absolute left-2 sm:left-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-background/60 hover:bg-background/80 text-foreground border-border/70 hover:border-border h-10 w-10 sm:h-12 sm:w-12"
+            className="absolute left-2 sm:left-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-transparent hover:bg-black/10 dark:hover:bg-white/10 text-foreground h-10 w-10 sm:h-12 sm:w-12"
             onClick={handleArrowClick}
             aria-label="Previous slide"
           >
             <ChevronLeft className="h-6 w-6 sm:h-7 sm:w-7" />
           </Button>
           <Button
-            variant="outline"
+            variant="ghost"
             size="icon"
-            className="absolute right-2 sm:right-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-background/60 hover:bg-background/80 text-foreground border-border/70 hover:border-border h-10 w-10 sm:h-12 sm:w-12"
+            className="absolute right-2 sm:right-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-transparent hover:bg-black/10 dark:hover:bg-white/10 text-foreground h-10 w-10 sm:h-12 sm:w-12"
             onClick={handleArrowClick}
             aria-label="Next slide"
           >
