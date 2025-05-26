@@ -34,19 +34,11 @@ export default function EventsSection() {
                 priority // Good to add for LCP images
               />
               <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 via-black/50 to-transparent">
-                <div className="md:flex md:items-center md:justify-between">
-                    <div>
-                        <h3 className="text-lg font-bold text-white">{upcomingEvent.title}</h3>
-                        <p className="text-xs text-gray-300 mt-1">
-                            {upcomingEvent.date} at {upcomingEvent.time} - {upcomingEvent.location}
-                        </p>
-                    </div>
-                    <Button asChild size="sm" className="mt-3 md:mt-0 w-full md:w-auto">
-                        <Link href={upcomingEvent.registrationLink}>
-                            Buy Tickets <Ticket className="ml-2 h-4 w-4" />
-                        </Link>
-                    </Button>
-                </div>
+                <Button asChild size="lg" className="w-full">
+                  <Link href={upcomingEvent.registrationLink}>
+                    Buy Tickets <Ticket className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
               </div>
             </div>
           </div>
