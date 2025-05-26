@@ -5,9 +5,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, Moon, Sun, X } from "lucide-react"; // Added Moon, Sun for potential theme toggle
-import Image from 'next/image';
-
+import { Menu, X } from "lucide-react"; // Removed Moon, Sun as theme toggle is not implemented
 
 const navItems = [
   { label: "Home", href: "#hero" },
@@ -19,26 +17,51 @@ const navItems = [
   { label: "Contact", href: "#contact" },
 ];
 
+const LogoSvg = ({width = 36, height = 36}: {width?: number, height?: number}) => (
+  <svg width={width} height={height} viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+    <title>GUM Logo</title>
+    {/* Green Figure */}
+    <circle cx="18" cy="18" r="8" style={{ fill: 'var(--primary)' }} />
+    <path d="M10 50 C10 35, 18 28, 18 28 C18 28, 26 35, 26 50 Z" style={{ fill: 'var(--primary)' }} />
+
+    {/* Orange Figure */}
+    <circle cx="42" cy="18" r="8" style={{ fill: 'var(--accent)' }} />
+    <path d="M34 50 C34 35, 42 28, 42 28 C42 28, 50 35, 50 50 Z" style={{ fill: 'var(--accent)' }} />
+  </svg>
+);
+
+
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => setMounted(true), []);
 
-
   if (!mounted) {
-    return null; // Avoid hydration mismatch for theme toggle or anything else relying on window
+    // Return a basic structure or null to avoid hydration mismatch if any client-side only logic was present.
+    // For this component, it's mainly for the isMobileMenuOpen state and potential future theme toggles.
+    return (
+      <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+           <Link href="#hero" className="flex items-center gap-2">
+            <LogoSvg />
+            <span className="text-xl font-bold text-foreground">GUM Events</span>
+          </Link>
+          <div className="flex items-center md:hidden">
+            <Button variant="ghost" size="icon" disabled>
+              <Menu className="h-6 w-6" />
+            </Button>
+          </div>
+        </div>
+      </header>
+    );
   }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link href="#hero" className="flex items-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
-          {/* Using an SVG placeholder for the logo */}
-          <svg width="32" height="32" viewBox="0 0 100 100" fill="currentColor" className="text-primary">
-            <path d="M50 5C25.16 5 5 25.16 5 50s20.16 45 45 45 45-20.16 45-45S74.84 5 50 5zm0 82.5C29.33 87.5 12.5 70.67 12.5 50S29.33 12.5 50 12.5 87.5 29.33 87.5 50 70.67 87.5 50 87.5z"/>
-            <path d="M50 27.5c-12.4 0-22.5 10.1-22.5 22.5S37.6 72.5 50 72.5s22.5-10.1 22.5-22.5S62.4 27.5 50 27.5zm0 37.5c-8.27 0-15-6.73-15-15s6.73-15 15-15 15 6.73 15 15-6.73 15-15 15z"/>
-          </svg>
+          <LogoSvg />
           <span className="text-xl font-bold text-foreground">GUM Events</span>
         </Link>
 
@@ -61,10 +84,7 @@ export default function Header() {
             <SheetContent side="right" className="w-full max-w-xs bg-background p-6">
               <div className="mb-6 flex items-center justify-between">
                 <Link href="#hero" className="flex items-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
-                   <svg width="24" height="24" viewBox="0 0 100 100" fill="currentColor" className="text-primary">
-                     <path d="M50 5C25.16 5 5 25.16 5 50s20.16 45 45 45 45-20.16 45-45S74.84 5 50 5zm0 82.5C29.33 87.5 12.5 70.67 12.5 50S29.33 12.5 50 12.5 87.5 29.33 87.5 50 70.67 87.5 50 87.5z"/>
-                     <path d="M50 27.5c-12.4 0-22.5 10.1-22.5 22.5S37.6 72.5 50 72.5s22.5-10.1 22.5-22.5S62.4 27.5 50 27.5zm0 37.5c-8.27 0-15-6.73-15-15s6.73-15 15-15 15 6.73 15 15-6.73 15-15 15z"/>
-                   </svg>
+                   <LogoSvg width={28} height={28} />
                   <span className="text-lg font-bold">GUM Events</span>
                 </Link>
                 <SheetTrigger asChild>

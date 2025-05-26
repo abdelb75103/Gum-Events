@@ -4,33 +4,33 @@
 
 @layer base {
   :root {
-    --background: 0 0% 94.1%; /* #F0F0F0 Very light gray */
-    --foreground: 215 25% 27%; /* #374151 Dark gray for text */
+    --background: 0 0% 98%; /* Off-white */
+    --foreground: 220 15% 25%; /* Dark cool gray for text */
 
     --card: 0 0% 100%; /* White */
-    --card-foreground: 215 25% 27%;
+    --card-foreground: 220 15% 25%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 215 25% 27%;
+    --popover-foreground: 220 15% 25%;
 
-    --primary: 100 30.3% 79.6%; /* #BFD7B5 Light pastel green */
-    --primary-foreground: 215 25% 27%; /* Dark text for contrast on light green */
+    --primary: 145 60% 42%; /* Green from logo */
+    --primary-foreground: 0 0% 100%; /* White text for contrast on green */
 
-    --secondary: 100 30% 88%; /* Lighter pastel green for secondary elements */
-    --secondary-foreground: 215 25% 27%;
+    --secondary: 145 50% 92%; /* Very light green (for section backgrounds) */
+    --secondary-foreground: 145 60% 30%; /* Darker green text for contrast on light green */
 
-    --muted: 0 0% 85%; /* Slightly darker than background for muted elements */
-    --muted-foreground: 215 15% 55%; /* Lighter gray for muted text */
+    --muted: 0 0% 94%; /* Light gray for muted elements */
+    --muted-foreground: 220 10% 45%; /* Medium gray for muted text */
 
-    --accent: 39 67.9% 69%; /* #E5C07B Muted orange */
-    --accent-foreground: 215 25% 27%; /* Dark text for contrast on orange */
+    --accent: 30 85% 53%; /* Orange from logo */
+    --accent-foreground: 0 0% 100%; /* White text for contrast on orange */
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 87%; /* Lighter border for the light theme */
-    --input: 0 0% 87%;
-    --ring: 100 30.3% 75%; /* Ring color related to primary */
+    --border: 0 0% 89%; /* Light gray border */
+    --input: 0 0% 89%;
+    --ring: 145 60% 48%; /* Green for focus rings */
 
     --radius: 0.5rem;
 
@@ -53,19 +53,19 @@
     --card-foreground: 0 0% 90%;
     --popover: 220 10% 12%;
     --popover-foreground: 0 0% 90%;
-    --primary: 100 30% 70%; 
-    --primary-foreground: 0 0% 10%;
-    --secondary: 100 30% 60%;
-    --secondary-foreground: 0 0% 10%;
+    --primary: 145 60% 50%; /* Adjusted green for dark mode */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 145 50% 20%; /* Darker shade of light green for dark mode */
+    --secondary-foreground: 145 60% 80%;
     --muted: 220 10% 20%;
     --muted-foreground: 0 0% 60%;
-    --accent: 39 68% 60%;
-    --accent-foreground: 0 0% 10%;
+    --accent: 30 85% 60%; /* Adjusted orange for dark mode */
+    --accent-foreground: 0 0% 100%;
     --destructive: 0 70% 50%;
     --destructive-foreground: 0 0% 98%;
     --border: 220 10% 25%;
     --input: 220 10% 25%;
-    --ring: 100 30% 65%;
+    --ring: 145 60% 55%;
   }
 }
 
