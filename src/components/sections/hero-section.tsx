@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -14,31 +14,38 @@ export default function HeroSection() {
   const [activeHeroType, setActiveHeroType] = useState<'event' | 'general'>(
     upcomingEvent ? 'event' : 'general'
   );
-  const [initialAutoScrolled, setInitialAutoScrolled] = useState(false);
-
+  
   const hasMultipleHeroes = !!upcomingEvent;
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  const startAutoScroll = useCallback(() => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+    if (!hasMultipleHeroes) return; // Don't start if only one hero or no event
+
+    intervalRef.current = setInterval(() => {
+      setActiveHeroType(currentType =>
+        currentType === 'event' ? 'general' : 'event'
+      );
+    }, 2000); // 2-second interval
+  }, [hasMultipleHeroes]); // Removed setActiveHeroType as it's stable
 
   useEffect(() => {
-    let timer: NodeJS.Timeout;
-    if (
-      activeHeroType === 'event' &&
-      upcomingEvent &&
-      hasMultipleHeroes &&
-      !initialAutoScrolled
-    ) {
-      timer = setTimeout(() => {
-        setActiveHeroType('general');
-        setInitialAutoScrolled(true);
-      }, 2000); // 2-second delay
-    }
+    startAutoScroll();
     return () => {
-      clearTimeout(timer);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
     };
-  }, [activeHeroType, upcomingEvent, hasMultipleHeroes, initialAutoScrolled]);
+  }, [startAutoScroll]);
 
-  const navigateHero = (targetType: 'event' | 'general') => {
+  const handleArrowClick = () => {
     if (hasMultipleHeroes) {
-      setActiveHeroType(targetType);
+      setActiveHeroType(currentType =>
+        currentType === 'event' ? 'general' : 'event'
+      );
+      startAutoScroll(); // Restart interval on manual navigation
     }
   };
 
@@ -61,7 +68,6 @@ export default function HeroSection() {
   };
 
   const renderEventHero = () => (
-    // Aspect ratio container for 16:9
     <div className="relative w-full pt-[56.25%]"> 
       {upcomingEvent && (
         <Image
@@ -74,11 +80,10 @@ export default function HeroSection() {
           data-ai-hint={upcomingEvent.imageHint || "event background"}
         />
       )}
-      {/* Content wrapper */}
       <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center p-4 sm:p-6 md:p-8">
         {upcomingEvent && (
           <>
-            <div className="mb-4 sm:mb-6 w-full max-w-[240px] xs:max-w-[280px] sm:max-w-xs md:max-w-sm">
+            <div className="mb-6 w-full max-w-[240px] xs:max-w-[280px] sm:max-w-xs md:max-w-sm">
               <Image
                 src={upcomingEvent.image}
                 alt={upcomingEvent.title}
@@ -106,9 +111,7 @@ export default function HeroSection() {
   );
 
   const renderGeneralHero = () => (
-    // Aspect ratio container for 16:9
     <div className="relative w-full pt-[56.25%] bg-gradient-to-b from-background to-secondary">
-      {/* Content wrapper */}
       <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center p-4 sm:p-6 md:p-8">
         <h1 className="text-3xl font-bold tracking-tight text-foreground xs:text-4xl sm:text-5xl lg:text-6xl">
           {generalHeroContent.title}
@@ -133,9 +136,8 @@ export default function HeroSection() {
             variant="outline"
             size="icon"
             className="absolute left-2 sm:left-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-background/60 hover:bg-background/80 text-foreground border-border/70 hover:border-border h-10 w-10 sm:h-12 sm:w-12"
-            onClick={() => navigateHero('event')}
+            onClick={handleArrowClick}
             aria-label="Previous slide"
-            disabled={activeHeroType === 'event'}
           >
             <ChevronLeft className="h-6 w-6 sm:h-7 sm:w-7" />
           </Button>
@@ -143,9 +145,8 @@ export default function HeroSection() {
             variant="outline"
             size="icon"
             className="absolute right-2 sm:right-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-background/60 hover:bg-background/80 text-foreground border-border/70 hover:border-border h-10 w-10 sm:h-12 sm:w-12"
-            onClick={() => navigateHero('general')}
+            onClick={handleArrowClick}
             aria-label="Next slide"
-            disabled={activeHeroType === 'general'}
           >
             <ChevronRight className="h-6 w-6 sm:h-7 sm:w-7" />
           </Button>
