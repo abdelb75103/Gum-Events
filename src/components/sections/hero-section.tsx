@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Container from "@/components/ui/container";
-import { MoveRight, CalendarCheck2, Ticket } from "lucide-react";
+import { MoveRight, Ticket } from "lucide-react";
 import { events } from "@/lib/data";
 import type { Event } from "@/lib/types";
 
@@ -58,13 +58,13 @@ export default function HeroSection() {
           data-ai-hint={upcomingEvent.imageHint || "event background"}
         />
         <div className="relative z-10 flex h-full flex-col items-center justify-center text-center px-4">
-          <div className="mb-8 w-full max-w-xs sm:max-w-sm md:max-w-md">
+          <div className="mb-6 w-full max-w-[280px] sm:max-w-xs md:max-w-sm">
             <Image
               src={upcomingEvent.image}
               alt={upcomingEvent.title}
               width={1080}
               height={1350}
-              className="rounded-lg shadow-2xl"
+              className="rounded-lg shadow-2xl w-full h-auto"
               priority
               data-ai-hint={upcomingEvent.imageHint || "event poster"}
             />
@@ -72,7 +72,7 @@ export default function HeroSection() {
           <Button
             size="lg"
             asChild
-            className="bg-gradient-to-r from-[hsl(145,68%,65%)] to-[hsl(30,95%,70%)] text-primary-foreground hover:from-[hsl(145,68%,60%)] hover:to-[hsl(30,95%,60%)] shadow-xl font-bold text-lg"
+            className="bg-gradient-to-r from-[hsl(145,68%,65%)] to-[hsl(30,95%,70%)] text-primary-foreground hover:from-[hsl(145,68%,60%)] hover:to-[hsl(30,95%,65%)] shadow-xl font-bold text-lg"
           >
             <Link href={upcomingEvent.registrationLink || "#events"}>
               Buy Tickets
