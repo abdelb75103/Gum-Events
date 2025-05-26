@@ -25,22 +25,22 @@ export default function EventsSection() {
           <div className="mx-auto max-w-xs"> {/* Scaled down poster container further */}
             <div className="relative overflow-hidden rounded-lg shadow-xl group">
               <Image
-                src={"/images/2025_UK tour fnl flyers_Dublin.png"}
+                src={upcomingEvent.image}
                 alt={upcomingEvent.title}
                 width={1080}
                 height={1350}
                 className="w-full h-auto object-cover" // Ensure image covers and scales
-                data-ai-hint={upcomingEvent.imageHint}
+                data-ai-hint={upcomingEvent.imageHint || "event poster"}
                 priority // Good to add for LCP images
               />
               <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 via-black/40 to-transparent">
                 <Button
                   asChild
                   size="lg"
-                  className="w-full bg-gradient-to-r from-primary to-accent text-primary-foreground hover:from-primary/80 hover:to-accent/80 shadow-lg"
+                  className="w-full bg-gradient-to-r from-[hsl(145,68%,65%)] to-[hsl(30,95%,70%)] text-primary-foreground hover:from-[hsl(145,68%,60%)] hover:to-[hsl(30,95%,65%)] shadow-xl font-bold text-lg px-6 py-3"
                 >
                   <Link href={upcomingEvent.registrationLink}>
-                    Buy Tickets <Ticket className="ml-2 h-4 w-4" />
+                    Buy Tickets <Ticket className="ml-2 h-5 w-5" />
                   </Link>
                 </Button>
               </div>
