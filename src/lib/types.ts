@@ -10,17 +10,20 @@ export interface Event {
   imageHint?: string;
 }
 
-// export interface Speaker {
-//   id: string;
-//   name: string;
-//   title: string;
-//   bio: string;
-//   photo: string;
-//   photoHint?: string;
-// }
-
 export interface SpeakerCardProps {
   name: string;
   imageUrl: string;
   imageHint?: string;
+}
+
+export interface SocialLink {
+  name: string;
+  href: string;
+  icon: React.ElementType; // Lucide icon component
+  description?: string;
+  cta?: string;
+  bgColorClass?: string;
+  textColorClass?: string;
+  iconColorClass?: string;
+  buttonClasses?: string;
 }
