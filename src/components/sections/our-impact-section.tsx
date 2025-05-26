@@ -7,6 +7,8 @@ import Container from "@/components/ui/container";
 import {
   LineChart,
   Line,
+  XAxis,
+  YAxis,
   Tooltip,
   Area,
   ResponsiveContainer,
@@ -39,15 +41,12 @@ const achievements = [
 ];
 
 const chartData = [
-  { year: "2023 Early", members: 20 },
-  { year: "2023 Mid", members: 150 },
-  { year: "2023 Late", members: 100 }, // Achieved initial target
-  { year: "2024 Early", members: 1500 },
-  { year: "2024 Mid", members: 4500 },
-  { year: "2024 Late", members: 5000 }, // Achieved target
-  { year: "2025 Early", members: 5800 },
-  { year: "2025 Mid", members: 7200 }, // Surpassed target
-  { year: "2025 Late", members: 6500 }, // Settled at target
+  { year: "2023", members: 100 },
+  { year: "Early '24", members: 80 },
+  { year: "Mid '24", members: 2500 },
+  { year: "Late '24", members: 5000 },
+  { year: "Mid '25", members: 7000 },
+  { year: "Late '25", members: 6500 },
 ];
 
 const chartConfig = {
@@ -100,9 +99,9 @@ export default function OurImpactSection() {
                   data={chartData}
                   margin={{
                     top: 20,
-                    right: 20,
-                    left: 20, 
-                    bottom: 20,
+                    right: 30, 
+                    left: 0, 
+                    bottom: 5,
                   }}
                 >
                   <defs>
@@ -111,6 +110,19 @@ export default function OurImpactSection() {
                       <stop offset="95%" stopColor="var(--color-members)" stopOpacity={0.2}/>
                     </linearGradient>
                   </defs>
+                  <XAxis
+                    dataKey="year"
+                    stroke="hsl(var(--muted-foreground))"
+                    fontSize={12}
+                    tickLine={false}
+                    axisLine={false}
+                    dy={10} // Pushes tick labels down slightly
+                  />
+                  <YAxis
+                    tick={false}
+                    axisLine={false}
+                    tickLine={false}
+                  />
                   <Tooltip
                     cursor={{ stroke: "hsl(var(--primary))", strokeWidth: 1.5, strokeDasharray: "3 3" }}
                     content={
@@ -133,24 +145,24 @@ export default function OurImpactSection() {
                   />
                   <Line
                     dataKey="members"
-                    type="natural" // For a smoother, "squiggly" curve
+                    type="monotoneX" 
                     stroke="var(--color-members)"
                     strokeWidth={3} 
                     dot={{
-                      r: 5,
+                      r: 3,
                       fill: "var(--color-members)",
-                      strokeWidth: 2,
+                      strokeWidth: 1,
                       stroke: "hsl(var(--background))", 
                     }}
                     activeDot={{
-                      r: 8, 
+                      r: 6, 
                       strokeWidth: 2,
                       stroke: "hsl(var(--background))",
                       fill: "var(--color-members)",
                     }}
                   />
                   <Area
-                    type="natural" // Match the line type
+                    type="monotoneX" 
                     dataKey="members"
                     stroke="none"
                     fill="url(#fillMembers)"
@@ -164,3 +176,4 @@ export default function OurImpactSection() {
     </section>
   );
 }
+
