@@ -1,26 +1,62 @@
 import Container from "@/components/ui/container";
-import EventCard from "@/components/event-card";
 import { events } from "@/lib/data";
-import { CalendarFold } from "lucide-react";
+import { CalendarFold, Ticket } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default function EventsSection() {
+  const upcomingEvent = events.length > 0 ? events[0] : null;
+
   return (
     <section id="events" className="py-16 sm:py-24 bg-background">
       <Container>
         <div className="mb-12 text-center">
           <CalendarFold className="mx-auto h-12 w-12 text-primary mb-4" />
           <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Upcoming Events
+            Upcoming Event
           </h2>
           <p className="mt-4 text-lg leading-8 text-muted-foreground">
-            Discover our latest events and workshops designed for the community.
+            Don't miss out on our feature event.
           </p>
         </div>
-        {events.length > 0 ? (
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {events.map((event) => (
-              <EventCard key={event.id} event={event} />
-            ))}
+        {upcomingEvent ? (
+          <div className="mx-auto max-w-2xl"> {/* Increased max-width for a 1080 poster aspect ratio */}
+            <div className="relative overflow-hidden rounded-lg shadow-xl group">
+              <Image
+                src={upcomingEvent.image}
+                alt={upcomingEvent.title}
+                width={1080}
+                height={1350}
+                className="w-full h-auto object-cover" // Ensure image covers and scales
+                data-ai-hint={upcomingEvent.imageHint}
+                priority // Good to add for LCP images
+              />
+              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 via-black/50 to-transparent">
+                <div className="md:flex md:items-center md:justify-between">
+                    <div>
+                        <h3 className="text-2xl font-bold text-white">{upcomingEvent.title}</h3>
+                        <p className="text-sm text-gray-300 mt-1">
+                            {upcomingEvent.date} at {upcomingEvent.time} - {upcomingEvent.location}
+                        </p>
+                    </div>
+                    <Button asChild className="mt-4 md:mt-0 w-full md:w-auto">
+                        <Link href={upcomingEvent.registrationLink}>
+                            Buy Tickets <Ticket className="ml-2 h-5 w-5" />
+                        </Link>
+                    </Button>
+                </div>
+              </div>
+            </div>
+            <div className="mt-6 text-center">
+                <h3 className="text-xl font-semibold text-foreground">{upcomingEvent.title}</h3>
+                <p className="text-md text-muted-foreground mt-1">
+                    {upcomingEvent.date} at {upcomingEvent.time} | {upcomingEvent.location}
+                </p>
+                <p className="mt-3 text-md text-foreground leading-relaxed max-w-xl mx-auto">
+                    {upcomingEvent.description}
+                </p>
+            </div>
           </div>
         ) : (
           <p className="text-center text-muted-foreground">
