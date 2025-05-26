@@ -29,9 +29,8 @@ export default function Header() {
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
            <Link href="#hero" className="flex items-center gap-2">
-            {/* User should place their logo at public/images/gum-logo.svg or update path below */}
             <Image
-              src="/images/gum-logo.svg"
+              src="/images/logo.png"
               alt="GUM Events Logo"
               width={36}
               height={36}
@@ -55,9 +54,8 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link href="#hero" className="flex items-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
-          {/* User should place their logo at public/images/gum-logo.svg or update path below */}
           <Image
-            src="/images/gum-logo.svg"
+            src="/images/logo.png"
             alt="GUM Events Logo"
             width={36}
             height={36}
@@ -87,9 +85,8 @@ export default function Header() {
             <SheetContent side="right" className="w-full max-w-xs bg-background p-6">
               <div className="mb-6 flex items-center justify-between">
                 <Link href="#hero" className="flex items-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
-                  {/* User should place their logo at public/images/gum-logo.svg or update path below */}
                   <Image
-                    src="/images/gum-logo.svg"
+                    src="/images/logo.png"
                     alt="GUM Events Logo"
                     width={28}
                     height={28}

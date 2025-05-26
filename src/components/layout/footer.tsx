@@ -7,9 +7,8 @@ export default function Footer() {
     <footer className="border-t border-border/40 bg-background py-8 text-center text-muted-foreground">
       <div className="container mx-auto flex max-w-7xl flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="mb-4">
-          {/* User should place their logo at public/images/gum-logo.svg or update path below */}
           <Image
-            src="/images/gum-logo.svg" 
+            src="/images/logo.png" 
             alt="GUM Events Logo"
             width={32} 
             height={32}
