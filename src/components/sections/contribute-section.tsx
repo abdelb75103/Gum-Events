@@ -7,23 +7,39 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Gift, Repeat, ExternalLink, DollarSign } from "lucide-react";
+import { Gift, Repeat, Euro } from "lucide-react"; // Replaced DollarSign with Euro
 
 export default function ContributeSection() {
   const [amount, setAmount] = useState<string>("10.00"); // Default amount
 
-  // In a real application, these functions would likely create a Stripe Checkout Session
-  // on the server with the specified amount and frequency, then redirect the user.
-  const handleOneTimeContribution = () => {
-    console.log(`Initiating one-time contribution of: ${amount}`);
-    // Replace with actual Stripe integration
-    // window.location.href = `https://stripe.com/one-time-payment-link?amount=${amount}`;
+  // Placeholder function for initiating a one-time contribution
+  const handleOneTimeContribution = async () => {
+    console.log(`Initiating one-time contribution of EUR ${amount}`);
+    // TODO: In a real application:
+    // 1. Send `amount` to your backend.
+    // 2. Your backend creates a Stripe Checkout Session for a one-time payment.
+    // 3. Your backend returns the session ID or URL.
+    // 4. Redirect the user to Stripe's Checkout page:
+    //    e.g., window.location.href = stripeCheckoutUrl;
+    // For now, this is a placeholder:
+    alert(`One-Time Contribution (EUR ${amount}): This would redirect to Stripe after server-side processing.`);
+    // Or, if you have pre-defined Stripe Payment Links for various amounts, you could select one here.
+    // window.open("https://stripe.com", "_blank"); // Example placeholder action
   };
 
-  const handleMonthlySupport = () => {
-    console.log(`Initiating monthly support of: ${amount}`);
-    // Replace with actual Stripe integration
-    // window.location.href = `https://stripe.com/monthly-subscription-link?amount=${amount}`;
+  // Placeholder function for initiating monthly support
+  const handleMonthlySupport = async () => {
+    console.log(`Initiating monthly support of EUR ${amount}`);
+    // TODO: In a real application:
+    // 1. Send `amount` to your backend.
+    // 2. Your backend creates a Stripe Checkout Session for a recurring payment (subscription).
+    // 3. Your backend returns the session ID or URL.
+    // 4. Redirect the user to Stripe's Checkout page:
+    //    e.g., window.location.href = stripeCheckoutUrl;
+    // For now, this is a placeholder:
+    alert(`Monthly Support (EUR ${amount}): This would redirect to Stripe after server-side processing.`);
+    // Or, if you have pre-defined Stripe Payment Links for various recurring amounts, you could select one here.
+    // window.open("https://stripe.com", "_blank"); // Example placeholder action
   };
 
   return (
@@ -41,20 +57,20 @@ export default function ContributeSection() {
 
         <div className="mt-10 mx-auto max-w-md space-y-6">
           <div>
-            <Label htmlFor="contribution-amount" className="sr-only">Contribution Amount</Label>
+            <Label htmlFor="contribution-amount" className="sr-only">Contribution Amount (EUR)</Label>
             <div className="relative mt-1 rounded-md shadow-sm">
               <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                <DollarSign className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
+                <Euro className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
               </div>
               <Input
                 type="number"
                 name="contribution-amount"
                 id="contribution-amount"
-                className="block w-full rounded-md border-gray-300 pl-10 pr-4 focus:border-primary focus:ring-primary sm:text-sm"
+                className="block w-full rounded-md border-input bg-background pl-10 pr-4 focus:border-primary focus:ring-primary sm:text-sm"
                 placeholder="10.00"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
-                aria-label="Contribution Amount"
+                aria-label="Contribution Amount in Euros"
                 min="1" // Basic validation
               />
             </div>
@@ -64,27 +80,18 @@ export default function ContributeSection() {
             <Button 
               size="lg" 
               className="bg-accent hover:bg-accent/90 text-accent-foreground w-full sm:w-auto"
-              onClick={handleOneTimeContribution} // Placeholder click handler
-              asChild // Keep asChild if you intend to wrap an <a> tag for actual navigation
+              onClick={handleOneTimeContribution}
             >
-              {/* In a real scenario, this <a> tag might be removed if redirection is handled by JavaScript after server interaction */}
-              <a href="https://stripe.com" target="_blank" rel="noopener noreferrer"> 
-                <Gift className="mr-2 h-5 w-5" />
-                One-Time Contribution
-                <ExternalLink className="ml-2 h-5 w-5" />
-              </a>
+              <Gift className="mr-2 h-5 w-5" />
+              One-Time Contribution
             </Button>
             <Button 
               size="lg" 
               className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto"
-              onClick={handleMonthlySupport} // Placeholder click handler
-              asChild
+              onClick={handleMonthlySupport}
             >
-              <a href="https://stripe.com" target="_blank" rel="noopener noreferrer">
-                <Repeat className="mr-2 h-5 w-5" />
-                Monthly Support
-                <ExternalLink className="ml-2 h-5 w-5" />
-              </a>
+              <Repeat className="mr-2 h-5 w-5" />
+              Monthly Support
             </Button>
           </div>
         </div>
