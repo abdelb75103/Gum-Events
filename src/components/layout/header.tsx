@@ -7,16 +7,16 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, X } from "lucide-react";
-import { ThemeToggleButton } from "@/components/theme-toggle-button"; // Import the new component
+import { ThemeToggleButton } from "@/components/theme-toggle-button"; 
 
 const navItems = [
   { label: "Home", href: "#hero" },
   { label: "Our Story", href: "#our-story" },
+  { label: "Contribute", href: "#contribute" },
   { label: "Events", href: "#events" },
   { label: "Speakers", href: "#speakers" },
   { label: "Community", href: "#community" },
   { label: "Volunteer", href: "#volunteer" },
-  { label: "Contribute", href: "#contribute" },
   { label: "Contact", href: "#contact" },
 ];
 

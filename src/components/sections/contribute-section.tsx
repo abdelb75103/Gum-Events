@@ -1,7 +1,7 @@
 
 import Container from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
-import { Gift, ExternalLink } from "lucide-react";
+import { Gift, Repeat, ExternalLink } from "lucide-react";
 
 export default function ContributeSection() {
   return (
@@ -14,19 +14,27 @@ export default function ContributeSection() {
         <div className="mt-2 mx-auto h-[3px] w-24 rounded-full bg-gradient-to-r from-primary to-accent"></div>
         <p className="mt-6 max-w-2xl mx-auto text-lg leading-8 text-muted-foreground">
           Your generous contributions help us continue our work, organize impactful events, 
-          and support the GUM community. Every donation, big or small, makes a difference.
+          and support the GUM community. Choose how you'd like to make a difference.
         </p>
-        <div className="mt-10">
-          <Button size="lg" asChild className="bg-accent hover:bg-accent/90 text-accent-foreground">
-            <a href="https://stripe.com" target="_blank" rel="noopener noreferrer"> {/* Replace with actual Stripe link */}
-              Contribute Securely via Stripe 
+        <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center sm:gap-6">
+          <Button size="lg" asChild className="bg-accent hover:bg-accent/90 text-accent-foreground w-full sm:w-auto">
+            <a href="https://stripe.com" target="_blank" rel="noopener noreferrer"> {/* Replace with actual Stripe one-time link */}
+              <Gift className="mr-2 h-5 w-5" />
+              One-Time Contribution
               <ExternalLink className="ml-2 h-5 w-5" />
             </a>
           </Button>
-          <p className="mt-4 text-sm text-muted-foreground">
-            We use Stripe for secure and easy online contributions.
-          </p>
+          <Button size="lg" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto">
+            <a href="https://stripe.com" target="_blank" rel="noopener noreferrer"> {/* Replace with actual Stripe monthly link */}
+              <Repeat className="mr-2 h-5 w-5" />
+              Monthly Support
+              <ExternalLink className="ml-2 h-5 w-5" />
+            </a>
+          </Button>
         </div>
+        <p className="mt-6 text-sm text-muted-foreground">
+          We use Stripe for secure and easy online contributions. Thank you for your support!
+        </p>
       </Container>
     </section>
   );
