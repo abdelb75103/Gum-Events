@@ -1,3 +1,4 @@
+
 import type { Event, Speaker } from "./types";
 
 export const events: Event[] = [
@@ -9,7 +10,7 @@ export const events: Event[] = [
     location: "Community Grand Hall",
     description: "Join us for an inspiring day of talks, workshops, and networking for young Muslims.",
     registrationLink: "#",
-    image: "https://placehold.co/1080x1350.png",
+    image: "/images/2025_UK tour fnl flyers_Dublin.png", // Updated to use local image path
     imageHint: "conference poster",
   },
   // {
