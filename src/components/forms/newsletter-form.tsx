@@ -1,7 +1,8 @@
 
 "use client";
 
-import { useFormState, useFormStatus } from "react-dom";
+import { useActionState } from "react";
+import { useFormStatus } from "react-dom";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -21,7 +22,7 @@ function SubmitButton() {
 
 export default function NewsletterForm() {
   const initialState = { message: null, errors: {} };
-  const [state, dispatch] = useFormState(submitNewsletterForm, initialState);
+  const [state, dispatch] = useActionState(submitNewsletterForm, initialState);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -70,3 +71,4 @@ export default function NewsletterForm() {
     </form>
   );
 }
+
