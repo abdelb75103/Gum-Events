@@ -1,5 +1,5 @@
 import type { SocialLink } from '@/lib/types';
-import { Instagram, Facebook, Twitter, Youtube, Linkedin, Twitch, MessageSquare } from 'lucide-react';
+import { Instagram, Facebook, Youtube, Linkedin, Music2, MessageSquare } from 'lucide-react';
 
 export const socialLinks: SocialLink[] = [
   {
@@ -21,13 +21,13 @@ export const socialLinks: SocialLink[] = [
     iconColorClass: 'text-blue-600 dark:text-blue-400',
   },
   {
-    name: 'X (Twitter)',
-    href: 'https://x.com', // Replace with your actual X/Twitter link
-    icon: Twitter,
-    description: 'Catch our latest thoughts and real-time news.',
-    cta: 'Follow on X',
-    buttonClasses: 'bg-sky-500 hover:bg-sky-600 text-white', // Or black for X's theme
-    iconColorClass: 'text-sky-500 dark:text-sky-400',
+    name: 'TikTok',
+    href: 'https://tiktok.com', // Replace with your actual TikTok link
+    icon: Music2, // Using Music2 as a stand-in for TikTok
+    description: 'Watch our latest short videos and trends.',
+    cta: 'Follow on TikTok',
+    buttonClasses: 'bg-black hover:bg-gray-800 text-white',
+    iconColorClass: 'text-black dark:text-white',
   },
   {
     name: 'YouTube',
