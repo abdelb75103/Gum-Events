@@ -33,8 +33,12 @@ export default function EventsSection() {
                 data-ai-hint={upcomingEvent.imageHint}
                 priority // Good to add for LCP images
               />
-              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-primary/70 via-accent/50 to-transparent">
-                <Button asChild size="lg" className="w-full">
+              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 via-black/40 to-transparent">
+                <Button
+                  asChild
+                  size="lg"
+                  className="w-full bg-gradient-to-r from-primary to-accent text-primary-foreground hover:from-primary/80 hover:to-accent/80 shadow-lg"
+                >
                   <Link href={upcomingEvent.registrationLink}>
                     Buy Tickets <Ticket className="ml-2 h-4 w-4" />
                   </Link>
@@ -51,4 +55,3 @@ export default function EventsSection() {
     </section>
   );
 }
-
