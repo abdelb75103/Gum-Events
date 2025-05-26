@@ -41,12 +41,12 @@ const achievements = [
 ];
 
 const chartData = [
-  { year: "2023", members: 100 },
-  { year: "Early '24", members: 80 },
+  { year: "2023", members: 500 },
+  { year: "Early '24", members: 1200 },
   { year: "Mid '24", members: 2500 },
-  { year: "Late '24", members: 5000 },
-  { year: "Mid '25", members: 7000 },
-  { year: "Late '25", members: 6500 },
+  { year: "Late '24", members: 4000 },
+  { year: "Mid '25", members: 5500 },
+  { year: "Late '25", members: 7000 },
 ];
 
 const chartConfig = {
