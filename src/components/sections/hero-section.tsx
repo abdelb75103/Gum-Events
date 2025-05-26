@@ -8,13 +8,14 @@ import { Button } from "@/components/ui/button";
 import { MoveRight, Ticket, ChevronLeft, ChevronRight } from "lucide-react";
 import { events } from "@/lib/data";
 import type { Event } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
 export default function HeroSection() {
   const upcomingEvent: Event | null = events.length > 0 ? events[0] : null;
   const [activeHeroType, setActiveHeroType] = useState<'event' | 'general'>(
     upcomingEvent ? 'event' : 'general'
   );
-  
+
   const hasMultipleHeroes = !!upcomingEvent;
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -22,14 +23,14 @@ export default function HeroSection() {
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }
-    if (!hasMultipleHeroes) return; // Don't start if only one hero or no event
+    if (!hasMultipleHeroes) return;
 
     intervalRef.current = setInterval(() => {
       setActiveHeroType(currentType =>
         currentType === 'event' ? 'general' : 'event'
       );
-    }, 2000); // 2-second interval
-  }, [hasMultipleHeroes]); // Removed setActiveHeroType as it's stable
+    }, 3500); // 3.5-second interval
+  }, [hasMultipleHeroes]);
 
   useEffect(() => {
     startAutoScroll();
@@ -67,68 +68,81 @@ export default function HeroSection() {
     ),
   };
 
-  const renderEventHero = () => (
-    <div className="relative w-full pt-[56.25%]"> 
-      {upcomingEvent && (
-        <Image
-          src={upcomingEvent.image}
-          alt="Blurred event background"
-          layout="fill"
-          objectFit="cover"
-          className="absolute inset-0 z-0 filter blur-xl scale-110"
-          priority
-          data-ai-hint={upcomingEvent.imageHint || "event background"}
-        />
-      )}
-      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center p-4 sm:p-6 md:p-8">
-        {upcomingEvent && (
-          <>
-            <div className="mb-6 w-full max-w-[240px] xs:max-w-[280px] sm:max-w-xs md:max-w-sm">
-              <Image
-                src={upcomingEvent.image}
-                alt={upcomingEvent.title}
-                width={1080} 
-                height={1350}
-                className="rounded-lg shadow-2xl w-full h-auto"
-                priority
-                data-ai-hint={upcomingEvent.imageHint || "event poster"}
-              />
-            </div>
-            <Button
-              size="lg"
-              asChild
-              className="bg-gradient-to-r from-[hsl(145,68%,65%)] to-[hsl(30,95%,70%)] text-primary-foreground hover:from-[hsl(145,68%,60%)] hover:to-[hsl(30,95%,65%)] shadow-xl font-bold text-lg px-6 py-3"
-            >
-              <Link href={upcomingEvent.registrationLink || "#events"}>
-                Buy Tickets
-                <Ticket className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
-          </>
-        )}
-      </div>
-    </div>
-  );
-
-  const renderGeneralHero = () => (
-    <div className="relative w-full pt-[56.25%] bg-gradient-to-b from-background to-secondary">
-      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center p-4 sm:p-6 md:p-8">
-        <h1 className="text-3xl font-bold tracking-tight text-foreground xs:text-4xl sm:text-5xl lg:text-6xl">
-          {generalHeroContent.title}
-        </h1>
-        <p className="mt-4 max-w-xl mx-auto text-base leading-relaxed text-muted-foreground sm:text-lg sm:max-w-2xl md:text-xl md:max-w-3xl">
-          {generalHeroContent.description}
-        </p>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-4 sm:gap-x-6">
-          {generalHeroContent.buttons}
-        </div>
-      </div>
-    </div>
-  );
+  const heroWrapperBaseClasses = "absolute inset-0 transition-all duration-700 ease-in-out";
 
   return (
     <section id="hero" className="relative w-full overflow-hidden">
-      {activeHeroType === 'event' && upcomingEvent ? renderEventHero() : renderGeneralHero()}
+      {/* Aspect ratio container */}
+      <div className="relative w-full pt-[56.25%]"> {/* 16:9 aspect ratio */}
+        
+        {/* Event Hero Content Wrapper */}
+        {upcomingEvent && (
+          <div
+            className={cn(
+              heroWrapperBaseClasses,
+              activeHeroType === 'event'
+                ? 'opacity-100 transform translateX-0'
+                : 'opacity-0 transform -translateX-full pointer-events-none'
+            )}
+          >
+            <Image
+              src={upcomingEvent.image}
+              alt="Blurred event background"
+              layout="fill"
+              objectFit="cover"
+              className="absolute inset-0 z-0 filter blur-xl scale-110"
+              priority
+              data-ai-hint={upcomingEvent.imageHint || "event background"}
+            />
+            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center p-4 sm:p-6 md:p-8">
+              <div className="mb-6 w-full max-w-[240px] xs:max-w-[280px] sm:max-w-xs md:max-w-sm">
+                <Image
+                  src={upcomingEvent.image}
+                  alt={upcomingEvent.title}
+                  width={1080}
+                  height={1350}
+                  className="rounded-lg shadow-2xl w-full h-auto"
+                  priority
+                  data-ai-hint={upcomingEvent.imageHint || "event poster"}
+                />
+              </div>
+              <Button
+                size="lg"
+                asChild
+                className="bg-gradient-to-r from-[hsl(145,68%,65%)] to-[hsl(30,95%,70%)] text-primary-foreground hover:from-[hsl(145,68%,60%)] hover:to-[hsl(30,95%,65%)] shadow-xl font-bold text-lg px-6 py-3"
+              >
+                <Link href={upcomingEvent.registrationLink || "#events"}>
+                  Buy Tickets
+                  <Ticket className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        )}
+
+        {/* General Hero Content Wrapper */}
+        <div
+          className={cn(
+            heroWrapperBaseClasses,
+            activeHeroType === 'general'
+              ? 'opacity-100 transform translateX-0'
+              : 'opacity-0 transform translateX-full pointer-events-none'
+          )}
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-background to-secondary"></div>
+          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center p-4 sm:p-6 md:p-8">
+            <h1 className="text-3xl font-bold tracking-tight text-foreground xs:text-4xl sm:text-5xl lg:text-6xl">
+              {generalHeroContent.title}
+            </h1>
+            <p className="mt-4 max-w-xl mx-auto text-base leading-relaxed text-muted-foreground sm:text-lg sm:max-w-2xl md:text-xl md:max-w-3xl">
+              {generalHeroContent.description}
+            </p>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-4 sm:gap-x-6">
+              {generalHeroContent.buttons}
+            </div>
+          </div>
+        </div>
+      </div>
 
       {hasMultipleHeroes && (
         <>
