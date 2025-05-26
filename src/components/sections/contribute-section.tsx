@@ -44,7 +44,8 @@ export default function ContributeSection() {
     // 2. Your backend should create a Stripe Checkout Session using your Stripe SECRET KEY 
     //    and return its ID. It should handle the amount (in cents) and contributionType.
     try {
-      const response = await fetch('/api/stripe/create-checkout-session', { // THIS IS A PLACEHOLDER ENDPOINT
+      // THIS IS A PLACEHOLDER ENDPOINT - YOU NEED TO IMPLEMENT THIS ON YOUR BACKEND
+      const response = await fetch('/api/stripe/create-checkout-session', { 
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -53,8 +54,6 @@ export default function ContributeSection() {
           amount: numericAmount * 100, // Stripe expects amount in cents
           currency: 'eur',
           contributionType: contributionType,
-          // For recurring, you might need to pass a Price ID instead of amount,
-          // or your backend logic should handle creating a subscription with the amount.
          }),
       });
 
@@ -104,7 +103,7 @@ export default function ContributeSection() {
           Watch the video below to see the impact your support can make.
         </p>
 
-        <div className="my-10 mx-auto max-w-xl"> {/* Video container made smaller */}
+        <div className="my-10 mx-auto max-w-xl">
             <video
               width="100%"
               controls
@@ -118,12 +117,10 @@ export default function ContributeSection() {
             </video>
         </div>
 
-        <div className="mx-auto max-w-md space-y-8"> {/* Increased space-y for clarity */}
+        <div className="mx-auto max-w-md space-y-8">
           <div>
             <Label htmlFor="contribution-amount" className="sr-only">Contribution Amount (EUR)</Label>
-            {/* Gradient border wrapper */}
             <div className="mt-1 rounded-lg p-0.5 bg-gradient-to-r from-primary to-accent shadow-sm">
-              {/* Inner container for icon and input, with actual background color */}
               <div className="relative flex items-center rounded-md bg-background">
                 <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                   <Euro className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
@@ -132,7 +129,7 @@ export default function ContributeSection() {
                   type="number"
                   name="contribution-amount"
                   id="contribution-amount"
-                  className="w-full border-transparent bg-transparent pl-10 pr-4 text-foreground placeholder:text-muted-foreground focus-visible:ring-0 sm:text-sm"
+                  className="w-full border-transparent bg-transparent pl-10 pr-4 text-center text-foreground placeholder:text-muted-foreground focus-visible:ring-0 sm:text-sm"
                   placeholder="10.00"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
@@ -144,10 +141,10 @@ export default function ContributeSection() {
             </div>
           </div>
 
-          <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center sm:gap-6">
+          <div className="flex flex-col sm:flex-row gap-4">
             <Button 
               size="lg" 
-              className="bg-accent hover:bg-accent/90 text-accent-foreground w-full sm:w-auto"
+              className="bg-accent hover:bg-accent/90 text-accent-foreground w-full sm:flex-1"
               onClick={() => handleContribution('one-time')}
               disabled={isLoading}
             >
@@ -156,7 +153,7 @@ export default function ContributeSection() {
             </Button>
             <Button 
               size="lg" 
-              className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:flex-1"
               onClick={() => handleContribution('recurring')}
               disabled={isLoading}
             >
@@ -170,7 +167,7 @@ export default function ContributeSection() {
             <p className="mt-4 text-sm text-destructive">{errorMessage}</p>
         )}
 
-        <p className="mt-8 text-sm text-muted-foreground"> {/* Increased top margin */}
+        <p className="mt-8 text-sm text-muted-foreground">
           We use Stripe for secure and easy online contributions. Thank you for your support!
         </p>
 
