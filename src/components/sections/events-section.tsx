@@ -1,3 +1,4 @@
+
 import Container from "@/components/ui/container";
 import { events } from "@/lib/data";
 import { CalendarFold, Ticket } from "lucide-react";
@@ -21,7 +22,7 @@ export default function EventsSection() {
           </p>
         </div>
         {upcomingEvent ? (
-          <div className="mx-auto max-w-2xl"> {/* Increased max-width for a 1080 poster aspect ratio */}
+          <div className="mx-auto max-w-xl"> {/* Scaled down poster container */}
             <div className="relative overflow-hidden rounded-lg shadow-xl group">
               <Image
                 src={upcomingEvent.image}
@@ -48,15 +49,7 @@ export default function EventsSection() {
                 </div>
               </div>
             </div>
-            <div className="mt-6 text-center">
-                <h3 className="text-xl font-semibold text-foreground">{upcomingEvent.title}</h3>
-                <p className="text-md text-muted-foreground mt-1">
-                    {upcomingEvent.date} at {upcomingEvent.time} | {upcomingEvent.location}
-                </p>
-                <p className="mt-3 text-md text-foreground leading-relaxed max-w-xl mx-auto">
-                    {upcomingEvent.description}
-                </p>
-            </div>
+            {/* Removed the text block that was previously here */}
           </div>
         ) : (
           <p className="text-center text-muted-foreground">
@@ -67,3 +60,4 @@ export default function EventsSection() {
     </section>
   );
 }
+
