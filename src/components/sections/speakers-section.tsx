@@ -36,10 +36,12 @@ export default function SpeakersSection() {
           </p>
         </div>
         {featuredSpeakers.length > 0 ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6">
-            {featuredSpeakers.map((speaker) => (
-              <SpeakerCard key={speaker.name} speaker={speaker} />
-            ))}
+          <div className="mx-auto max-w-5xl"> {/* Constrain the grid width */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6">
+              {featuredSpeakers.map((speaker) => (
+                <SpeakerCard key={speaker.name} speaker={speaker} />
+              ))}
+            </div>
           </div>
         ) : (
           <p className="text-center text-muted-foreground text-lg">
@@ -50,4 +52,3 @@ export default function SpeakersSection() {
     </section>
   );
 }
-
