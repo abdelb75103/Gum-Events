@@ -1,11 +1,10 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import Container from "@/components/ui/container"; // Keep for general hero structure if needed, but main layout changes
 import { MoveRight, Ticket, ChevronLeft, ChevronRight } from "lucide-react";
 import { events } from "@/lib/data";
 import type { Event } from "@/lib/types";
@@ -15,8 +14,27 @@ export default function HeroSection() {
   const [activeHeroType, setActiveHeroType] = useState<'event' | 'general'>(
     upcomingEvent ? 'event' : 'general'
   );
+  const [initialAutoScrolled, setInitialAutoScrolled] = useState(false);
 
   const hasMultipleHeroes = !!upcomingEvent;
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (
+      activeHeroType === 'event' &&
+      upcomingEvent &&
+      hasMultipleHeroes &&
+      !initialAutoScrolled
+    ) {
+      timer = setTimeout(() => {
+        setActiveHeroType('general');
+        setInitialAutoScrolled(true);
+      }, 2000); // 2-second delay
+    }
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [activeHeroType, upcomingEvent, hasMultipleHeroes, initialAutoScrolled]);
 
   const navigateHero = (targetType: 'event' | 'general') => {
     if (hasMultipleHeroes) {
