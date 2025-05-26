@@ -25,6 +25,7 @@ export default function OurStorySection() {
             <video
               width="100%"
               controls
+              controlsList="nodownload"
               preload="metadata"
               className="rounded-xl shadow-xl aspect-video"
               aria-label="Our Story Video"
@@ -34,11 +35,10 @@ export default function OurStorySection() {
                 For example, if your video is in public/videos/our-story.mp4,
                 the src should be "/videos/our-story.mp4"
               */}
-              <source src="" type="video/mp4" />
+              <source src="/videos/intro.mp4" type="video/mp4" />
               Your browser does not support the video tag. Consider updating to a more modern browser.
             </video>
             <p className="mt-3 text-sm text-center text-muted-foreground">
-              Video: The Journey of GUM Events
             </p>
           </div>
         </div>
