@@ -90,8 +90,25 @@ export default function ContributeSection() {
           Your generous contributions help us continue our work, organize impactful events, 
           and support the GUM community. Choose how you'd like to make a difference.
         </p>
+        <p className="mt-4 max-w-2xl mx-auto text-lg leading-8 text-muted-foreground">
+          Watch the video below to see the impact your support can make.
+        </p>
 
-        <div className="mt-10 mx-auto max-w-md space-y-6">
+        <div className="my-10 mx-auto max-w-2xl">
+            <video
+              width="100%"
+              controls
+              controlsList="nodownload"
+              preload="metadata"
+              className="rounded-xl shadow-xl aspect-video"
+              aria-label="Our Mission Video"
+            >
+              <source src="/videos/intro.mp4" type="video/mp4" />
+              Your browser does not support the video tag. Consider updating to a more modern browser.
+            </video>
+        </div>
+
+        <div className="mx-auto max-w-md space-y-6">
           <div>
             <Label htmlFor="contribution-amount" className="sr-only">Contribution Amount (EUR)</Label>
             <div className="relative mt-1 rounded-md shadow-sm">
@@ -167,3 +184,4 @@ export default function ContributeSection() {
     </section>
   );
 }
+
