@@ -33,23 +33,22 @@ export default function EventsSection() {
                 data-ai-hint={upcomingEvent.imageHint}
                 priority // Good to add for LCP images
               />
-              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 via-black/50 to-transparent">
+              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 via-black/50 to-transparent">
                 <div className="md:flex md:items-center md:justify-between">
                     <div>
-                        <h3 className="text-2xl font-bold text-white">{upcomingEvent.title}</h3>
-                        <p className="text-sm text-gray-300 mt-1">
+                        <h3 className="text-lg font-bold text-white">{upcomingEvent.title}</h3>
+                        <p className="text-xs text-gray-300 mt-1">
                             {upcomingEvent.date} at {upcomingEvent.time} - {upcomingEvent.location}
                         </p>
                     </div>
-                    <Button asChild className="mt-4 md:mt-0 w-full md:w-auto">
+                    <Button asChild size="sm" className="mt-3 md:mt-0 w-full md:w-auto">
                         <Link href={upcomingEvent.registrationLink}>
-                            Buy Tickets <Ticket className="ml-2 h-5 w-5" />
+                            Buy Tickets <Ticket className="ml-2 h-4 w-4" />
                         </Link>
                     </Button>
                 </div>
               </div>
             </div>
-            {/* Removed the text block that was previously here */}
           </div>
         ) : (
           <p className="text-center text-muted-foreground">
