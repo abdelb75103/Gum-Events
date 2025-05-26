@@ -10,6 +10,7 @@ import { Menu, X } from "lucide-react";
 
 const navItems = [
   { label: "Home", href: "#hero" },
+  { label: "Our Story", href: "#our-story" },
   { label: "Events", href: "#events" },
   { label: "Speakers", href: "#speakers" },
   { label: "Community", href: "#community" },
@@ -25,16 +26,17 @@ export default function Header() {
   useEffect(() => setMounted(true), []);
 
   if (!mounted) {
+    // Fallback for SSR/pre-hydration to avoid layout shift
     return (
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container mx-auto flex h-32 max-w-7xl items-center justify-between px-6 sm:px-8 lg:px-10">
+        <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-6 sm:px-8 lg:px-10">
            <Link href="#hero" className="flex items-center ml-24">
             <Image
               src="/images/logo.png"
               alt="GUM Events Logo"
-              width={112}
-              height={112}
-              className="h-[112px] w-[112px]"
+              width={60}
+              height={60}
+              className="h-[60px] w-[60px]"
               data-ai-hint="logo"
               priority
             />
@@ -51,14 +53,14 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto flex h-32 max-w-7xl items-center justify-between px-6 sm:px-8 lg:px-10">
+      <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-6 sm:px-8 lg:px-10">
         <Link href="#hero" className="flex items-center ml-24" onClick={() => setIsMobileMenuOpen(false)}>
           <Image
             src="/images/logo.png"
             alt="GUM Events Logo"
-            width={112}
-            height={112}
-            className="h-[112px] w-[112px]"
+            width={60}
+            height={60}
+            className="h-[60px] w-[60px]"
             data-ai-hint="logo"
             priority
           />
@@ -86,9 +88,9 @@ export default function Header() {
                   <Image
                     src="/images/logo.png"
                     alt="GUM Events Logo"
-                    width={96}
-                    height={96}
-                    className="h-24 w-24"
+                    width={52}
+                    height={52}
+                    className="h-[52px] w-[52px]"
                     data-ai-hint="logo"
                   />
                 </Link>
