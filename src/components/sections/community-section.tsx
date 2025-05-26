@@ -5,8 +5,6 @@ import Container from "@/components/ui/container";
 import { Mail } from 'lucide-react';
 import { socialLinks } from '@/app/config';
 import { SocialLinkCard } from '@/components/shared/social-link-card';
-import NewsletterForm from "@/components/forms/newsletter-form";
-import { Card } from "@/components/ui/card";
 
 export default function CommunitySection() {
   return (
@@ -27,18 +25,6 @@ export default function CommunitySection() {
           {socialLinks.map((link) => (
             <SocialLinkCard key={link.name} link={link} />
           ))}
-        </div>
-
-        <div className="mt-16 text-center">
-            <h3 className="text-2xl md:text-3xl font-semibold tracking-tight text-foreground mb-4">
-                Join Our Newsletter
-            </h3>
-            <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
-                Get the latest updates, event details, and community news delivered straight to your inbox.
-            </p>
-            <Card className="max-w-md mx-auto p-6 sm:p-8 shadow-lg bg-card">
-                 <NewsletterForm />
-            </Card>
         </div>
       </Container>
     </section>
