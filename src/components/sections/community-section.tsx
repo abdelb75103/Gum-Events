@@ -2,7 +2,7 @@
 import Container from "@/components/ui/container";
 import NewsletterForm from "@/components/forms/newsletter-form";
 import { Button } from "@/components/ui/button";
-import { Users2, MessageSquareText, Mail } from "lucide-react"; // Using MessageSquareText for WhatsApp
+import { Users2, Mail, Instagram } from "lucide-react"; // Added Instagram
 
 export default function CommunitySection() {
   return (
@@ -33,20 +33,24 @@ export default function CommunitySection() {
 
           <div className="rounded-lg border bg-card p-8 shadow-sm">
             <div className="flex items-center mb-4">
-              <MessageSquareText className="h-8 w-8 text-accent mr-3" />
-              <h3 className="text-2xl font-semibold text-foreground">Connect on WhatsApp</h3>
+              <Instagram className="h-8 w-8 text-accent mr-3" />
+              <h3 className="text-2xl font-semibold text-foreground">Follow Us on Instagram</h3>
             </div>
             <p className="mb-6 text-muted-foreground">
-              Join our WhatsApp channel for real-time updates, discussions, and community interaction.
+              Catch our latest updates, stories, and community highlights on Instagram.
             </p>
-            <Button size="lg" className="w-full" asChild>
-              <a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer">
-                Join WhatsApp Channel
-                <MessageSquareText className="ml-2 h-5 w-5" />
+            <Button
+              asChild
+              size="lg" // size="lg" applies h-11. The custom padding below will override height.
+              className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground text-base py-3 px-6 sm:py-4 sm:px-8 font-bold w-full"
+            >
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                Follow on Instagram
+                <Instagram className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
               </a>
             </Button>
             <p className="mt-4 text-xs text-muted-foreground text-center">
-              Other community links can be added here (e.g., Discord, Telegram).
+              Stay tuned for more ways to connect!
             </p>
           </div>
         </div>
