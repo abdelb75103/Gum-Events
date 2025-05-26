@@ -5,7 +5,7 @@ import { CalendarFold, Ticket } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card"; // Added import for Card
+import { Card } from "@/components/ui/card";
 
 export default function EventsSection() {
   const upcomingEvent = events.length > 0 ? events[0] : null;
@@ -24,7 +24,7 @@ export default function EventsSection() {
           </p>
         </div>
         {upcomingEvent ? (
-          <Card className="mx-auto max-w-xs aspect-[2/3] relative overflow-hidden rounded-lg shadow-lg transition-shadow hover:shadow-xl group">
+          <Card className="mx-auto max-w-xs aspect-[4/5] relative overflow-hidden rounded-lg shadow-lg transition-shadow hover:shadow-xl group">
             <Image
               src={upcomingEvent.image}
               alt={upcomingEvent.title}
@@ -37,8 +37,7 @@ export default function EventsSection() {
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/60 to-transparent p-3 transition-opacity duration-300">
               <Button
                 asChild
-                size="lg" // size="lg" gives h-11, px-8. We need px-4 py-2.
-                className="w-full bg-[hsl(40,80%,60%)] hover:bg-[hsl(40,80%,55%)] text-amber-900 shadow-xl text-base px-4 py-2 h-auto" // Adjusted size classes
+                className="w-full bg-[hsl(40,80%,60%)] hover:bg-[hsl(40,80%,55%)] text-amber-900 shadow-xl text-base px-4 py-2 h-auto"
               >
                 <Link href={upcomingEvent.registrationLink}>
                   Buy Tickets <Ticket className="ml-2 h-4 w-4" />
