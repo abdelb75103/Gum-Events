@@ -29,22 +29,32 @@ export default function ContributeSection() {
   const handleContribution = async (contributionType: 'one-time' | 'recurring') => {
     setIsLoading(true);
     setErrorMessage(null);
-    console.log(`Initiating ${contributionType} contribution of EUR ${amount}`);
+    
+    const numericAmount = parseFloat(amount);
+    if (isNaN(numericAmount) || numericAmount <= 0) {
+      setErrorMessage("Please enter a valid amount.");
+      setIsLoading(false);
+      return;
+    }
+
+    console.log(`Initiating ${contributionType} contribution of EUR ${numericAmount.toFixed(2)}`);
 
     // TODO: In a real application:
-    // 1. Validate the amount.
-    // 2. Replace '/api/stripe/create-checkout-session' with your actual backend endpoint.
-    // 3. Your backend should create a Stripe Checkout Session and return its ID.
+    // 1. Replace '/api/stripe/create-checkout-session' with your actual backend endpoint.
+    // 2. Your backend should create a Stripe Checkout Session using your Stripe SECRET KEY 
+    //    and return its ID. It should handle the amount (in cents) and contributionType.
     try {
-      const response = await fetch('/api/stripe/create-checkout-session', { // PLACEHOLDER_API_ENDPOINT
+      const response = await fetch('/api/stripe/create-checkout-session', { // THIS IS A PLACEHOLDER ENDPOINT
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ 
-          amount: parseFloat(amount) * 100, // Stripe expects amount in cents
+          amount: numericAmount * 100, // Stripe expects amount in cents
           currency: 'eur',
           contributionType: contributionType,
+          // For recurring, you might need to pass a Price ID instead of amount,
+          // or your backend logic should handle creating a subscription with the amount.
          }),
       });
 
@@ -66,7 +76,7 @@ export default function ContributeSection() {
         }
       } else {
         console.error("Failed to create Stripe session:", session.error || "Unknown error");
-        setErrorMessage(session.error || "Could not create payment session. Please try again.");
+        setErrorMessage(session.error || "Could not create payment session. Please try again. (Ensure backend is set up)");
       }
     } catch (error: any) {
       console.error("Error during contribution process:", error);
@@ -94,7 +104,7 @@ export default function ContributeSection() {
           Watch the video below to see the impact your support can make.
         </p>
 
-        <div className="my-10 mx-auto max-w-2xl">
+        <div className="my-10 mx-auto max-w-xl"> {/* Video container made smaller */}
             <video
               width="100%"
               controls
@@ -108,25 +118,29 @@ export default function ContributeSection() {
             </video>
         </div>
 
-        <div className="mx-auto max-w-md space-y-6">
+        <div className="mx-auto max-w-md space-y-8"> {/* Increased space-y for clarity */}
           <div>
             <Label htmlFor="contribution-amount" className="sr-only">Contribution Amount (EUR)</Label>
-            <div className="relative mt-1 rounded-md shadow-sm">
-              <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                <Euro className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
+            {/* Gradient border wrapper */}
+            <div className="mt-1 rounded-lg p-0.5 bg-gradient-to-r from-primary to-accent shadow-sm">
+              {/* Inner container for icon and input, with actual background color */}
+              <div className="relative flex items-center rounded-md bg-background">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                  <Euro className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
+                </div>
+                <Input
+                  type="number"
+                  name="contribution-amount"
+                  id="contribution-amount"
+                  className="w-full border-transparent bg-transparent pl-10 pr-4 text-foreground placeholder:text-muted-foreground focus-visible:ring-0 sm:text-sm"
+                  placeholder="10.00"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                  aria-label="Contribution Amount in Euros"
+                  min="1"
+                  disabled={isLoading}
+                />
               </div>
-              <Input
-                type="number"
-                name="contribution-amount"
-                id="contribution-amount"
-                className="block w-full rounded-md border-input bg-background pl-10 pr-4 focus:border-primary focus:ring-primary sm:text-sm"
-                placeholder="10.00"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                aria-label="Contribution Amount in Euros"
-                min="1" // Basic validation
-                disabled={isLoading}
-              />
             </div>
           </div>
 
@@ -156,7 +170,7 @@ export default function ContributeSection() {
             <p className="mt-4 text-sm text-destructive">{errorMessage}</p>
         )}
 
-        <p className="mt-6 text-sm text-muted-foreground">
+        <p className="mt-8 text-sm text-muted-foreground"> {/* Increased top margin */}
           We use Stripe for secure and easy online contributions. Thank you for your support!
         </p>
 
@@ -184,4 +198,3 @@ export default function ContributeSection() {
     </section>
   );
 }
-
