@@ -25,7 +25,7 @@ export default function EventsSection() {
           <div className="mx-auto max-w-xs"> {/* Scaled down poster container further */}
             <div className="relative overflow-hidden rounded-lg shadow-xl group">
               <Image
-                src={upcomingEvent.image}
+                src={"/images/2025_UK tour fnl flyers_Dublin.png"}
                 alt={upcomingEvent.title}
                 width={1080}
                 height={1350}
