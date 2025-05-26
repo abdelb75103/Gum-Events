@@ -7,8 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Card } from "@/components/ui/card"; // Added Card
-import { Gift, Euro } from "lucide-react"; // Removed Repeat, will use state for type
+import { Card } from "@/components/ui/card";
+import { Gift, Euro } from "lucide-react";
 import { loadStripe } from '@stripe/stripe-js';
 import { cn } from "@/lib/utils";
 
@@ -56,7 +56,7 @@ export default function ContributeSection() {
         body: JSON.stringify({
           amount: numericAmount * 100, // Stripe expects amount in cents
           currency: 'eur',
-          contributionType: selectedDonationType, // Use selectedDonationType
+          contributionType: selectedDonationType,
         }),
       });
 
@@ -122,28 +122,30 @@ export default function ContributeSection() {
           </video>
         </div>
 
-        <Card className="p-6 sm:p-8 shadow-xl mx-auto max-w-sm text-left">
+        <Card className="p-6 sm:p-8 shadow-xl mx-auto max-w-md text-left">
           <div className="space-y-6">
             <div>
               <Label htmlFor="contribution-amount-styled" className="text-base font-medium text-foreground mb-2 block">
                 Choose your contribution amount
               </Label>
-              <div className="relative">
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                  <Euro className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
+              <div className="rounded-lg p-0.5 bg-gradient-to-r from-primary to-accent">
+                <div className="relative flex items-center rounded-md bg-background">
+                  <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                    <Euro className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
+                  </div>
+                  <Input
+                    type="number"
+                    name="contribution-amount-styled"
+                    id="contribution-amount-styled"
+                    className="w-full border-transparent bg-transparent pl-10 pr-4 text-foreground placeholder:text-muted-foreground focus-visible:ring-0 sm:text-sm"
+                    placeholder="Enter amount"
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
+                    aria-label="Contribution Amount in Euros"
+                    min="1"
+                    disabled={isLoading}
+                  />
                 </div>
-                <Input
-                  type="number"
-                  name="contribution-amount-styled"
-                  id="contribution-amount-styled"
-                  className="w-full border-input bg-background pl-10 pr-4 text-foreground placeholder:text-muted-foreground focus-visible:ring-primary sm:text-sm"
-                  placeholder="Enter amount"
-                  value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
-                  aria-label="Contribution Amount in Euros"
-                  min="1"
-                  disabled={isLoading}
-                />
               </div>
             </div>
 
@@ -161,6 +163,7 @@ export default function ContributeSection() {
                       ? "bg-primary/10 border-primary text-primary hover:bg-primary/20"
                       : "bg-card text-foreground border-border hover:bg-muted"
                   )}
+                  disabled={isLoading}
                 >
                   Once-off
                 </Button>
@@ -170,9 +173,10 @@ export default function ContributeSection() {
                   className={cn(
                     "py-3 text-base rounded-md",
                     donationType === 'monthly'
-                      ? "bg-primary/10 border-primary text-primary hover:bg-primary/20"
+                      ? "bg-accent/10 border-accent text-accent hover:bg-accent/20"
                       : "bg-card text-foreground border-border hover:bg-muted"
                   )}
+                  disabled={isLoading}
                 >
                   Monthly
                 </Button>
