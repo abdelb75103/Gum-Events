@@ -19,6 +19,12 @@ export default function HeroSection() {
   const hasMultipleHeroes = !!upcomingEvent;
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
+  const cycleHero = useCallback(() => {
+    setActiveHeroType(currentType =>
+      currentType === 'event' ? 'general' : 'event'
+    );
+  }, []);
+
   const startAutoScroll = useCallback(() => {
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
@@ -26,11 +32,9 @@ export default function HeroSection() {
     if (!hasMultipleHeroes) return;
 
     intervalRef.current = setInterval(() => {
-      setActiveHeroType(currentType =>
-        currentType === 'event' ? 'general' : 'event'
-      );
+      cycleHero();
     }, 3500); // 3.5-second interval
-  }, [hasMultipleHeroes]);
+  }, [hasMultipleHeroes, cycleHero]);
 
   useEffect(() => {
     startAutoScroll();
@@ -43,9 +47,7 @@ export default function HeroSection() {
 
   const handleArrowClick = () => {
     if (hasMultipleHeroes) {
-      setActiveHeroType(currentType =>
-        currentType === 'event' ? 'general' : 'event'
-      );
+      cycleHero();
       startAutoScroll(); // Restart interval on manual navigation
     }
   };
@@ -55,13 +57,13 @@ export default function HeroSection() {
     description: "Events, insights, and community for young Muslims navigating faith and life. Join us as we grow together.",
     buttons: (
       <>
-        <Button size="lg" asChild className="px-6 py-3 text-base sm:text-lg">
+        <Button size="default" asChild className="px-4 py-2 text-sm sm:text-base">
           <Link href="#events">
             View Upcoming Events
-            <MoveRight className="ml-2 h-5 w-5" />
+            <MoveRight className="ml-2 h-4 w-4" />
           </Link>
         </Button>
-        <Button size="lg" variant="outline" asChild className="px-6 py-3 text-base sm:text-lg">
+        <Button size="default" variant="outline" asChild className="px-4 py-2 text-sm sm:text-base">
           <Link href="#community">Join Our Community</Link>
         </Button>
       </>
@@ -73,7 +75,7 @@ export default function HeroSection() {
   return (
     <section id="hero" className="relative w-full overflow-hidden">
       {/* Aspect ratio container */}
-      <div className="relative w-full pt-[56.25%]"> {/* 16:9 aspect ratio */}
+      <div className="relative w-full pt-[37.5%]"> {/* 8:3 aspect ratio (height is 2/3 of 16:9) */}
         
         {/* Event Hero Content Wrapper */}
         {upcomingEvent && (
@@ -95,7 +97,7 @@ export default function HeroSection() {
               data-ai-hint={upcomingEvent.imageHint || "event background"}
             />
             <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center p-4 sm:p-6 md:p-8">
-              <div className="mb-6 w-full max-w-[240px] xs:max-w-[280px] sm:max-w-xs md:max-w-sm">
+              <div className="mb-4 w-full max-w-[200px] sm:max-w-[240px] md:max-w-[280px]">
                 <Image
                   src={upcomingEvent.image}
                   alt={upcomingEvent.title}
@@ -108,7 +110,7 @@ export default function HeroSection() {
               </div>
               <Button
                 asChild
-                className="bg-[hsl(40,80%,60%)] hover:bg-[hsl(40,80%,55%)] text-amber-900 shadow-xl text-base px-6 py-3"
+                className="bg-[hsl(40,80%,60%)] hover:bg-[hsl(40,80%,55%)] text-amber-900 shadow-xl text-sm px-4 py-2"
               >
                 <Link href={upcomingEvent.registrationLink || "#events"}>
                   Buy Tickets
@@ -130,13 +132,13 @@ export default function HeroSection() {
         >
           <div className="absolute inset-0 bg-gradient-to-b from-background to-secondary"></div>
           <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center p-4 sm:p-6 md:p-8">
-            <h1 className="text-3xl font-bold tracking-tight text-foreground xs:text-4xl sm:text-5xl lg:text-6xl">
+            <h1 className="text-2xl font-bold tracking-tight text-foreground xs:text-3xl sm:text-4xl lg:text-5xl">
               {generalHeroContent.title}
             </h1>
-            <p className="mt-4 max-w-xl mx-auto text-base leading-relaxed text-muted-foreground sm:text-lg sm:max-w-2xl md:text-xl md:max-w-3xl">
+            <p className="mt-3 max-w-xl mx-auto text-sm leading-relaxed text-muted-foreground sm:text-base sm:max-w-2xl md:text-lg md:max-w-3xl">
               {generalHeroContent.description}
             </p>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-4 sm:gap-x-6">
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-3 sm:gap-x-4">
               {generalHeroContent.buttons}
             </div>
           </div>
