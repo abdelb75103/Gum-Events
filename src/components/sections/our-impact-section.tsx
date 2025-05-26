@@ -11,6 +11,8 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
+  Area,
+  ResponsiveContainer, // Added ResponsiveContainer for proper chart rendering
 } from "recharts";
 import {
   ChartContainer,
@@ -40,9 +42,9 @@ const achievements = [
 ];
 
 const chartData = [
-  { year: "Start 2023", members: 0 },
-  { year: "End 2023", members: 100 },
-  { year: "End 2024", members: 5000 },
+  { year: "Start", members: 0 },
+  { year: "2023", members: 100 },
+  { year: "2024", members: 5000 },
   { year: "2025", members: 6500 },
 ];
 
@@ -71,7 +73,7 @@ export default function OurImpactSection() {
           {achievements.map((ach, index) => (
             <div 
               key={index} 
-              className="flex flex-col items-center text-center p-6 rounded-lg border bg-card shadow-sm hover:shadow-md transition-shadow"
+              className="flex flex-col items-center text-center p-6 rounded-lg border bg-card shadow-sm hover:shadow-xl transition-all duration-300 ease-in-out hover:scale-[1.03]"
               aria-label={ach.ariaLabel}
             >
               <ach.icon className="h-10 w-10 text-accent mb-3" />
@@ -90,57 +92,73 @@ export default function OurImpactSection() {
         <Card className="shadow-lg">
           <CardContent className="p-4 sm:p-6">
             <ChartContainer config={chartConfig} className="h-[250px] w-full sm:h-[300px]">
-              <LineChart
-                accessibilityLayer
-                data={chartData}
-                margin={{
-                  top: 5,
-                  right: 10, // Reduced right margin
-                  left: -15, // Adjusted left margin to pull Y-axis labels closer
-                  bottom: 5,
-                }}
-              >
-                <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                <XAxis
-                  dataKey="year"
-                  tickLine={false}
-                  axisLine={false}
-                  tickMargin={8}
-                  fontSize={12}
-                />
-                <YAxis
-                  tickLine={false}
-                  axisLine={false}
-                  tickMargin={8}
-                  fontSize={12}
-                  tickFormatter={(value) => {
-                    if (value >= 1000) return `${value / 1000}k`;
-                    return value.toString();
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart
+                  accessibilityLayer
+                  data={chartData}
+                  margin={{
+                    top: 5,
+                    right: 10,
+                    left: -15, 
+                    bottom: 5,
                   }}
-                  domain={[0, 'dataMax + 500']} // Add some padding to Y-axis
-                />
-                <Tooltip
-                  cursor={true}
-                  content={<ChartTooltipContent indicator="line" hideLabel />}
-                />
-                <Line
-                  dataKey="members"
-                  type="monotone"
-                  stroke="var(--color-members)"
-                  strokeWidth={3} // Slightly thicker line
-                  dot={{
-                    r: 4, // Smaller dots
-                    fill: "var(--color-members)",
-                    strokeWidth: 1,
-                    stroke: "hsl(var(--background))", // Dot border matching background
-                  }}
-                  activeDot={{
-                    r: 6, // Larger active dot
-                    strokeWidth: 2,
-                    stroke: "hsl(var(--background))",
-                  }}
-                />
-              </LineChart>
+                >
+                  <defs>
+                    <linearGradient id="fillMembers" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="var(--color-members)" stopOpacity={0.6}/>
+                      <stop offset="95%" stopColor="var(--color-members)" stopOpacity={0.1}/>
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} strokeOpacity={0.5} />
+                  <XAxis
+                    dataKey="year"
+                    tickLine={false}
+                    axisLine={false}
+                    tickMargin={8}
+                    fontSize={12}
+                  />
+                  <YAxis
+                    tickLine={false}
+                    axisLine={false}
+                    tickMargin={8}
+                    fontSize={12}
+                    tick={{ fillOpacity: 0.6 }}
+                    tickFormatter={(value) => {
+                      if (value >= 1000) return `${value / 1000}k`;
+                      return value.toString();
+                    }}
+                    domain={[0, 'dataMax + 500']}
+                  />
+                  <Tooltip
+                    cursor={{ stroke: "hsl(var(--primary))", strokeWidth: 1, strokeDasharray: "3 3" }}
+                    content={<ChartTooltipContent indicator="line" hideLabel />}
+                  />
+                  <Line
+                    dataKey="members"
+                    type="monotone"
+                    stroke="var(--color-members)"
+                    strokeWidth={2.5} // Slightly adjusted
+                    dot={{
+                      r: 4,
+                      fill: "var(--color-members)",
+                      strokeWidth: 2, // make dot border more visible
+                      stroke: "hsl(var(--background))", 
+                    }}
+                    activeDot={{
+                      r: 7, // Larger active dot
+                      strokeWidth: 2,
+                      stroke: "hsl(var(--background))",
+                      fill: "var(--color-members)",
+                    }}
+                  />
+                  <Area
+                    type="monotone"
+                    dataKey="members"
+                    stroke="none"
+                    fill="url(#fillMembers)"
+                  />
+                </LineChart>
+              </ResponsiveContainer>
             </ChartContainer>
           </CardContent>
         </Card>
