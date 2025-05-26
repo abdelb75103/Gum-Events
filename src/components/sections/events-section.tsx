@@ -22,7 +22,7 @@ export default function EventsSection() {
           </p>
         </div>
         {upcomingEvent ? (
-          <div className="mx-auto max-w-xl"> {/* Scaled down poster container */}
+          <div className="mx-auto max-w-xs"> {/* Scaled down poster container further */}
             <div className="relative overflow-hidden rounded-lg shadow-xl group">
               <Image
                 src={upcomingEvent.image}
