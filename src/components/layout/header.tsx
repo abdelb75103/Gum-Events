@@ -28,17 +28,16 @@ export default function Header() {
     return (
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-           <Link href="#hero" className="flex items-center gap-2">
+           <Link href="#hero" className="flex items-center">
             <Image
               src="/images/logo.png"
               alt="GUM Events Logo"
-              width={36}
-              height={36}
-              className="h-9 w-9"
+              width={48}
+              height={48}
+              className="h-12 w-12"
               data-ai-hint="logo"
               priority
             />
-            <span className="text-xl font-bold text-foreground">GUM Events</span>
           </Link>
           <div className="flex items-center md:hidden">
             <Button variant="ghost" size="icon" disabled>
@@ -53,17 +52,16 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href="#hero" className="flex items-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
+        <Link href="#hero" className="flex items-center" onClick={() => setIsMobileMenuOpen(false)}>
           <Image
             src="/images/logo.png"
             alt="GUM Events Logo"
-            width={36}
-            height={36}
-            className="h-9 w-9"
+            width={48}
+            height={48}
+            className="h-12 w-12"
             data-ai-hint="logo"
             priority
           />
-          <span className="text-xl font-bold text-foreground">GUM Events</span>
         </Link>
 
         <nav className="hidden items-center space-x-1 md:flex">
@@ -84,16 +82,15 @@ export default function Header() {
             </SheetTrigger>
             <SheetContent side="right" className="w-full max-w-xs bg-background p-6">
               <div className="mb-6 flex items-center justify-between">
-                <Link href="#hero" className="flex items-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
+                <Link href="#hero" className="flex items-center" onClick={() => setIsMobileMenuOpen(false)}>
                   <Image
                     src="/images/logo.png"
                     alt="GUM Events Logo"
-                    width={28}
-                    height={28}
-                    className="h-7 w-7"
+                    width={40}
+                    height={40}
+                    className="h-10 w-10"
                     data-ai-hint="logo"
                   />
-                  <span className="text-lg font-bold">GUM Events</span>
                 </Link>
                 <SheetTrigger asChild>
                   <Button variant="ghost" size="icon">
