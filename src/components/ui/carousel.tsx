@@ -158,13 +158,15 @@ const CarouselContent = React.forwardRef<
   const { carouselRef, orientation } = useCarousel()
 
   return (
-    <div ref={carouselRef} className="overflow-hidden">
+    // This is the Embla viewport. Ensure it takes full height.
+    <div ref={carouselRef} className={cn("overflow-hidden", "h-full")}>
+      {/* This is the Embla container (track). It receives the className prop. */}
       <div
         ref={ref}
         className={cn(
           "flex",
           orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col",
-          className
+          className // This will include h-full if passed from HeroSection
         )}
         {...props}
       />
