@@ -89,7 +89,7 @@ export default function HeroSection() {
             />
             <div className="relative z-10 flex flex-col items-center justify-center">
               {/* Adjusted poster size for smaller hero */}
-              <div className="mb-3 w-full max-w-[120px] xs:max-w-[160px] sm:max-w-[200px] md:max-w-[220px] lg:max-w-[240px]">
+              <div className="mb-3 w-full max-w-[100px] xs:max-w-[120px] sm:max-w-[160px] md:max-w-[200px] lg:max-w-[220px]">
                 <Image
                   src={upcomingEvent.image}
                   alt={upcomingEvent.title}
@@ -102,11 +102,11 @@ export default function HeroSection() {
               </div>
               <Button
                 asChild
-                className="bg-[hsl(40,80%,60%)] hover:bg-[hsl(40,80%,55%)] text-amber-900 shadow-xl text-sm px-4 py-2"
+                className="bg-[hsl(40,80%,60%)] hover:bg-[hsl(40,80%,55%)] text-amber-900 shadow-xl text-xs px-3 py-1.5 sm:text-sm sm:px-4 sm:py-2"
               >
                 <Link href={upcomingEvent.registrationLink || "#events"}>
                   Buy Tickets
-                  <Ticket className="ml-2 h-4 w-4" />
+                  <Ticket className="ml-2 h-3 w-3 xs:h-4 xs:w-4" />
                 </Link>
               </Button>
             </div>
@@ -130,14 +130,15 @@ export default function HeroSection() {
             layout="fill"
             objectFit="cover"
             className="absolute inset-0 z-0"
+            priority
           />
           <div className="relative z-10 flex flex-col items-center justify-center">
             {/* Scaled down title */}
-            <h1 className="font-bold tracking-tight text-primary-foreground text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl">
+            <h1 className="font-bold tracking-tight text-primary-foreground text-base xs:text-lg sm:text-xl md:text-2xl lg:text-3xl">
               {generalHeroContent.title}
             </h1>
             {/* Scaled down description */}
-            <p className="mt-2 max-w-md mx-auto leading-relaxed text-gray-200 text-xs sm:text-sm md:text-base md:max-w-xl lg:max-w-2xl">
+            <p className="mt-2 mx-auto leading-relaxed text-gray-200 text-[11px] xs:text-xs sm:text-sm md:text-base max-w-[18rem] xs:max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg">
               {generalHeroContent.description}
             </p>
             <div className="mt-4 flex flex-wrap items-center justify-center gap-2 xs:gap-3 sm:gap-x-4">
@@ -186,3 +187,4 @@ export default function HeroSection() {
     </section>
   );
 }
+
