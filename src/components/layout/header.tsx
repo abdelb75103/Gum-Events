@@ -3,11 +3,12 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react"; // Added useRef
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, X } from "lucide-react";
-import { ThemeToggleButton } from "@/components/theme-toggle-button"; 
+import { ThemeToggleButton } from "@/components/theme-toggle-button";
+import { cn } from "@/lib/utils"; // Import cn for conditional class names
 
 const navItems = [
   { label: "Home", href: "#hero" },
@@ -24,12 +25,52 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => setMounted(true), []);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  const lastScrollYRef = useRef(0);
+
+  useEffect(() => {
+    setMounted(true);
+
+    // Scroll handling logic
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const headerHeight = 80; // Current header height is h-20 (80px)
+    lastScrollYRef.current = window.scrollY;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const localLastScrollY = lastScrollYRef.current;
+
+      if (currentScrollY < headerHeight) {
+        // If scroll position is within where header would be, always show
+        setIsHeaderVisible(true);
+      } else if (currentScrollY > localLastScrollY) {
+        // Scrolling DOWN
+        setIsHeaderVisible(true);
+      } else if (currentScrollY < localLastScrollY) {
+        // Scrolling UP (and past headerHeight)
+        setIsHeaderVisible(false);
+      }
+      lastScrollYRef.current = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []); // Empty dependency array, so this effect runs once on mount and cleans up on unmount
 
   if (!mounted) {
     // Fallback for SSR/pre-hydration to avoid layout shift
+    // Apply base classes, visibility will be true by default
     return (
-      <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <header className={cn(
+        "sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60",
+        "transition-transform duration-300 ease-in-out", // Base transition classes
+        "translate-y-0" // Default to visible for SSR
+      )}>
         <div className="container mx-auto flex h-20 max-w-7xl items-center justify-between px-6 sm:px-8 lg:px-10">
            <Link href="#hero" className="flex items-center">
             <Image
@@ -54,7 +95,11 @@ export default function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className={cn(
+      "sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60",
+      "transition-transform duration-300 ease-in-out", // For smooth animation
+      isHeaderVisible ? "translate-y-0" : "-translate-y-full" // Conditional transform
+    )}>
       <div className="container mx-auto flex h-20 max-w-7xl items-center justify-between px-6 sm:px-8 lg:px-10">
         <Link href="#hero" className="flex items-center" onClick={() => setIsMobileMenuOpen(false)}>
           <Image
