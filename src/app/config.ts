@@ -1,10 +1,11 @@
+
 import type { SocialLink } from '@/lib/types';
 import { Instagram, Facebook, Youtube, Linkedin, Music2, MessageSquare } from 'lucide-react';
 
 export const socialLinks: SocialLink[] = [
   {
     name: 'Instagram',
-    href: 'https://instagram.com', // Replace with your actual Instagram link
+    href: 'https://www.instagram.com/GrowingUpMuslimEvents/', 
     icon: Instagram,
     description: 'Follow our journey, stories, and event highlights.',
     cta: 'Follow on Instagram',
@@ -13,7 +14,7 @@ export const socialLinks: SocialLink[] = [
   },
   {
     name: 'Facebook',
-    href: 'https://facebook.com', // Replace with your actual Facebook link
+    href: 'https://www.facebook.com/people/GUM-events/61557516380555/?_rdr', 
     icon: Facebook,
     description: 'Join our community discussions and get updates.',
     cta: 'Like on Facebook',
@@ -22,7 +23,7 @@ export const socialLinks: SocialLink[] = [
   },
   {
     name: 'TikTok',
-    href: 'https://tiktok.com', // Replace with your actual TikTok link
+    href: 'https://www.tiktok.com/@growingupmuslimevents', 
     icon: Music2, // Using Music2 as a stand-in for TikTok
     description: 'Watch our latest short videos and trends.',
     cta: 'Follow on TikTok',
@@ -31,7 +32,7 @@ export const socialLinks: SocialLink[] = [
   },
   {
     name: 'YouTube',
-    href: 'https://youtube.com', // Replace with your actual YouTube link
+    href: 'https://www.youtube.com/@GrowingUpMuslimEvents', 
     icon: Youtube,
     description: 'Watch our event recordings, talks, and more.',
     cta: 'Subscribe on YouTube',
@@ -40,7 +41,7 @@ export const socialLinks: SocialLink[] = [
   },
   {
     name: 'LinkedIn',
-    href: 'https://linkedin.com', // Replace with your actual LinkedIn link
+    href: 'https://www.linkedin.com/company/growingupmuslimevents/posts/?feedView=all', 
     icon: Linkedin,
     description: 'Connect with us for professional insights.',
     cta: 'Connect on LinkedIn',
@@ -49,7 +50,7 @@ export const socialLinks: SocialLink[] = [
   },
   {
     name: 'WhatsApp Community',
-    href: 'https://whatsapp.com', // Replace with your actual WhatsApp community link
+    href: 'https://shorturl.at/WfWUD', 
     icon: MessageSquare, // Or other relevant icon like Users2
     description: 'Join our direct community chat for instant updates.',
     cta: 'Join WhatsApp',
@@ -57,3 +58,4 @@ export const socialLinks: SocialLink[] = [
     iconColorClass: 'text-green-500 dark:text-green-400',
   },
 ];
+
