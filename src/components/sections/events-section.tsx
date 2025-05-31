@@ -41,7 +41,7 @@ export default function EventsSection() {
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/60 to-transparent p-3 transition-opacity duration-300">
               <Button
                 asChild
-                className="w-full bg-[hsl(40,80%,60%)] hover:bg-[hsl(40,80%,55%)] text-amber-900 shadow-xl text-base px-4 py-2 h-auto"
+                className="w-full bg-gradient-to-r from-primary/80 to-accent/80 hover:from-primary/90 hover:to-accent/90 text-accent-foreground shadow-xl text-base px-4 py-2 h-auto"
               >
                 <Link href={upcomingEvent.registrationLink}>
                   Buy Tickets <Ticket className="ml-2 h-4 w-4" />
@@ -58,3 +58,4 @@ export default function EventsSection() {
     </section>
   );
 }
+
