@@ -148,7 +148,7 @@ export default function HeroSection() {
                 size="default" 
                 variant="outline" 
                 asChild 
-                className="text-xs xs:text-sm px-3 xs:px-4 py-1.5 xs:py-2 sm:text-base text-primary-foreground border-primary-foreground/60 hover:bg-primary-foreground/10 hover:text-primary-foreground hover:border-primary-foreground/80"
+                className="text-xs xs:text-sm px-3 xs:px-4 py-1.5 xs:py-2 sm:text-base text-foreground border-foreground/60 hover:bg-foreground/10 hover:text-foreground hover:border-foreground/80"
               >
                 <Link href="#community">Join Our Community</Link>
               </Button>
