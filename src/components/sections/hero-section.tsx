@@ -56,19 +56,7 @@ export default function HeroSection() {
   const generalHeroContent = {
     title: "Growing Up Muslim",
     description: "Events, insights, and community for young Muslims navigating faith and life. Join us as we grow together.",
-    buttons: (
-      <>
-        <Button size="default" asChild className="text-xs xs:text-sm px-3 xs:px-4 py-1.5 xs:py-2 sm:text-base">
-          <Link href="#events">
-            View Upcoming Events
-            <MoveRight className="ml-2 h-3 w-3 xs:h-4 xs:w-4" />
-          </Link>
-        </Button>
-        <Button size="default" variant="outline" asChild className="text-xs xs:text-sm px-3 xs:px-4 py-1.5 xs:py-2 sm:text-base">
-          <Link href="#community">Join Our Community</Link>
-        </Button>
-      </>
-    ),
+    // Buttons are rendered directly below
   };
 
   const heroWrapperBaseClasses = "absolute inset-0 transition-all duration-700 ease-in-out";
@@ -135,16 +123,35 @@ export default function HeroSection() {
               : 'opacity-0 transform translateX-full pointer-events-none'
           )}
         >
-          <div className="absolute inset-0 bg-gradient-to-b from-background to-secondary"></div>
+          <Image
+            src="/images/hero.png"
+            alt="Growing Up Muslim Hero Image"
+            layout="fill"
+            objectFit="cover"
+            className="absolute inset-0 z-0"
+          />
           <div className="relative z-10 flex flex-col items-center justify-center">
-            <h1 className="font-bold tracking-tight text-foreground text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
+            <h1 className="font-bold tracking-tight text-primary-foreground text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
               {generalHeroContent.title}
             </h1>
-            <p className="mt-2 max-w-md mx-auto leading-relaxed text-muted-foreground text-xs xs:text-sm sm:text-base md:text-lg md:max-w-xl lg:max-w-2xl">
+            <p className="mt-2 max-w-md mx-auto leading-relaxed text-gray-200 text-xs xs:text-sm sm:text-base md:text-lg md:max-w-xl lg:max-w-2xl">
               {generalHeroContent.description}
             </p>
             <div className="mt-4 flex flex-wrap items-center justify-center gap-2 xs:gap-3 sm:gap-x-4">
-              {generalHeroContent.buttons}
+              <Button size="default" asChild className="text-xs xs:text-sm px-3 xs:px-4 py-1.5 xs:py-2 sm:text-base">
+                <Link href="#events">
+                  View Upcoming Events
+                  <MoveRight className="ml-2 h-3 w-3 xs:h-4 xs:w-4" />
+                </Link>
+              </Button>
+              <Button 
+                size="default" 
+                variant="outline" 
+                asChild 
+                className="text-xs xs:text-sm px-3 xs:px-4 py-1.5 xs:py-2 sm:text-base text-primary-foreground border-primary-foreground/60 hover:bg-primary-foreground/10 hover:text-primary-foreground hover:border-primary-foreground/80"
+              >
+                <Link href="#community">Join Our Community</Link>
+              </Button>
             </div>
           </div>
         </div>
