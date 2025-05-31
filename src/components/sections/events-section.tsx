@@ -4,8 +4,9 @@ import { events } from "@/lib/data";
 import { CalendarFold, Ticket } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { buttonVariants } from "@/components/ui/button"; // Import buttonVariants
+import { cn } from "@/lib/utils"; // Import cn
 
 // Export events data for HeroSection or other components
 export const upcomingEvents = events;
@@ -39,14 +40,16 @@ export default function EventsSection() {
               priority // Good to add for LCP images
             />
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/60 to-transparent p-3 transition-opacity duration-300">
-              <Button
-                asChild
-                className="w-full bg-gradient-to-r from-primary/80 to-accent/80 hover:from-primary/90 hover:to-accent/90 text-accent-foreground shadow-xl text-base px-4 py-2 h-auto"
+              <Link
+                href={upcomingEvent.registrationLink}
+                className={cn(
+                  buttonVariants({ variant: "default" }), // Apply base button styles, size will be default (h-10, px-4, py-2)
+                  // Override/add specific styles for this button:
+                  "w-full bg-gradient-to-r from-primary/80 to-accent/80 hover:from-primary/90 hover:to-accent/90 text-accent-foreground shadow-xl text-base px-4 py-2 h-auto"
+                )}
               >
-                <Link href={upcomingEvent.registrationLink}>
-                  Buy Tickets <Ticket className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
+                Buy Tickets <Ticket className="ml-2 h-4 w-4" />
+              </Link>
             </div>
           </Card>
         ) : (
@@ -58,4 +61,3 @@ export default function EventsSection() {
     </section>
   );
 }
-
