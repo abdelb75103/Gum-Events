@@ -1,190 +1,153 @@
 
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { MoveRight, Ticket, ChevronLeft, ChevronRight } from "lucide-react";
-import { events } from "@/lib/data";
-import type { Event } from "@/lib/types";
-import { cn } from "@/lib/utils";
+import Image from 'next/image';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { ArrowRight, Ticket } from 'lucide-react';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  type CarouselApi,
+} from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
+import { upcomingEvents } from '@/components/sections/events-section';
+import React from 'react';
+import { cn } from '@/lib/utils';
 
 export default function HeroSection() {
-  const upcomingEvent: Event | null = events.length > 0 ? events[0] : null;
-  const [activeHeroType, setActiveHeroType] = useState<'event' | 'general'>(
-    upcomingEvent ? 'event' : 'general'
+  const autoplayPlugin = React.useRef(
+    Autoplay({ delay: 5000, stopOnInteraction: true, stopOnMouseEnter: true })
   );
+  const [api, setApi] = React.useState<CarouselApi>()
+  const [currentSlide, setCurrentSlide] = React.useState(0)
 
-  const hasMultipleHeroes = !!upcomingEvent;
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
-
-  const cycleHero = useCallback(() => {
-    if (!hasMultipleHeroes) return;
-    setActiveHeroType(currentType =>
-      currentType === 'event' ? 'general' : 'event'
-    );
-  }, [hasMultipleHeroes]);
-
-  const startAutoScroll = useCallback(() => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
+  React.useEffect(() => {
+    if (!api) {
+      return
     }
-    if (!hasMultipleHeroes) return;
+    setCurrentSlide(api.selectedScrollSnap())
+    api.on("select", () => {
+      setCurrentSlide(api.selectedScrollSnap())
+    })
+  }, [api])
 
-    intervalRef.current = setInterval(() => {
-      cycleHero();
-    }, 3500); // 3.5-second interval
-  }, [hasMultipleHeroes, cycleHero]);
-
-  useEffect(() => {
-    startAutoScroll();
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    };
-  }, [startAutoScroll]);
-
-  const handleArrowClick = (direction: 'next' | 'prev') => {
-    if (hasMultipleHeroes) {
-      cycleHero();
-      startAutoScroll(); // Restart interval on manual navigation
-    }
-  };
-
-  const generalHeroContent = {
-    title: "Growing Up Muslim",
-    description: "Events, insights, and community for young Muslims navigating faith and life. Join us as we grow together.",
-    // Buttons are rendered directly below
-  };
-
-  const heroWrapperBaseClasses = "absolute inset-0 transition-all duration-700 ease-in-out";
+  const firstEvent = upcomingEvents.length > 0 ? upcomingEvents[0] : null;
+  const genericHeroImage = "/images/hero.png"; // Corrected path
+  const genericHeroImageHint = "community event";
 
   return (
-    <section id="hero" className="relative w-full overflow-hidden">
-      {/* Responsive Aspect ratio container - Made 1/3 smaller */}
-      <div className="relative w-full pt-[42%] md:pt-[34%] lg:pt-[30%]">
-        
-        {/* Event Hero Content Wrapper */}
-        {upcomingEvent && (
-          <div
-            className={cn(
-              heroWrapperBaseClasses,
-              "flex flex-col items-center justify-center text-center",
-              "p-3 xs:p-4 sm:p-6 md:p-8", // Padding around content
-              activeHeroType === 'event'
-                ? 'opacity-100 transform translateX-0'
-                : 'opacity-0 transform -translateX-full pointer-events-none'
-            )}
-          >
-            <Image
-              src={upcomingEvent.image}
-              alt="Blurred event background"
-              layout="fill"
-              objectFit="cover"
-              className="absolute inset-0 z-0 filter blur-xl scale-110"
-              priority
-              data-ai-hint={upcomingEvent.imageHint || "event background"}
-            />
-            <div className="relative z-10 flex flex-col items-center justify-center">
-              {/* Adjusted poster size for smaller hero */}
-              <div className="mb-3 w-full max-w-[100px] xs:max-w-[120px] sm:max-w-[160px] md:max-w-[200px] lg:max-w-[220px]">
+    <section
+      id="hero"
+      className="relative w-full h-[calc(90vh-5rem)] min-h-[500px] md:h-[calc(85vh-5rem)] overflow-hidden" // Adjusted for 5rem header
+    >
+      <Carousel
+        setApi={setApi}
+        plugins={[autoplayPlugin.current]}
+        className="w-full h-full"
+        opts={{ loop: true }}
+      >
+        <CarouselContent className="h-full">
+          {/* Slide 1: Upcoming Event */}
+          {firstEvent && (
+            <CarouselItem className="h-full relative">
+              {/* Blurred Background Layer */}
+              <div className="absolute inset-0 overflow-hidden">
                 <Image
-                  src={upcomingEvent.image}
-                  alt={upcomingEvent.title}
-                  width={1080} 
-                  height={1350}
-                  className="rounded-lg shadow-2xl w-full h-auto"
+                  src={firstEvent.image} // Changed imageUrl to image
+                  alt={`Blurred background for ${firstEvent.title}`}
+                  fill
+                  style={{ objectFit: 'cover' }}
+                  className="z-0 blur-lg scale-110 brightness-75"
                   priority
-                  data-ai-hint={upcomingEvent.imageHint || "event poster"}
+                  data-ai-hint={firstEvent.imageHint || "event promotion background"}
                 />
               </div>
-              <Button
-                asChild
-                className="bg-[hsl(40,80%,60%)] hover:bg-[hsl(40,80%,55%)] text-amber-900 shadow-xl text-xs px-3 py-1.5 sm:text-sm sm:px-4 sm:py-2"
-              >
-                <Link href={upcomingEvent.registrationLink || "#events"}>
-                  Buy Tickets
-                  <Ticket className="ml-2 h-3 w-3 xs:h-4 xs:w-4" />
-                </Link>
-              </Button>
-            </div>
-          </div>
-        )}
 
-        {/* General Hero Content Wrapper */}
-        <div
-          className={cn(
-            heroWrapperBaseClasses,
-            "flex flex-col items-center justify-center text-center",
-            "p-3 xs:p-4 sm:p-6 md:p-8", // Padding around content
-            activeHeroType === 'general'
-              ? 'opacity-100 transform translateX-0'
-              : 'opacity-0 transform translateX-full pointer-events-none'
+              {/* Container for Centered Poster and Button Below It */}
+              <div className="relative z-10 flex flex-col items-center justify-center h-full p-4">
+                <div className="relative w-full max-w-[300px] xs:max-w-[340px] sm:max-w-[360px] md:max-w-[380px] lg:max-w-[400px] aspect-[4/5] shadow-2xl rounded-lg overflow-hidden">
+                  <Image
+                    src={firstEvent.image} // Changed imageUrl to image
+                    alt={firstEvent.title}
+                    fill
+                    style={{ objectFit: 'cover' }}
+                    data-ai-hint={firstEvent.imageHint || "event poster"}
+                    className="rounded-lg"
+                  />
+                </div>
+                <Button
+                  size="lg"
+                  asChild
+                  className="mt-6 w-full max-w-[280px] text-accent-foreground px-6 py-3 text-base font-semibold shadow-md hover:shadow-lg transition-shadow bg-gradient-to-r from-primary/70 to-accent/70 hover:from-primary/90 hover:to-accent/90"
+                >
+                  <Link href={firstEvent.registrationLink} target="_blank" rel="noopener noreferrer">
+                    Buy Tickets <Ticket className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+            </CarouselItem>
           )}
-        >
-          <Image
-            src="/images/hero.png"
-            alt="Growing Up Muslim Hero Image"
-            layout="fill"
-            objectFit="cover"
-            className="absolute inset-0 z-0"
-            priority
-          />
-          <div className="relative z-10 flex flex-col items-center justify-center">
-            {/* Scaled down title */}
-            <h1 className="font-bold tracking-tight text-primary-foreground text-base xs:text-lg sm:text-xl md:text-2xl lg:text-3xl">
-              {generalHeroContent.title}
-            </h1>
-            {/* Scaled down description */}
-            <p className="mt-2 mx-auto leading-relaxed text-gray-200 text-[11px] xs:text-xs sm:text-sm md:text-base max-w-[18rem] xs:max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg">
-              {generalHeroContent.description}
-            </p>
-            <div className="mt-4 flex flex-wrap items-center justify-center gap-2 xs:gap-3 sm:gap-x-4">
-              {/* Scaled down buttons */}
-              <Button size="default" asChild className="text-xs px-3 py-1.5 sm:text-sm sm:px-4 sm:py-2">
-                <Link href="#events">
-                  View Upcoming Events
-                  <MoveRight className="ml-2 h-3 w-3 xs:h-4 xs:w-4" />
-                </Link>
-              </Button>
-              <Button 
-                size="default" 
-                variant="outline" 
-                asChild 
-                className="text-xs px-3 py-1.5 sm:text-sm sm:px-4 sm:py-2 text-foreground border-foreground/60 hover:bg-foreground/10 hover:text-foreground hover:border-foreground/80"
-              >
-                <Link href="#community">Join Our Community</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      {hasMultipleHeroes && (
-        <>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="absolute left-4 sm:left-6 lg:left-8 top-1/2 z-20 -translate-y-1/2 rounded-full bg-transparent hover:bg-black/10 dark:hover:bg-white/10 text-foreground h-10 w-10 sm:h-12 sm:w-12"
-            onClick={() => handleArrowClick('prev')}
-            aria-label="Previous slide"
-          >
-            <ChevronLeft className="h-6 w-6 sm:h-7 sm:w-7" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="absolute right-4 sm:right-6 lg:right-8 top-1/2 z-20 -translate-y-1/2 rounded-full bg-transparent hover:bg-black/10 dark:hover:bg-white/10 text-foreground h-10 w-10 sm:h-12 sm:w-12"
-            onClick={() => handleArrowClick('next')}
-            aria-label="Next slide"
-          >
-            <ChevronRight className="h-6 w-6 sm:h-7 sm:w-7" />
-          </Button>
-        </>
-      )}
+          {/* Slide 2: Generic Hero */}
+          <CarouselItem className="h-full relative">
+            <Image
+              src={genericHeroImage}
+              alt="Community members engaging in an event"
+              fill
+              style={{ objectFit: 'cover' }}
+              className="z-0"
+              priority={!firstEvent}
+              data-ai-hint={genericHeroImageHint}
+            />
+            <div className="absolute inset-0 bg-black/60 z-10" />
+            <div className="relative z-20 flex flex-col items-center justify-center text-center h-full container mx-auto px-6 text-white">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-6 drop-shadow-lg">
+                Growing Up Muslim
+              </h1>
+              <p className="text-lg sm:text-xl md:text-2xl text-neutral-100 mb-10 max-w-3xl mx-auto drop-shadow-md">
+                Discover inspiring events, connect with a vibrant community, and explore your faith together.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <Button
+                  size="lg"
+                  asChild
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg shadow-md hover:shadow-lg transition-shadow w-full sm:w-auto"
+                >
+                  <Link href="#events">
+                    Explore Events <ArrowRight className="ml-2 h-5 w-5" />
+                  </Link>
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  asChild
+                  className="bg-transparent border-white text-white hover:bg-white hover:text-black px-8 py-6 text-lg shadow-md hover:shadow-lg transition-all w-full sm:w-auto"
+                >
+                  <Link href="#our-story">
+                    Learn More
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </CarouselItem>
+        </CarouselContent>
+        <CarouselPrevious
+          className={cn(
+            "absolute left-3 top-1/2 -translate-y-1/2 z-30 text-white bg-black/30 hover:bg-black/50 border-none",
+            {"hidden": upcomingEvents.length < 2 && !firstEvent && upcomingEvents.length === 0}
+          )}
+        />
+        <CarouselNext
+          className={cn(
+            "absolute right-3 top-1/2 -translate-y-1/2 z-30 text-white bg-black/30 hover:bg-black/50 border-none",
+            {"hidden": upcomingEvents.length < 2 && !firstEvent && upcomingEvents.length === 0}
+            )}
+        />
+      </Carousel>
     </section>
   );
 }
-

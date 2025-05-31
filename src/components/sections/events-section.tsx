@@ -7,6 +7,10 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
+// Export events data for HeroSection or other components
+export const upcomingEvents = events;
+
+
 export default function EventsSection() {
   const upcomingEvent = events.length > 0 ? events[0] : null;
 
