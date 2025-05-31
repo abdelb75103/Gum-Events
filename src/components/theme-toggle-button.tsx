@@ -6,16 +6,8 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 
 export function ThemeToggleButton() {
-  // Initialize theme based on system preference, defaulting to 'light' for SSR.
-  const [theme, setTheme] = useState<"light" | "dark">(() => {
-    if (typeof window === "undefined") {
-      return "light"; // Default for SSR, will be corrected on client
-    }
-    // On client, always default to system preference on initial load
-    return window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
-  });
+  // Initialize theme to 'light' by default.
+  const [theme, setTheme] = useState<"light" | "dark">("light");
 
   // Effect to apply the theme class to <html>
   useEffect(() => {
@@ -27,7 +19,6 @@ export function ThemeToggleButton() {
     } else {
       root.classList.remove("dark");
     }
-    // Removed localStorage persistence
   }, [theme]);
 
   const toggleTheme = () => {
@@ -35,6 +26,7 @@ export function ThemeToggleButton() {
   };
 
   // Prevent rendering the button with the wrong icon during SSR/initial client render mismatch.
+  // This ensures that when the client hydrates, it initially sees a button that matches the 'light' default.
   if (typeof window === "undefined") {
      return <Button variant="ghost" size="icon" disabled className="h-10 w-10 shrink-0" />;
   }
@@ -56,3 +48,4 @@ export function ThemeToggleButton() {
     </Button>
   );
 }
+
