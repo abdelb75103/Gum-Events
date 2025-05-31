@@ -63,8 +63,8 @@ export default function HeroSection() {
 
   return (
     <section id="hero" className="relative w-full overflow-hidden">
-      {/* Responsive Aspect ratio container */}
-      <div className="relative w-full pt-[62.5%] md:pt-[50%] lg:pt-[43.75%]"> {/* Taller on mobile, wider on desktop */}
+      {/* Responsive Aspect ratio container - Made 1/3 smaller */}
+      <div className="relative w-full pt-[42%] md:pt-[34%] lg:pt-[30%]">
         
         {/* Event Hero Content Wrapper */}
         {upcomingEvent && (
@@ -72,7 +72,7 @@ export default function HeroSection() {
             className={cn(
               heroWrapperBaseClasses,
               "flex flex-col items-center justify-center text-center",
-              "p-3 xs:p-4 sm:p-6 md:p-8",
+              "p-3 xs:p-4 sm:p-6 md:p-8", // Padding around content
               activeHeroType === 'event'
                 ? 'opacity-100 transform translateX-0'
                 : 'opacity-0 transform -translateX-full pointer-events-none'
@@ -88,11 +88,12 @@ export default function HeroSection() {
               data-ai-hint={upcomingEvent.imageHint || "event background"}
             />
             <div className="relative z-10 flex flex-col items-center justify-center">
-              <div className="mb-3 w-full max-w-[100px] xs:max-w-[140px] sm:max-w-[180px] md:max-w-[220px] lg:max-w-[280px]">
+              {/* Adjusted poster size for smaller hero */}
+              <div className="mb-3 w-full max-w-[120px] xs:max-w-[160px] sm:max-w-[200px] md:max-w-[220px] lg:max-w-[240px]">
                 <Image
                   src={upcomingEvent.image}
                   alt={upcomingEvent.title}
-                  width={1080}
+                  width={1080} 
                   height={1350}
                   className="rounded-lg shadow-2xl w-full h-auto"
                   priority
@@ -117,7 +118,7 @@ export default function HeroSection() {
           className={cn(
             heroWrapperBaseClasses,
             "flex flex-col items-center justify-center text-center",
-            "p-3 xs:p-4 sm:p-6 md:p-8",
+            "p-3 xs:p-4 sm:p-6 md:p-8", // Padding around content
             activeHeroType === 'general'
               ? 'opacity-100 transform translateX-0'
               : 'opacity-0 transform translateX-full pointer-events-none'
@@ -131,14 +132,17 @@ export default function HeroSection() {
             className="absolute inset-0 z-0"
           />
           <div className="relative z-10 flex flex-col items-center justify-center">
-            <h1 className="font-bold tracking-tight text-primary-foreground text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
+            {/* Scaled down title */}
+            <h1 className="font-bold tracking-tight text-primary-foreground text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl">
               {generalHeroContent.title}
             </h1>
-            <p className="mt-2 max-w-md mx-auto leading-relaxed text-gray-200 text-xs xs:text-sm sm:text-base md:text-lg md:max-w-xl lg:max-w-2xl">
+            {/* Scaled down description */}
+            <p className="mt-2 max-w-md mx-auto leading-relaxed text-gray-200 text-xs sm:text-sm md:text-base md:max-w-xl lg:max-w-2xl">
               {generalHeroContent.description}
             </p>
             <div className="mt-4 flex flex-wrap items-center justify-center gap-2 xs:gap-3 sm:gap-x-4">
-              <Button size="default" asChild className="text-xs xs:text-sm px-3 xs:px-4 py-1.5 xs:py-2 sm:text-base">
+              {/* Scaled down buttons */}
+              <Button size="default" asChild className="text-xs px-3 py-1.5 sm:text-sm sm:px-4 sm:py-2">
                 <Link href="#events">
                   View Upcoming Events
                   <MoveRight className="ml-2 h-3 w-3 xs:h-4 xs:w-4" />
@@ -148,7 +152,7 @@ export default function HeroSection() {
                 size="default" 
                 variant="outline" 
                 asChild 
-                className="text-xs xs:text-sm px-3 xs:px-4 py-1.5 xs:py-2 sm:text-base text-foreground border-foreground/60 hover:bg-foreground/10 hover:text-foreground hover:border-foreground/80"
+                className="text-xs px-3 py-1.5 sm:text-sm sm:px-4 sm:py-2 text-foreground border-foreground/60 hover:bg-foreground/10 hover:text-foreground hover:border-foreground/80"
               >
                 <Link href="#community">Join Our Community</Link>
               </Button>

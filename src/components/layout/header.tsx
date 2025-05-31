@@ -30,14 +30,14 @@ export default function Header() {
     // Fallback for SSR/pre-hydration to avoid layout shift
     return (
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-6 sm:px-8 lg:px-10">
-           <Link href="#hero" className="flex items-center ml-24">
+        <div className="container mx-auto flex h-20 max-w-7xl items-center justify-between px-6 sm:px-8 lg:px-10">
+           <Link href="#hero" className="flex items-center">
             <Image
               src="/images/logo.png"
               alt="GUM Events Logo"
-              width={60}
-              height={60}
-              className="h-[60px] w-[60px]"
+              width={72}
+              height={72}
+              className="h-[72px] w-[72px]"
               data-ai-hint="logo"
               priority
             />
@@ -55,14 +55,14 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-6 sm:px-8 lg:px-10">
-        <Link href="#hero" className="flex items-center ml-24" onClick={() => setIsMobileMenuOpen(false)}>
+      <div className="container mx-auto flex h-20 max-w-7xl items-center justify-between px-6 sm:px-8 lg:px-10">
+        <Link href="#hero" className="flex items-center" onClick={() => setIsMobileMenuOpen(false)}>
           <Image
             src="/images/logo.png"
             alt="GUM Events Logo"
-            width={60}
-            height={60}
-            className="h-[60px] w-[60px]"
+            width={72}
+            height={72}
+            className="h-[72px] w-[72px]"
             data-ai-hint="logo"
             priority
           />
@@ -71,7 +71,7 @@ export default function Header() {
         <div className="flex items-center gap-1 sm:gap-2"> {/* Wrapper for right-aligned items */}
           <nav className="hidden items-center space-x-0.5 sm:space-x-1 md:flex">
             {navItems.map((item) => (
-              <Button key={item.label} variant="ghost" asChild className="text-xs sm:text-sm px-2 sm:px-3">
+              <Button key={item.label} variant="ghost" asChild className="text-sm sm:text-base px-3 sm:px-4">
                 <Link href={item.href}>{item.label}</Link>
               </Button>
             ))}
@@ -93,9 +93,9 @@ export default function Header() {
                     <Image
                       src="/images/logo.png"
                       alt="GUM Events Logo"
-                      width={52}
-                      height={52}
-                      className="h-[52px] w-[52px]"
+                      width={62}
+                      height={62}
+                      className="h-[62px] w-[62px]"
                       data-ai-hint="logo"
                     />
                   </Link>
@@ -111,7 +111,7 @@ export default function Header() {
                     <Button
                       key={item.label}
                       variant="ghost"
-                      className="justify-start text-lg"
+                      className="justify-start text-xl"
                       asChild
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
