@@ -23,7 +23,7 @@ export default function ContactSection() { // Changed to export default
             <Button
               asChild
               size="lg" // Retained for base height context if needed, but overridden by className
-              className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground font-bold w-full whitespace-normal h-auto text-[10px] px-2 py-2 xs:text-xs xs:px-3 xs:py-2 sm:text-sm sm:px-4 sm:py-2.5 md:text-base md:px-6 md:py-3"
+              className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground font-bold w-full whitespace-normal h-auto text-[10px] px-2 py-2 xs:text-xs xs:px-3 xs:py-2 sm:text-sm sm:px-4 sm:py-2.5 md:text-base md:px-6 md:py-3 break-words"
             >
               <a href="mailto:info@growingupmuslimevents.com">
                 Email Us: info@growingupmuslimevents.com
