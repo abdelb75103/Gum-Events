@@ -22,12 +22,12 @@ export default function ContactSection() { // Changed to export default
           <CardContent className="text-center pt-6 pb-8">
             <Button
               asChild
-              size="lg"
-              className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground text-base py-3 px-6 sm:py-4 sm:px-8 font-bold"
+              size="lg" // Retained for base height context if needed, but overridden by className
+              className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground font-bold w-full whitespace-normal h-auto text-[10px] px-2 py-2 xs:text-xs xs:px-3 xs:py-2 sm:text-sm sm:px-4 sm:py-2.5 md:text-base md:px-6 md:py-3"
             >
               <a href="mailto:info@growingupmuslimevents.com">
                 Email Us: info@growingupmuslimevents.com
-                <Mail className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+                <Mail className="ml-1 h-3 w-3 xs:ml-1.5 xs:h-3.5 xs:w-3.5 sm:ml-2 sm:h-4 sm:w-4 md:h-5 md:w-5" />
               </a>
             </Button>
           </CardContent>
