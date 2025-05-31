@@ -36,13 +36,13 @@ export default function HeroSection() {
   }, [api])
 
   const firstEvent = upcomingEvents.length > 0 ? upcomingEvents[0] : null;
-  const genericHeroImage = "/images/hero.png"; // Corrected path
+  const genericHeroImage = "/images/hero.png"; 
   const genericHeroImageHint = "community event";
 
   return (
     <section
       id="hero"
-      className="relative w-full h-[calc(90vh-5rem)] min-h-[500px] md:h-[calc(85vh-5rem)] overflow-hidden" // Adjusted for 5rem header
+      className="relative w-full h-[calc(90vh-5rem)] min-h-[500px] md:h-[calc(85vh-5rem)] overflow-hidden" 
     >
       <Carousel
         setApi={setApi}
@@ -57,7 +57,7 @@ export default function HeroSection() {
               {/* Blurred Background Layer */}
               <div className="absolute inset-0 overflow-hidden">
                 <Image
-                  src={firstEvent.image} // Changed imageUrl to image
+                  src={firstEvent.image} 
                   alt={`Blurred background for ${firstEvent.title}`}
                   fill
                   style={{ objectFit: 'cover' }}
@@ -71,7 +71,7 @@ export default function HeroSection() {
               <div className="relative z-10 flex flex-col items-center justify-center h-full p-4">
                 <div className="relative w-full max-w-[300px] xs:max-w-[340px] sm:max-w-[360px] md:max-w-[380px] lg:max-w-[400px] aspect-[4/5] shadow-2xl rounded-lg overflow-hidden">
                   <Image
-                    src={firstEvent.image} // Changed imageUrl to image
+                    src={firstEvent.image} 
                     alt={firstEvent.title}
                     fill
                     style={{ objectFit: 'cover' }}
@@ -100,15 +100,15 @@ export default function HeroSection() {
               fill
               style={{ objectFit: 'cover' }}
               className="z-0"
-              priority={!firstEvent}
+              priority // Always set priority to true for the main hero image
               data-ai-hint={genericHeroImageHint}
             />
             <div className="absolute inset-0 bg-black/60 z-10" />
-            <div className="relative z-20 flex flex-col items-center justify-center text-center h-full container mx-auto px-6 text-white">
+            <div className="relative z-20 flex flex-col items-center justify-center text-center h-full container mx-auto px-6 text-primary-foreground">
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-6 drop-shadow-lg">
                 Growing Up Muslim
               </h1>
-              <p className="text-lg sm:text-xl md:text-2xl text-neutral-100 mb-10 max-w-3xl mx-auto drop-shadow-md">
+              <p className="text-lg sm:text-xl md:text-2xl text-gray-200 mb-10 max-w-3xl mx-auto drop-shadow-md">
                 Discover inspiring events, connect with a vibrant community, and explore your faith together.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -125,7 +125,7 @@ export default function HeroSection() {
                   size="lg"
                   variant="outline"
                   asChild
-                  className="bg-transparent border-white text-white hover:bg-white hover:text-black px-8 py-6 text-lg shadow-md hover:shadow-lg transition-all w-full sm:w-auto"
+                  className="text-foreground border-foreground/60 hover:bg-foreground/10 hover:text-foreground hover:border-foreground/80 px-8 py-6 text-lg shadow-md hover:shadow-lg transition-all w-full sm:w-auto"
                 >
                   <Link href="#our-story">
                     Learn More
