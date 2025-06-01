@@ -42,7 +42,7 @@ export default function HeroSection() {
   return (
     <section
       id="hero"
-      className="relative w-full h-[calc(90vh-5rem)] min-h-[500px] md:h-[calc(85vh-5rem)] overflow-hidden"
+      className="relative w-full h-[calc(81vh-5rem)] min-h-[500px] md:h-[calc(76.5vh-5rem)] overflow-hidden"
     >
       <Carousel
         setApi={setApi}
@@ -155,3 +155,4 @@ export default function HeroSection() {
     </section>
   );
 }
+
