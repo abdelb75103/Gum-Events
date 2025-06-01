@@ -3,7 +3,7 @@
 
 import type { SocialLink } from '@/lib/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button, buttonVariants } from '@/components/ui/button'; // Import buttonVariants
+import { buttonVariants } from '@/components/ui/button'; // Ensure this is imported
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -23,14 +23,15 @@ export function SocialLinkCard({ link }: SocialLinkCardProps) {
         </div>
       </CardHeader>
       <CardContent className="flex-grow flex flex-col justify-end">
+        {/* This is the corrected part: Link styled as a button, no <Button asChild> */}
         <Link
           href={link.href}
           target="_blank"
           rel="noopener noreferrer"
           className={cn(
-            buttonVariants({ variant: "default", size: "default" }), // Apply base button styles
-            link.buttonClasses, // Apply custom styles from config (these should override base variant colors)
-            'w-full mt-auto'    // Ensure it takes full width and is pushed to bottom
+            buttonVariants({ variant: "default", size: "default" }), 
+            link.buttonClasses, 
+            'w-full mt-auto'    
           )}
         >
           {link.cta || 'Visit'} <ArrowRight className="ml-2 h-4 w-4" />
@@ -39,4 +40,3 @@ export function SocialLinkCard({ link }: SocialLinkCardProps) {
     </Card>
   );
 }
-
