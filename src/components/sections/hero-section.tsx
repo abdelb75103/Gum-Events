@@ -74,7 +74,7 @@ export default function HeroSection() {
                     src={firstEvent.image}
                     alt={firstEvent.title}
                     fill
-                    style={{ objectFit: 'cover' }}
+                    style={{ objectFit: 'contain' }}
                     data-ai-hint={firstEvent.imageHint || "event poster"}
                     className="rounded-lg"
                   />
