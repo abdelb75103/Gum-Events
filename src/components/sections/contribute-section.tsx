@@ -101,28 +101,10 @@ export default function ContributeSection() {
         </h2>
         <div className="mt-2 mx-auto h-[3px] w-24 rounded-full bg-gradient-to-r from-primary to-accent"></div>
         <p className="mt-6 max-w-2xl mx-auto text-lg leading-8 text-muted-foreground">
-          Your generous contributions help us continue our work, organize impactful events,
-          and support the GUM community. Choose how you'd like to make a difference.
-        </p>
-        <p className="mt-4 max-w-2xl mx-auto text-lg leading-8 text-muted-foreground">
-          Watch the video below to see the impact your support can make.
+          Your generous contributions are vital to our mission. They directly fund impactful community events, allow us to invite inspiring speakers, and help us support the GUM community. Every contribution, no matter the size, makes a real difference. Choose how you&apos;d like to support us today.
         </p>
 
-        <div className="my-10 mx-auto max-w-xl">
-          <video
-            width="100%"
-            controls
-            controlsList="nodownload"
-            preload="metadata"
-            className="rounded-xl shadow-xl aspect-video"
-            aria-label="Our Mission Video"
-          >
-            <source src="/videos/intro.mp4" type="video/mp4" />
-            Your browser does not support the video tag. Consider updating to a more modern browser.
-          </video>
-        </div>
-
-        <Card className="p-6 sm:p-8 shadow-xl mx-auto max-w-md text-left">
+        <Card className="p-6 sm:p-8 shadow-xl mx-auto max-w-md text-left mt-10">
           <div className="space-y-6">
             <div>
               <Label htmlFor="contribution-amount-styled" className="text-base font-medium text-foreground mb-2 block">
