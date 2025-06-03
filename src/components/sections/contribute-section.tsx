@@ -100,8 +100,12 @@ export default function ContributeSection() {
           Support Our Mission
         </h2>
         <div className="mt-2 mx-auto h-[3px] w-24 rounded-full bg-gradient-to-r from-primary to-accent"></div>
+        
         <p className="mt-6 max-w-2xl mx-auto text-lg leading-8 text-muted-foreground text-left">
-          Your contribution, big or small, is vital as we continue to grow and serve the community. Your support helps us host more life-changing events and reach even more individuals. Together, we can build a sustainable future for Growing Up Muslim.
+          <strong>We need your help!</strong> As we continue to grow and serve the community, your support helps us continue to host life-changing events and also offer free and/or discounted tickets to those who may not have the financial means and new Muslims. Together, we can build a sustainable future.
+        </p>
+        <p className="mt-4 max-w-2xl mx-auto text-lg leading-8 text-muted-foreground text-left">
+          Your contribution, big or small, supports not just your Islamic journey but countless others.
         </p>
 
         <Card className="p-6 sm:p-8 shadow-xl mx-auto max-w-md text-left mt-10">
@@ -203,6 +207,7 @@ export default function ContributeSection() {
                   <li>Developing educational resources and materials.</li>
                   <li>Maintaining our online platforms and community channels.</li>
                   <li>Covering operational costs to ensure GUM can continue its work effectively.</li>
+                  <li>Offering free or discounted tickets to ensure events are accessible to all, including new Muslims and those with financial constraints.</li>
                 </ul>
                 Every contribution, no matter the size, makes a real difference. Thank you for your generosity!
               </AccordionContent>
