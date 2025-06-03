@@ -24,7 +24,7 @@ const getStripe = () => {
 };
 
 export default function ContributeSection() {
-  const [amount, setAmount] = useState<string>("10.00"); 
+  const [amount, setAmount] = useState<string>(""); 
   const [contributionType, setContributionType] = useState<'once-off' | 'monthly'>('once-off');
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -104,10 +104,10 @@ export default function ContributeSection() {
         <p className="mt-6 max-w-2xl mx-auto text-lg leading-8 text-muted-foreground text-center">
           <strong>We need your help!</strong>
         </p>
-        <p className="mt-2 max-w-2xl mx-auto text-lg leading-8 text-muted-foreground text-left">
+        <p className="mt-2 max-w-2xl mx-auto text-lg leading-8 text-muted-foreground text-center">
           As we continue to grow and serve the community, your support helps us continue to host life-changing events and also offer free and/or discounted tickets to those who may not have the financial means and new Muslims. Together, we can build a sustainable future.
         </p>
-        <p className="mt-4 max-w-2xl mx-auto text-lg leading-8 text-muted-foreground text-left">
+        <p className="mt-4 max-w-2xl mx-auto text-lg leading-8 text-muted-foreground text-center">
           Your contribution, big or small, supports not just your Islamic journey but countless others.
         </p>
 
