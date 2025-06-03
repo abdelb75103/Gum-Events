@@ -16,7 +16,6 @@ const navItems = [
   { label: "Contribute", href: "#contribute" },
   { label: "Events", href: "#events" },
   { label: "Speakers", href: "#speakers" },
-  { label: "Community", href: "#community" },
   { label: "Volunteer", href: "#volunteer" },
   { label: "Contact", href: "#contact" },
 ];
