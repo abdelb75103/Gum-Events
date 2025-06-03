@@ -208,11 +208,6 @@ export default function ContributeSection() {
                   <li>Sponsoring free tickets for new Muslims.</li>
                   <li>Sponsoring tickets for those who may not have the financial means.</li>
                   <li>Covering event costs: venue, flights, hotel, honorariums, photography/videography.</li>
-                  <li>Organizing impactful community events and workshops.</li>
-                  <li>Inviting knowledgeable speakers and scholars.</li>
-                  <li>Developing educational resources and materials.</li>
-                  <li>Maintaining our online platforms and community channels.</li>
-                  <li>Covering operational costs to ensure GUM can continue its work effectively.</li>
                 </ul>
                 Every contribution, no matter the size, makes a real difference. Thank you for your generosity!
               </AccordionContent>
