@@ -100,8 +100,8 @@ export default function ContributeSection() {
           Support Our Mission
         </h2>
         <div className="mt-2 mx-auto h-[3px] w-24 rounded-full bg-gradient-to-r from-primary to-accent"></div>
-        <p className="mt-6 max-w-2xl mx-auto text-lg leading-8 text-muted-foreground">
-          Your generous contributions are vital to our mission. They directly fund impactful community events, allow us to invite inspiring speakers, and help us support the GUM community. Every contribution, no matter the size, makes a real difference. Choose how you&apos;d like to support us today.
+        <p className="mt-6 max-w-2xl mx-auto text-lg leading-8 text-muted-foreground text-left">
+          Your contribution, big or small, is vital as we continue to grow and serve the community. Your support helps us host more life-changing events and reach even more individuals. Together, we can build a sustainable future for Growing Up Muslim.
         </p>
 
         <Card className="p-6 sm:p-8 shadow-xl mx-auto max-w-md text-left mt-10">
