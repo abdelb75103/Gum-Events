@@ -101,8 +101,11 @@ export default function ContributeSection() {
         </h2>
         <div className="mt-2 mx-auto h-[3px] w-24 rounded-full bg-gradient-to-r from-primary to-accent"></div>
         
-        <p className="mt-6 max-w-2xl mx-auto text-lg leading-8 text-muted-foreground text-left">
-          <strong>We need your help!</strong> As we continue to grow and serve the community, your support helps us continue to host life-changing events and also offer free and/or discounted tickets to those who may not have the financial means and new Muslims. Together, we can build a sustainable future.
+        <p className="mt-6 max-w-2xl mx-auto text-lg leading-8 text-muted-foreground text-center">
+          <strong>We need your help!</strong>
+        </p>
+        <p className="mt-2 max-w-2xl mx-auto text-lg leading-8 text-muted-foreground text-left">
+          As we continue to grow and serve the community, your support helps us continue to host life-changing events and also offer free and/or discounted tickets to those who may not have the financial means and new Muslims. Together, we can build a sustainable future.
         </p>
         <p className="mt-4 max-w-2xl mx-auto text-lg leading-8 text-muted-foreground text-left">
           Your contribution, big or small, supports not just your Islamic journey but countless others.
