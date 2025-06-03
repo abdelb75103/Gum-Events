@@ -104,10 +104,10 @@ export default function ContributeSection() {
         <p className="mt-6 max-w-2xl mx-auto text-lg leading-8 text-muted-foreground text-center">
           <strong>We need your help!</strong>
         </p>
-        <p className="mt-2 max-w-2xl mx-auto text-lg leading-8 text-muted-foreground text-center">
+        <p className="mt-2 max-w-2xl mx-auto text-lg leading-8 text-muted-foreground text-left">
           As we continue to grow and serve the community, your support helps us continue to host life-changing events and also offer free and/or discounted tickets to those who may not have the financial means and new Muslims. Together, we can build a sustainable future.
         </p>
-        <p className="mt-4 max-w-2xl mx-auto text-lg leading-8 text-muted-foreground text-center">
+        <p className="mt-4 max-w-2xl mx-auto text-lg leading-8 text-muted-foreground text-left">
           Your contribution, big or small, supports not just your Islamic journey but countless others.
         </p>
 
@@ -203,13 +203,12 @@ export default function ContributeSection() {
                 What will my contribution be used for?
               </AccordionTrigger>
               <AccordionContent className="text-base text-muted-foreground">
-                Your contributions are vital to our mission. They help fund:
+                Your contributions will go towards:
                 <ul className="list-disc space-y-1 pl-5 mt-2">
                   <li>Sponsoring free tickets for new Muslims.</li>
-                  <li>Sponsoring tickets for those who may not have the financial means.</li>
-                  <li>Covering event costs: venue, flights, hotel, honorariums, photography/videography.</li>
+                  <li>Sponsoring free/discunted tickets for those who may not have the financial means.</li>
+                  <li>Covering event costs: venues, flights, hotels, honorariums, photography/videography.</li>
                 </ul>
-                Every contribution, no matter the size, makes a real difference. Thank you for your generosity!
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -218,3 +217,4 @@ export default function ContributeSection() {
     </section>
   );
 }
+
