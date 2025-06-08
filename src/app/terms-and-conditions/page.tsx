@@ -11,7 +11,7 @@ export default function TermsAndConditionsPage() {
         <Container>
           <div className="prose prose-sm sm:prose-base lg:prose-lg xl:prose-xl 2xl:prose-2xl mx-auto dark:prose-invert">
             <h1 className="text-3xl font-bold mb-6 text-center text-primary">Terms and Conditions</h1>
-            <p className="text-center text-sm text-muted-foreground mb-8">Last updated: July 26, 2024</p>
+            <p className="text-center text-sm text-muted-foreground mb-8">Last updated: June 8, 2025</p>
 
             <h2 className="text-2xl font-semibold mt-8 mb-3 text-primary">PART A: WEBSITE USE</h2>
 
