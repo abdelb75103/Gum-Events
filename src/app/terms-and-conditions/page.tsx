@@ -13,10 +13,7 @@ export default function TermsAndConditionsPage() {
             <h1 className="text-3xl font-bold mb-6 text-center text-primary">Terms and Conditions</h1>
             <p className="text-center text-sm text-muted-foreground mb-8">Last updated: June 1, 2024</p>
 
-            <div className="bg-destructive/10 border-l-4 border-destructive text-destructive-foreground p-4 mb-8 rounded-md" role="alert">
-              <p className="font-bold">Important Notice:</p>
-              <p>This is a template Terms and Conditions page. The content provided below is for placeholder and informational purposes only and does not constitute legal advice. You should consult with a qualified legal professional to ensure these terms are appropriate for your specific circumstances and comply with all applicable laws and regulations.</p>
-            </div>
+            
 
             <h2 className="text-2xl font-semibold mt-8 mb-3 text-primary">PART A: WEBSITE USE</h2>
 
@@ -108,3 +105,4 @@ export default function TermsAndConditionsPage() {
     </div>
   );
 }
+
