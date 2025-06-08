@@ -66,12 +66,14 @@ export default function TermsAndConditionsPage() {
             <p>Event access is granted through registration or ticket purchase via third-party platforms.</p>
             <p>By registering, you agree to comply with all venue rules, health and safety requirements, and these Terms.</p>
             <p>We reserve the right to refuse entry or remove individuals at our discretion.</p>
+            <p>Tickets are generally non-refundable. All refund requests are handled by GUM Events and will be considered on a case-by-case basis, granted at our sole discretion.</p>
+
 
             <h3 className="text-xl font-semibold mt-6 mb-2">9. Changes and Cancellations</h3>
             <p>We may change event details (including speaker line-ups, locations, or schedules) or cancel events for reasons beyond our control. In such cases:</p>
             <ul className="list-disc pl-6">
               <li>We will attempt to notify registered attendees;</li>
-              <li>Refunds, if any, are handled by the third-party ticketing provider and subject to their refund policy.</li>
+              <li>Refunds, if any, are issued by GUM Events on a case-by-case basis and at our sole discretion. If an event is cancelled by GUM Events, we will make reasonable efforts to inform ticket holders regarding available refund options or procedures.</li>
             </ul>
 
             <h3 className="text-xl font-semibold mt-6 mb-2">10. Photography and Recordings</h3>
@@ -106,5 +108,3 @@ export default function TermsAndConditionsPage() {
     </div>
   );
 }
-
-    
