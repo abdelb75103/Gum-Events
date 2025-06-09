@@ -11,7 +11,7 @@ export default function PrivacyPolicyPage() {
         <Container>
           <div className="prose prose-sm sm:prose-base lg:prose-lg xl:prose-xl 2xl:prose-2xl mx-auto dark:prose-invert">
             <h1 className="text-3xl font-bold mb-6 text-center text-primary">Privacy Policy</h1>
-            <p className="text-center text-sm text-muted-foreground mb-8">Last updated: June 1, 2025</p>
+            <p className="text-center text-sm text-muted-foreground mb-8">Last updated: June 9, 2025</p>
 
             <p>GUM Events Limited (“GUM Events”, “we”, “us”, “our”) respects your privacy and is committed to protecting your personal data. This privacy policy explains how we collect, use, share, and protect your personal data in accordance with the General Data Protection Regulation (EU GDPR), the Irish Data Protection Acts, and other applicable laws.</p>
 
