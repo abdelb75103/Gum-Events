@@ -70,7 +70,7 @@ const CustomTooltipContent = ({ active, payload, label }: TooltipProps<ValueType
 
 export default function OurImpactSection() { // Changed function name
   return (
-    <section id="our-impact" className="py-16 sm:py-24 bg-secondary dark:bg-card"> {/* Adjusted padding and background */}
+    <section id="our-impact" className="py-16 sm:py-24 bg-secondary dark:bg-background"> {/* Adjusted padding and background */}
       <Container> {/* Used standard Container component */}
         <div className="text-center mb-12 md:mb-16">
           <TrendingUp className="h-12 w-12 md:h-16 md:w-16 text-primary mx-auto mb-4 md:mb-6" /> {/* Adjusted icon size and margin */}
@@ -85,9 +85,12 @@ export default function OurImpactSection() { // Changed function name
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 md:mb-16"> {/* Added md:mb-16 */}
           {impactData.map((item) => (
-            <Card key={item.metric} className="shadow-lg hover:shadow-xl transition-shadow duration-300 bg-card text-card-foreground"> {/* Added text-card-foreground */}
+            <Card 
+              key={item.metric} 
+              className="shadow-lg hover:shadow-xl transition-shadow duration-300 bg-card/75 dark:bg-card/60 backdrop-blur-lg text-card-foreground"
+            >
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium"> {/* Removed text-card-foreground as Card should handle it */}
+                <CardTitle className="text-sm font-medium">
                   {item.metric}
                 </CardTitle>
                 <item.icon className="h-5 w-5 text-muted-foreground" />
@@ -100,10 +103,10 @@ export default function OurImpactSection() { // Changed function name
           ))}
         </div>
 
-        <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 bg-card text-card-foreground col-span-1 md:col-span-3"> {/* Added text-card-foreground */}
+        <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 bg-card/75 dark:bg-card/60 backdrop-blur-lg text-card-foreground col-span-1 md:col-span-3">
           <CardHeader>
             <div className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-xl font-semibold">Our Growing Community</CardTitle> {/* Removed text-card-foreground */}
+              <CardTitle className="text-xl font-semibold">Our Growing Community</CardTitle>
               <Users className="h-6 w-6 text-muted-foreground" />
             </div>
           </CardHeader>
@@ -125,15 +128,15 @@ export default function OurImpactSection() { // Changed function name
                     <stop offset="95%" stopColor="var(--color-members)" stopOpacity={0}/>
                   </linearGradient>
                 </defs>
-                <CartesianGrid vertical={false} strokeDasharray="3 3" className="stroke-border/50" /> {/* Added stroke color for grid */}
+                <CartesianGrid vertical={false} strokeDasharray="3 3" className="stroke-border/50" />
                 <XAxis
                   dataKey="year"
                   tickLine={false}
                   tickMargin={10}
                   axisLine={true}
-                  tickFormatter={(value) => String(value).slice(0, 4)} // Ensure value is string
+                  tickFormatter={(value) => String(value).slice(0, 4)}
                   interval={0}
-                  stroke="hsl(var(--muted-foreground))" /* Ensuring XAxis line and ticks are visible */
+                  stroke="hsl(var(--muted-foreground))"
                   tick={{ fill: 'hsl(var(--muted-foreground))' }}
                 />
                 <YAxis
