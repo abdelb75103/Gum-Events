@@ -3,7 +3,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Globe, Award, CalendarDays, TrendingUp, Users } from 'lucide-react';
-import Container from '@/components/ui/container'; // Added import for Container
+import Container from '@/components/ui/container'; 
 import {
   AreaChart,
   Area,
@@ -68,26 +68,26 @@ const CustomTooltipContent = ({ active, payload, label }: TooltipProps<ValueType
   return null;
 };
 
-export default function OurImpactSection() { // Changed function name
+export default function OurImpactSection() { 
   return (
-    <section id="our-impact" className="py-16 sm:py-24 bg-secondary dark:bg-background"> {/* Adjusted padding and background */}
-      <Container> {/* Used standard Container component */}
+    <section id="our-impact" className="py-16 sm:py-24 bg-secondary dark:bg-background"> 
+      <Container> 
         <div className="text-center mb-12 md:mb-16">
-          <TrendingUp className="h-12 w-12 md:h-16 md:w-16 text-primary mx-auto mb-4 md:mb-6" /> {/* Adjusted icon size and margin */}
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground"> {/* Removed custom underline classes */}
+          <TrendingUp className="h-12 w-12 md:h-16 md:w-16 text-primary mx-auto mb-4 md:mb-6" /> 
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground"> 
             Our Impact
           </h2>
-          <div className="mt-2 mx-auto h-[3px] w-24 rounded-full bg-gradient-to-r from-primary to-accent"></div> {/* Added standard underline */}
+          <div className="mt-2 mx-auto h-[3px] w-24 rounded-full bg-gradient-to-r from-primary to-accent"></div> 
           <p className="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
             Making a meaningful difference through our dedicated efforts and community engagement.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 md:mb-16"> {/* Added md:mb-16 */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 md:mb-16"> 
           {impactData.map((item) => (
             <Card 
               key={item.metric} 
-              className="shadow-lg hover:shadow-xl transition-shadow duration-300 bg-card/75 dark:bg-card/60 backdrop-blur-lg text-card-foreground"
+              className="text-card-foreground shadow-lg" // Removed blur and opacity, kept shadow-lg
             >
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
@@ -103,7 +103,7 @@ export default function OurImpactSection() { // Changed function name
           ))}
         </div>
 
-        <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 bg-card/75 dark:bg-card/60 backdrop-blur-lg text-card-foreground col-span-1 md:col-span-3">
+        <Card className="text-card-foreground shadow-lg col-span-1 md:col-span-3"> {/* Removed blur and opacity, kept shadow-lg */}
           <CardHeader>
             <div className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-xl font-semibold">Our Growing Community</CardTitle>
