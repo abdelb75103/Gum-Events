@@ -14,8 +14,8 @@ import { submitContactForm } from "@/app/actions";
 function SubmitButton() {
   const { pending } = useFormStatus();
   return (
-    <Button type="submit" aria-disabled={pending} disabled={pending} className="w-full">
-      {pending ? "Sending..." : "Send Message"}
+    <Button type="submit" aria-disabled={pending} loading={pending} className="w-full">
+      Send Message
     </Button>
   );
 }
@@ -74,4 +74,3 @@ export default function ContactForm() {
     </form>
   );
 }
-

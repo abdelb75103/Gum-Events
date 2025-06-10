@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card"; // Removed CardHeader as it's not used
 import { Gift, Euro } from "lucide-react";
 import { loadStripe } from '@stripe/stripe-js';
 import { cn } from "@/lib/utils";
@@ -111,81 +111,84 @@ export default function ContributeSection() {
           Your contribution, big or small, supports not just your Islamic journey but countless others.
         </p>
 
-        <Card className="p-6 sm:p-8 shadow-xl mx-auto max-w-md text-left mt-10">
-          <div className="space-y-6">
-            <div>
-              <Label htmlFor="contribution-amount-styled" className="text-base font-medium text-foreground mb-2 block">
-                Choose your contribution amount
-              </Label>
-              <div className="rounded-lg p-0.5 bg-gradient-to-r from-primary to-accent">
-                <div className="relative flex items-center rounded-md bg-background">
-                  <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                    <Euro className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
+        <Card className="p-6 sm:p-8 shadow-xl mx-auto max-w-md text-left mt-10 bg-card">
+          <CardContent className="p-0"> {/* Removed default padding from CardContent */}
+            <div className="space-y-6">
+              <div>
+                <Label htmlFor="contribution-amount-styled" className="text-base font-medium text-foreground mb-2 block">
+                  Choose your contribution amount
+                </Label>
+                <div className="rounded-lg p-0.5 bg-gradient-to-r from-primary to-accent">
+                  <div className="relative flex items-center rounded-md bg-background">
+                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                      <Euro className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
+                    </div>
+                    <Input
+                      type="number"
+                      name="contribution-amount-styled"
+                      id="contribution-amount-styled"
+                      className="w-full border-transparent bg-transparent pl-10 pr-4 text-foreground placeholder:text-muted-foreground focus-visible:ring-0 sm:text-sm"
+                      placeholder="Enter amount"
+                      value={amount}
+                      onChange={(e) => setAmount(e.target.value)}
+                      aria-label="Contribution Amount in Euros"
+                      min="1"
+                      disabled={isLoading}
+                    />
                   </div>
-                  <Input
-                    type="number"
-                    name="contribution-amount-styled"
-                    id="contribution-amount-styled"
-                    className="w-full border-transparent bg-transparent pl-10 pr-4 text-foreground placeholder:text-muted-foreground focus-visible:ring-0 sm:text-sm"
-                    placeholder="Enter amount"
-                    value={amount}
-                    onChange={(e) => setAmount(e.target.value)}
-                    aria-label="Contribution Amount in Euros"
-                    min="1"
-                    disabled={isLoading}
-                  />
                 </div>
               </div>
-            </div>
 
-            <div>
-              <Label className="text-base font-medium text-foreground mb-2 block">
-                Select contribution type
-              </Label>
-              <div className="grid grid-cols-2 gap-3">
-                <Button
-                  variant={contributionType === 'once-off' ? "default" : "outline"}
-                  onClick={() => setContributionType('once-off')}
-                  className={cn(
-                    "py-3 text-base rounded-md",
-                    contributionType === 'once-off'
-                      ? "bg-primary text-primary-foreground hover:bg-primary/90"
-                      : "bg-card text-foreground border-border hover:bg-muted"
-                  )}
-                  disabled={isLoading}
-                >
-                  Once-off
-                </Button>
-                <Button
-                  variant={contributionType === 'monthly' ? "default" : "outline"}
-                  onClick={() => setContributionType('monthly')}
-                  className={cn(
-                    "py-3 text-base rounded-md",
-                    contributionType === 'monthly'
-                      ? "bg-accent text-accent-foreground hover:bg-accent/90"
-                      : "bg-card text-foreground border-border hover:bg-muted"
-                  )}
-                  disabled={isLoading}
-                >
-                  Monthly
-                </Button>
+              <div>
+                <Label className="text-base font-medium text-foreground mb-2 block">
+                  Select contribution type
+                </Label>
+                <div className="grid grid-cols-2 gap-3">
+                  <Button
+                    variant={contributionType === 'once-off' ? "default" : "outline"}
+                    onClick={() => setContributionType('once-off')}
+                    className={cn(
+                      "py-3 text-base rounded-md",
+                      contributionType === 'once-off'
+                        ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                        : "bg-card text-foreground border-border hover:bg-muted"
+                    )}
+                    disabled={isLoading}
+                  >
+                    Once-off
+                  </Button>
+                  <Button
+                    variant={contributionType === 'monthly' ? "default" : "outline"}
+                    onClick={() => setContributionType('monthly')}
+                    className={cn(
+                      "py-3 text-base rounded-md",
+                      contributionType === 'monthly'
+                        ? "bg-accent text-accent-foreground hover:bg-accent/90"
+                        : "bg-card text-foreground border-border hover:bg-muted"
+                    )}
+                    disabled={isLoading}
+                  >
+                    Monthly
+                  </Button>
+                </div>
               </div>
-            </div>
 
-            <Button
-              size="lg"
-              className={cn(
-                "w-full text-lg py-3 rounded-md",
-                contributionType === 'once-off' 
-                  ? "bg-primary text-primary-foreground hover:bg-primary/90" 
-                  : "bg-accent text-accent-foreground hover:bg-accent/90"
-              )}
-              onClick={handleContribution}
-              disabled={isLoading || !amount || parseFloat(amount) <= 0}
-            >
-              {isLoading ? 'Processing...' : `Contribute €${displayAmount}`}
-            </Button>
-          </div>
+              <Button
+                size="lg"
+                className={cn(
+                  "w-full text-lg py-3 rounded-md",
+                  contributionType === 'once-off' 
+                    ? "bg-primary text-primary-foreground hover:bg-primary/90" 
+                    : "bg-accent text-accent-foreground hover:bg-accent/90"
+                )}
+                onClick={handleContribution}
+                loading={isLoading} // Use the new loading prop
+                disabled={isLoading || !amount || parseFloat(amount) <= 0}
+              >
+                {`Contribute €${displayAmount}`}
+              </Button>
+            </div>
+          </CardContent>
         </Card>
 
         {errorMessage && (
@@ -217,4 +220,3 @@ export default function ContributeSection() {
     </section>
   );
 }
-

@@ -3,7 +3,7 @@
 
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react"; // Added useRef
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,8 +14,8 @@ import { Mail } from "lucide-react";
 function SubmitButton() {
   const { pending } = useFormStatus();
   return (
-    <Button type="submit" aria-disabled={pending} disabled={pending} className="w-full sm:w-auto">
-      {pending ? "Subscribing..." : "Subscribe"}
+    <Button type="submit" aria-disabled={pending} loading={pending} className="w-full sm:w-auto">
+      Subscribe
     </Button>
   );
 }
@@ -24,6 +24,7 @@ export default function NewsletterForm() {
   const initialState = { message: null, errors: {} };
   const [state, dispatch] = useActionState(submitNewsletterForm, initialState);
   const { toast } = useToast();
+  const formRef = useRef<HTMLFormElement>(null); // Added formRef
 
   useEffect(() => {
     if (state.message) {
@@ -38,13 +39,13 @@ export default function NewsletterForm() {
           title: "Success!",
           description: state.message,
         });
-        // Optionally reset form here if needed by managing form ref
+        formRef.current?.reset(); // Reset form on successful submission
       }
     }
   }, [state, toast]);
 
   return (
-    <form action={dispatch} className="mx-auto max-w-md space-y-4">
+    <form ref={formRef} action={dispatch} className="mx-auto max-w-md space-y-4"> {/* Added formRef */}
       <div>
         <Label htmlFor="email-newsletter" className="sr-only">Email address</Label>
         <div className="relative">
@@ -71,4 +72,3 @@ export default function NewsletterForm() {
     </form>
   );
 }
-

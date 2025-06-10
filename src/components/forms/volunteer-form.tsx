@@ -3,7 +3,7 @@
 
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react"; // Added useRef
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,8 +14,8 @@ import { submitVolunteerForm } from "@/app/actions";
 function SubmitButton() {
   const { pending } = useFormStatus();
   return (
-    <Button type="submit" aria-disabled={pending} disabled={pending} className="w-full">
-      {pending ? "Submitting..." : "Submit Application"}
+    <Button type="submit" aria-disabled={pending} loading={pending} className="w-full">
+      Submit Application
     </Button>
   );
 }
@@ -24,6 +24,7 @@ export default function VolunteerForm() {
   const initialState = { message: null, errors: {} };
   const [state, dispatch] = useActionState(submitVolunteerForm, initialState);
   const { toast } = useToast();
+  const formRef = useRef<HTMLFormElement>(null); // Added formRef
 
   useEffect(() => {
     if (state.message) {
@@ -38,13 +39,13 @@ export default function VolunteerForm() {
           title: "Success!",
           description: state.message,
         });
-        // Optionally reset form here if needed by managing form ref
+        formRef.current?.reset(); // Reset form on successful submission
       }
     }
   }, [state, toast]);
 
   return (
-    <form action={dispatch} className="space-y-6">
+    <form ref={formRef} action={dispatch} className="space-y-6"> {/* Added formRef */}
       <div>
         <Label htmlFor="name-volunteer">Full Name</Label>
         <Input id="name-volunteer" name="name" type="text" required className="mt-1"/>
@@ -81,4 +82,3 @@ export default function VolunteerForm() {
     </form>
   );
 }
-
