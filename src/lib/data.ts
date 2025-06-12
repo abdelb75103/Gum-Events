@@ -9,9 +9,9 @@ export const events: Event[] = [
     time: "10:00 AM - 5:00 PM",
     location: "Community Grand Hall",
     description: "Join us for an inspiring day of talks, workshops, and networking for young Muslims.",
-    registrationLink: "#",
-    image: "/images/2025_UK tour fnl flyers_Dublin.png",
-    imageHint: "conference poster",
+    registrationLink: "https://www.eventbrite.ie/e/1410834667469?aff=oddtdtcreator",
+    image: "/images/ireland.png",
+    imageHint: "Ireland event poster",
   },
   // {
   //   id: "2",
