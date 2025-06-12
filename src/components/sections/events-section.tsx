@@ -42,6 +42,8 @@ export default function EventsSection() {
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/60 to-transparent p-3 transition-opacity duration-300">
               <Link
                 href={upcomingEvent.registrationLink}
+                target="_blank"
+                rel="noopener noreferrer"
                 className={cn(
                   buttonVariants({ variant: "default" }), // Apply base button styles, size will be default (h-10, px-4, py-2)
                   // Override/add specific styles for this button:
