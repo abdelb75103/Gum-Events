@@ -66,7 +66,7 @@ export default function Header() {
     // Apply base classes, visibility will be true by default
     return (
       <header className={cn(
-        "sticky top-0 z-50 w-full border-b border-border/40 bg-background/95",
+        "sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-sm", // Added backdrop-blur-sm back
         "transition-transform duration-300 ease-in-out", // Base transition classes
         "translate-y-0" // Default to visible for SSR
       )}>
@@ -96,7 +96,7 @@ export default function Header() {
 
   return (
     <header className={cn(
-      "sticky top-0 z-50 w-full border-b border-border/40 bg-background/95",
+      "sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-sm", // Added backdrop-blur-sm back
       "transition-transform duration-300 ease-in-out", // For smooth animation
       isHeaderVisible ? "translate-y-0" : "-translate-y-full" // Conditional transform
     )}>
