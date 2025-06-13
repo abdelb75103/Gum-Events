@@ -17,8 +17,8 @@ const featuredSpeakers: SpeakerCardProps[] = [
   { name: "Rhyad Muslim", imageUrl: "/images/speakers/rhyad.jpg", imageHint: "male speaker" },
   { name: "Muslim Belal", imageUrl: "/images/speakers/mb.jpg", imageHint: "male speaker" },
   { name: "Faisal Latif", imageUrl: "/images/speakers/fl.jpg", imageHint: "male speaker" },
-  { name: "Ibby", imageUrl: "https://placehold.co/400x300.png", imageHint: "male speaker" },
-  { name: "The Digital Sisterhood", imageUrl: "https://placehold.co/400x300.png", imageHint: "group people" },
+  { name: "Ibby", imageUrl: "/images/speakers/ibby.png", imageHint: "male speaker" },
+  { name: "The Digital Sisterhood", imageUrl: "/images/speakers/tds.png", imageHint: "group people" },
 ];
 
 export default function SpeakersSection() {
@@ -52,3 +52,4 @@ export default function SpeakersSection() {
     </section>
   );
 }
+
