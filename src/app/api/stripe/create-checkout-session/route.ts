@@ -21,71 +21,63 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: 'Amount must be positive.' }, { status: 400 });
     }
 
-
     const YOUR_DOMAIN = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
 
+    const success_url = `${YOUR_DOMAIN}/?contribution_success=true&session_id={CHECKOUT_SESSION_ID}`;
+    const cancel_url = `${YOUR_DOMAIN}/?contribution_canceled=true`;
+
+    console.log('[Stripe API] Attempting to create session with:');
+    console.log('[Stripe API] Amount (cents):', amount);
+    console.log('[Stripe API] Currency:', currency);
+    console.log('[Stripe API] Contribution Type:', contributionType);
+    console.log('[Stripe API] Success URL:', success_url);
+    console.log('[Stripe API] Cancel URL:', cancel_url);
+    console.log('[Stripe API] YOUR_DOMAIN used:', YOUR_DOMAIN);
+
+
     let sessionOptions: Stripe.Checkout.SessionCreateParams = {
-      payment_method_types: ['card'], // Stripe Checkout enables Apple/Google Pay if configured in dashboard
+      payment_method_types: ['card'],
       line_items: [
         {
           price_data: {
             currency: currency,
             product_data: {
               name: contributionType === 'monthly' ? 'Monthly Contribution to GUM Events' : 'One-off Contribution to GUM Events',
-              // You can add more product details like description or images here
-              // description: "Support Growing Up Muslim Events",
-              // images: [`${YOUR_DOMAIN}/images/logo.png`], // Example image
             },
-            unit_amount: amount, // Amount in cents, e.g., 1000 for €10.00
+            unit_amount: amount, // Amount in cents
             ...(contributionType === 'monthly' && { recurring: { interval: 'month' } }),
           },
           quantity: 1,
         },
       ],
       mode: contributionType === 'monthly' ? 'subscription' : 'payment',
-      success_url: `${YOUR_DOMAIN}/?contribution_success=true&session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${YOUR_DOMAIN}/?contribution_canceled=true`,
-      // To enable Apple Pay / Google Pay, ensure they are active in your Stripe dashboard settings
-      // for Checkout. Stripe will automatically show them if the customer is eligible and has them set up.
-      // You may also need to verify your domain with Stripe for Apple Pay.
-      // Consider using automatic_payment_methods for broader payment method support if desired:
-      // automatic_payment_methods: {enabled: true},
-      // For strong customer authentication (SCA) compliance, Stripe handles this by default with Checkout.
+      success_url: success_url,
+      cancel_url: cancel_url,
+      // automatic_payment_methods: {enabled: true}, // Consider enabling for more payment methods
     };
-
-    // If you have predefined Stripe Price IDs for monthly subscriptions, you would use them here.
-    // For example:
-    // if (contributionType === 'monthly' && process.env.STRIPE_MONTHLY_PRICE_ID) {
-    //   sessionOptions.line_items = [{ price: process.env.STRIPE_MONTHLY_PRICE_ID, quantity: 1 }];
-    // } else if (contributionType === 'monthly' && !process.env.STRIPE_MONTHLY_PRICE_ID) {
-    //   // Handle error: monthly contribution selected but no priceId provided/configured
-    //   // Or, dynamically create a Price if that's your desired flow (more complex).
-    //   console.warn("Monthly contribution selected, but no STRIPE_MONTHLY_PRICE_ID environment variable is set. Using price_data with recurring.");
-    //   // The current price_data approach will create a new price each time for the subscription.
-    //   // For better management, consider creating a fixed Product and Price in your Stripe Dashboard
-    //   // or creating them via the API if they don't exist and then reusing them.
-    // }
 
     const session = await stripe.checkout.sessions.create(sessionOptions);
 
     if (!session.id) {
         throw new Error('Stripe session ID not found after creation.');
     }
+    console.log('[Stripe API] Session created successfully with ID:', session.id);
 
     return NextResponse.json({ id: session.id });
 
   } catch (err: any) {
-    console.error('Error creating Stripe session:', err);
-    // Don't expose detailed Stripe errors to the client in production
+    console.error('[Stripe API] Error creating Stripe session:', err.message);
+    // Log the full error for server-side debugging, but don't expose it all to client
+    // console.error(err); 
+    
     let errorMessage = 'An unexpected error occurred while processing your payment. Please try again.';
     if (err instanceof Stripe.errors.StripeError) {
-        // More specific error handling for Stripe errors can be done here if needed
-        // For example, logging specific error types or codes
-        console.error('Stripe Error Type:', err.type);
-        console.error('Stripe Error Code:', err.code);
+        console.error('[Stripe API] Stripe Error Type:', err.type);
+        console.error('[Stripe API] Stripe Error Code:', err.code);
+        // Potentially customize message based on err.code or err.type
+        // For instance, if it's a card error, Stripe.js often handles it on the client.
+        // If it reaches here, it might be a configuration or more general API issue.
     }
-    return NextResponse.json({ error: errorMessage }, { status: 500 });
+    return NextResponse.json({ error: errorMessage, details: err.message }, { status: 500 });
   }
 }
-
-    
