@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Gift, Euro, CheckCircle2 } from "lucide-react";
+import { Euro, CheckCircle2 } from "lucide-react";
 import { loadStripe, type Stripe } from '@stripe/stripe-js';
 import { cn } from "@/lib/utils";
 
@@ -44,10 +44,9 @@ export default function ContributeSection({ displayContributionSuccess = false }
   useEffect(() => {
     setShowSuccessAlert(displayContributionSuccess);
     if (displayContributionSuccess) {
-      // Clear the success query parameters from the URL
       const url = new URL(window.location.href);
       url.searchParams.delete('contribution_success');
-      url.searchParams.delete('session_id'); // Also remove session_id if present
+      url.searchParams.delete('session_id');
       window.history.replaceState({}, '', url.toString());
     }
   }, [displayContributionSuccess]);
@@ -56,7 +55,7 @@ export default function ContributeSection({ displayContributionSuccess = false }
   const handleContribution = async () => {
     setIsLoading(true);
     setErrorMessage(null);
-    setShowSuccessAlert(false); // Hide previous success message if trying again
+    setShowSuccessAlert(false);
 
     const numericAmount = parseFloat(amount);
     if (isNaN(numericAmount) || numericAmount <= 0) {
@@ -74,7 +73,7 @@ export default function ContributeSection({ displayContributionSuccess = false }
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          amount: numericAmount * 100, // Stripe expects amount in cents
+          amount: numericAmount * 100,
           currency: 'eur',
           contributionType: contributionType,
         }),
@@ -90,14 +89,14 @@ export default function ContributeSection({ displayContributionSuccess = false }
           return;
         }
         try {
-          const { error: stripeJsError } = await stripe.redirectToCheckout({ // Added error destructuring
+          const { error: stripeJsError } = await stripe.redirectToCheckout({
             sessionId: session.id,
           });
-          if (stripeJsError) { // Changed from error to stripeJsError
+          if (stripeJsError) {
             console.error("Stripe.js pre-redirection error:", stripeJsError.message);
             setErrorMessage(stripeJsError.message ?? "An error occurred preparing for Stripe redirection.");
           }
-        } catch (domError: any) { // Catching potential DOMExceptions during redirection
+        } catch (domError: any) {
           console.error("Error during Stripe redirection attempt:", domError);
           let displayMessage = "An unexpected error occurred during Stripe redirection. Please try again later.";
           if (domError.name === 'SecurityError' || (domError.message && (domError.message.includes('permission to navigate') || domError.message.includes('sandboxed frame')))) {
@@ -122,17 +121,31 @@ export default function ContributeSection({ displayContributionSuccess = false }
   const displayAmount = parseFloat(amount || "0").toFixed(2);
   const isButtonDisabled = isLoading || !amount || parseFloat(amount) <= 0;
 
+  const videoElement = (
+    <div className="w-full rounded-xl shadow-xl overflow-hidden">
+      <video
+        width="100%"
+        controls
+        controlsList="nodownload"
+        preload="metadata"
+        className="aspect-video"
+        aria-label="Contribution Information Video"
+      >
+        <source src="/videos/contribution.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  );
 
   return (
     <section id="contribute" className="py-16 sm:py-24 bg-background">
-      <Container className="text-center">
-        <div className="inline-block">
-          <Gift className="mx-auto h-12 w-12 text-primary mb-4" />
+      <Container>
+        <div className="text-center">
+          <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            Support Our Mission
+          </h2>
+          <div className="mt-2 mx-auto h-[3px] w-24 rounded-full bg-gradient-to-r from-primary to-accent"></div>
         </div>
-        <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-          Support Our Mission
-        </h2>
-        <div className="mt-2 mx-auto h-[3px] w-24 rounded-full bg-gradient-to-r from-primary to-accent"></div>
 
         {showSuccessAlert && (
           <Alert className="mt-8 max-w-lg mx-auto text-left border-green-500 dark:border-green-400 bg-green-50 dark:bg-green-900/30 p-6 rounded-lg shadow-lg">
@@ -149,9 +162,11 @@ export default function ContributeSection({ displayContributionSuccess = false }
           </Alert>
         )}
 
-        <p className="mt-6 max-w-2xl mx-auto text-lg leading-8 text-muted-foreground text-center">
-          <strong>We need your help!</strong>
-        </p>
+        <div className="max-w-2xl mx-auto text-center">
+            <p className="mt-6 text-lg leading-8 text-muted-foreground">
+              <strong>We need your help!</strong>
+            </p>
+        </div>
         <p className="mt-2 max-w-2xl mx-auto text-lg leading-8 text-muted-foreground text-left">
           As we continue to grow and serve the community, your support helps us continue to host life-changing events and also offer free and/or discounted tickets to those who may not have the financial means and new Muslims. Together, we can build a sustainable future.
         </p>
@@ -159,94 +174,100 @@ export default function ContributeSection({ displayContributionSuccess = false }
           Your contribution, big or small, supports not just your Islamic journey but countless others.
         </p>
 
-        <Card className="p-6 sm:p-8 shadow-xl mx-auto max-w-md text-left mt-10 bg-card">
-          <CardContent className="p-0">
-            <div className="space-y-6">
-              <div>
-                <Label htmlFor="contribution-amount-styled" className="text-base font-medium text-foreground mb-2 block">
-                  Choose your contribution amount
-                </Label>
-                <div className="rounded-lg p-0.5 bg-gradient-to-r from-primary to-accent">
-                  <div className="relative flex items-center rounded-md bg-background">
-                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                      <Euro className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
+        <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start max-w-5xl mx-auto">
+          <Card className="p-6 sm:p-8 shadow-xl text-left bg-card w-full">
+            <CardContent className="p-0">
+              <div className="space-y-6">
+                <div>
+                  <Label htmlFor="contribution-amount-styled" className="text-base font-medium text-foreground mb-2 block">
+                    Choose your contribution amount
+                  </Label>
+                  <div className="rounded-lg p-0.5 bg-gradient-to-r from-primary to-accent">
+                    <div className="relative flex items-center rounded-md bg-background">
+                      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                        <Euro className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
+                      </div>
+                      <Input
+                        type="number"
+                        name="contribution-amount-styled"
+                        id="contribution-amount-styled"
+                        className="w-full border-transparent bg-transparent pl-10 pr-4 text-foreground placeholder:text-muted-foreground focus-visible:ring-0 sm:text-sm"
+                        placeholder="Enter amount"
+                        value={amount}
+                        onChange={(e) => setAmount(e.target.value)}
+                        aria-label="Contribution Amount in Euros"
+                        min="1"
+                        disabled={isLoading}
+                      />
                     </div>
-                    <Input
-                      type="number"
-                      name="contribution-amount-styled"
-                      id="contribution-amount-styled"
-                      className="w-full border-transparent bg-transparent pl-10 pr-4 text-foreground placeholder:text-muted-foreground focus-visible:ring-0 sm:text-sm"
-                      placeholder="Enter amount"
-                      value={amount}
-                      onChange={(e) => setAmount(e.target.value)}
-                      aria-label="Contribution Amount in Euros"
-                      min="1"
-                      disabled={isLoading}
-                    />
                   </div>
                 </div>
-              </div>
 
-              <div>
-                <Label className="text-base font-medium text-foreground mb-2 block">
-                  Select contribution type
-                </Label>
-                <div className="grid grid-cols-2 gap-3">
-                  <Button
-                    variant={contributionType === 'once-off' ? "default" : "outline"}
-                    onClick={() => setContributionType('once-off')}
-                    className={cn(
-                      "py-3 text-base rounded-md",
-                      contributionType === 'once-off'
-                        ? "bg-primary text-primary-foreground hover:bg-primary/90"
-                        : "bg-card text-foreground border-border hover:bg-muted"
-                    )}
-                    disabled={isLoading}
-                  >
-                    Once-off
-                  </Button>
-                  <Button
-                    variant={contributionType === 'monthly' ? "default" : "outline"}
-                    onClick={() => setContributionType('monthly')}
-                    className={cn(
-                      "py-3 text-base rounded-md",
-                      contributionType === 'monthly'
-                        ? "bg-accent text-accent-foreground hover:bg-accent/90"
-                        : "bg-card text-foreground border-border hover:bg-muted"
-                    )}
-                    disabled={isLoading}
-                  >
-                    Monthly
-                  </Button>
+                <div>
+                  <Label className="text-base font-medium text-foreground mb-2 block">
+                    Select contribution type
+                  </Label>
+                  <div className="grid grid-cols-2 gap-3">
+                    <Button
+                      variant={contributionType === 'once-off' ? "default" : "outline"}
+                      onClick={() => setContributionType('once-off')}
+                      className={cn(
+                        "py-3 text-base rounded-md",
+                        contributionType === 'once-off'
+                          ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                          : "bg-card text-foreground border-border hover:bg-muted"
+                      )}
+                      disabled={isLoading}
+                    >
+                      Once-off
+                    </Button>
+                    <Button
+                      variant={contributionType === 'monthly' ? "default" : "outline"}
+                      onClick={() => setContributionType('monthly')}
+                      className={cn(
+                        "py-3 text-base rounded-md",
+                        contributionType === 'monthly'
+                          ? "bg-accent text-accent-foreground hover:bg-accent/90"
+                          : "bg-card text-foreground border-border hover:bg-muted"
+                      )}
+                      disabled={isLoading}
+                    >
+                      Monthly
+                    </Button>
+                  </div>
                 </div>
-              </div>
 
-              <Button
-                size="lg"
-                className={cn(
-                  "w-full text-lg py-3 rounded-md",
-                  contributionType === 'once-off'
-                    ? "bg-primary text-primary-foreground hover:bg-primary/90"
-                    : "bg-accent text-accent-foreground hover:bg-accent/90"
-                )}
-                onClick={handleContribution}
-                loading={isLoading}
-                disabled={isButtonDisabled}
-              >
-                {isLoading ? "Processing..." : `Contribute €${displayAmount}`}
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+                <Button
+                  size="lg"
+                  className={cn(
+                    "w-full text-lg py-3 rounded-md",
+                    contributionType === 'once-off'
+                      ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                      : "bg-accent text-accent-foreground hover:bg-accent/90"
+                  )}
+                  onClick={handleContribution}
+                  loading={isLoading}
+                  disabled={isButtonDisabled}
+                >
+                  {isLoading ? "Processing..." : `Contribute €${displayAmount}`}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          <div className="w-full flex items-center justify-center md:justify-start">
+            {videoElement}
+          </div>
+        </div>
 
         {errorMessage && (
-          <p className="mt-4 text-sm text-destructive">{errorMessage}</p>
+          <p className="mt-4 text-sm text-destructive text-center">{errorMessage}</p>
         )}
 
-        <p className="mt-8 text-sm text-muted-foreground">
+        <p className="mt-8 text-sm text-muted-foreground text-center">
           We use Stripe for secure and easy online contributions. Thank you for your support!
         </p>
-        <p className="mt-2 text-xs text-muted-foreground">
+        <p className="mt-2 text-xs text-muted-foreground text-center">
           Apple Pay and Google Pay may be available depending on your device and browser.
         </p>
 
@@ -271,5 +292,3 @@ export default function ContributeSection({ displayContributionSuccess = false }
     </section>
   );
 }
-
-    

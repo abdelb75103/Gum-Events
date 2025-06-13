@@ -1,30 +1,10 @@
+
 "use client";
 
-import { useRef, useEffect } from 'react';
 import Container from "@/components/ui/container";
 import { BookOpenText } from "lucide-react";
 
 export default function OurStorySection() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const handleTimeUpdate = () => {
-      if (video.currentTime >= 33) { // Changed from 34 to 33
-        video.pause();
-      }
-    };
-
-    video.addEventListener('timeupdate', handleTimeUpdate);
-
-    // Cleanup function to remove the event listener
-    return () => {
-      video.removeEventListener('timeupdate', handleTimeUpdate);
-    };
-  }, []); // Empty dependency array means this effect runs once on mount and cleans up on unmount
-
   return (
     <section id="our-story" className="py-16 sm:py-24 bg-card">
       <Container>
@@ -46,7 +26,6 @@ export default function OurStorySection() {
           </div>
           <div className="md:order-2">
             <video
-              ref={videoRef}
               width="100%"
               controls
               controlsList="nodownload"
@@ -54,7 +33,7 @@ export default function OurStorySection() {
               className="rounded-xl shadow-xl aspect-video"
               aria-label="Our Story Video"
             >
-              <source src="/videos/intro.mp4" type="video/mp4" />
+              <source src="/videos/ourstory.mp4" type="video/mp4" />
               Your browser does not support the video tag. Consider updating to a more modern browser.
             </video>
             <p className="mt-3 text-sm text-center text-muted-foreground">
