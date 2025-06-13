@@ -10,7 +10,18 @@ import SpeakersSection from "@/components/sections/speakers-section";
 import VolunteerSection from "@/components/sections/volunteer-section";
 import ContactSection from "@/components/sections/contact-section";
 
-export default function Home() {
+interface HomePageProps {
+  searchParams?: {
+    contribution_success?: string;
+    contribution_canceled?: string;
+    session_id?: string;
+  };
+}
+
+export default function Home({ searchParams }: HomePageProps) {
+  const showContributionSuccess = searchParams?.contribution_success === 'true';
+  // We could also handle contribution_canceled here if needed in the future
+
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
@@ -18,7 +29,7 @@ export default function Home() {
         <HeroSection />
         <OurStorySection />
         <OurImpactSection />
-        <ContributeSection /> 
+        <ContributeSection displayContributionSuccess={showContributionSuccess} /> 
         <EventsSection />
         <SpeakersSection />
         <VolunteerSection />

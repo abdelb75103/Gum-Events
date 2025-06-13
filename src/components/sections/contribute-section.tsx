@@ -1,14 +1,15 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Container from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Card, CardContent } from "@/components/ui/card";
-import { Gift, Euro } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Gift, Euro, CheckCircle2 } from "lucide-react";
 import { loadStripe, type Stripe } from '@stripe/stripe-js';
 import { cn } from "@/lib/utils";
 
@@ -29,15 +30,33 @@ const getStripe = () => {
   return stripePromise;
 };
 
-export default function ContributeSection() {
+interface ContributeSectionProps {
+  displayContributionSuccess?: boolean;
+}
+
+export default function ContributeSection({ displayContributionSuccess = false }: ContributeSectionProps) {
   const [amount, setAmount] = useState<string>("");
   const [contributionType, setContributionType] = useState<'once-off' | 'monthly'>('once-off');
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [showSuccessAlert, setShowSuccessAlert] = useState(displayContributionSuccess);
+
+  useEffect(() => {
+    setShowSuccessAlert(displayContributionSuccess);
+    if (displayContributionSuccess) {
+      // Clear the success query parameters from the URL
+      const url = new URL(window.location.href);
+      url.searchParams.delete('contribution_success');
+      url.searchParams.delete('session_id'); // Also remove session_id if present
+      window.history.replaceState({}, '', url.toString());
+    }
+  }, [displayContributionSuccess]);
+
 
   const handleContribution = async () => {
     setIsLoading(true);
     setErrorMessage(null);
+    setShowSuccessAlert(false); // Hide previous success message if trying again
 
     if (!STRIPE_PUBLISHABLE_KEY || (!STRIPE_PUBLISHABLE_KEY.startsWith("pk_test_") && !STRIPE_PUBLISHABLE_KEY.startsWith("pk_live_"))) {
         setErrorMessage("Stripe is not configured correctly with a valid Publishable Key. Please check the key in the code.");
@@ -121,6 +140,16 @@ export default function ContributeSection() {
           Support Our Mission
         </h2>
         <div className="mt-2 mx-auto h-[3px] w-24 rounded-full bg-gradient-to-r from-primary to-accent"></div>
+
+        {showSuccessAlert && (
+          <Alert className="mt-8 max-w-md mx-auto text-left border-green-500 dark:border-green-400">
+            <CheckCircle2 className="h-5 w-5 text-green-600 dark:text-green-400" />
+            <AlertTitle className="text-green-700 dark:text-green-300">Contribution Successful!</AlertTitle>
+            <AlertDescription className="text-green-600 dark:text-green-400">
+              Thank you for your generous support! Your contribution helps us continue our mission.
+            </AlertDescription>
+          </Alert>
+        )}
 
         <p className="mt-6 max-w-2xl mx-auto text-lg leading-8 text-muted-foreground text-center">
           <strong>We need your help!</strong>
@@ -206,7 +235,7 @@ export default function ContributeSection() {
                 loading={isLoading}
                 disabled={isButtonDisabled}
               >
-                {isKeyPlaceholder ? "Configure Stripe Key" : `Contribute €${displayAmount}`}
+                {isLoading ? "Processing..." : (isKeyPlaceholder ? "Configure Stripe Key" : `Contribute €${displayAmount}`)}
               </Button>
             </div>
           </CardContent>
@@ -249,5 +278,3 @@ export default function ContributeSection() {
     </section>
   );
 }
-
-    
