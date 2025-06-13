@@ -1,10 +1,33 @@
 
+"use client";
+
+import { useRef, useEffect } from 'react';
 import Container from "@/components/ui/container";
 import { BookOpenText } from "lucide-react";
 
 export default function OurStorySection() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handleTimeUpdate = () => {
+      if (video.currentTime >= 34) {
+        video.pause();
+      }
+    };
+
+    video.addEventListener('timeupdate', handleTimeUpdate);
+
+    // Cleanup function to remove the event listener
+    return () => {
+      video.removeEventListener('timeupdate', handleTimeUpdate);
+    };
+  }, []); // Empty dependency array means this effect runs once on mount and cleans up on unmount
+
   return (
-    <section id="our-story" className="py-16 sm:py-24 bg-card"> {/* Changed bg-secondary to bg-card */}
+    <section id="our-story" className="py-16 sm:py-24 bg-card">
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10 items-center">
           <div className="space-y-6 md:order-1">
@@ -24,6 +47,7 @@ export default function OurStorySection() {
           </div>
           <div className="md:order-2">
             <video
+              ref={videoRef}
               width="100%"
               controls
               controlsList="nodownload"
@@ -31,11 +55,6 @@ export default function OurStorySection() {
               className="rounded-xl shadow-xl aspect-video"
               aria-label="Our Story Video"
             >
-              {/*
-                IMPORTANT: Replace the empty src with the path to your MP4 video file.
-                For example, if your video is in public/videos/our-story.mp4,
-                the src should be "/videos/our-story.mp4"
-              */}
               <source src="/videos/intro.mp4" type="video/mp4" />
               Your browser does not support the video tag. Consider updating to a more modern browser.
             </video>
