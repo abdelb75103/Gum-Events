@@ -7,18 +7,27 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Card, CardContent } from "@/components/ui/card"; // Removed CardHeader as it's not used
+import { Card, CardContent } from "@/components/ui/card";
 import { Gift, Euro } from "lucide-react";
-import { loadStripe } from '@stripe/stripe-js';
+import { loadStripe, type Stripe } from '@stripe/stripe-js';
 import { cn } from "@/lib/utils";
 
-// REPLACE WITH YOUR ACTUAL STRIPE PUBLISHABLE KEY
-const STRIPE_PUBLISHABLE_KEY = "pk_test_YOUR_STRIPE_PUBLISHABLE_KEY";
-let stripePromise: Promise<any>; 
+// #########################################################################
+// IMPORTANT: REPLACE WITH YOUR ACTUAL STRIPE PUBLISHABLE KEY
+// #########################################################################
+const STRIPE_PUBLISHABLE_KEY = "pk_test_YOUR_ACTUAL_STRIPE_PUBLISHABLE_KEY_HERE"; 
+// #########################################################################
+
+let stripePromise: Promise<Stripe | null>; 
 
 const getStripe = () => {
   if (!stripePromise) {
-    stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY);
+    if (!STRIPE_PUBLISHABLE_KEY.startsWith("pk_test_YOUR_ACTUAL") && !STRIPE_PUBLISHABLE_KEY.startsWith("pk_live_YOUR_ACTUAL")) {
+      stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY);
+    } else {
+      console.warn("Stripe Publishable Key is a placeholder. Stripe.js will not be loaded.");
+      stripePromise = Promise.resolve(null); // Don't load Stripe if key is placeholder
+    }
   }
   return stripePromise;
 };
@@ -33,6 +42,12 @@ export default function ContributeSection() {
     setIsLoading(true);
     setErrorMessage(null);
 
+    if (STRIPE_PUBLISHABLE_KEY.startsWith("pk_test_YOUR_ACTUAL")) {
+      setErrorMessage("Stripe is not configured. Please replace the placeholder Stripe Publishable Key.");
+      setIsLoading(false);
+      return;
+    }
+
     const numericAmount = parseFloat(amount);
     if (isNaN(numericAmount) || numericAmount <= 0) {
       setErrorMessage("Please enter a valid amount.");
@@ -42,12 +57,20 @@ export default function ContributeSection() {
 
     console.log(`Initiating ${contributionType} contribution of EUR ${numericAmount.toFixed(2)}`);
 
-    // TODO: In a real application:
-    // 1. Replace '/api/stripe/create-checkout-session' with your actual backend endpoint.
-    // 2. Your backend should create a Stripe Checkout Session using your Stripe SECRET KEY
-    //    and return its ID. It should handle the amount (in cents) and contributionType.
+    // --- Backend Interaction Required ---
+    // This frontend code attempts to create a Stripe Checkout Session by calling your backend.
+    // You MUST implement the '/api/stripe/create-checkout-session' endpoint on your server.
+    // This endpoint will use your Stripe SECRET KEY to:
+    // 1. Create a Stripe Checkout Session (for one-time or recurring payments).
+    // 2. For one-time payments, include `mode: 'payment'`.
+    // 3. For monthly (recurring) payments, include `mode: 'subscription'` and set up a Price ID for your product in Stripe.
+    // 4. Include `success_url` and `cancel_url` to redirect users after payment.
+    // 5. Apple Pay & Google Pay: These are typically enabled in your Stripe Dashboard settings for Checkout.
+    //    Ensure your domain is verified with Stripe for Apple Pay.
+    //    Stripe Checkout will automatically show these options if available on the user's device/browser.
+    // 6. Return the `sessionId` from your backend.
+    // See `src/app/api/stripe/create-checkout-session/route.ts` for a placeholder and guidance.
     try {
-      // THIS IS A PLACEHOLDER ENDPOINT - YOU NEED TO IMPLEMENT THIS ON YOUR BACKEND
       const response = await fetch('/api/stripe/create-checkout-session', {
         method: 'POST',
         headers: {
@@ -56,7 +79,9 @@ export default function ContributeSection() {
         body: JSON.stringify({
           amount: numericAmount * 100, // Stripe expects amount in cents
           currency: 'eur',
-          contributionType: contributionType, 
+          contributionType: contributionType,
+          // For subscriptions, you might pass a Price ID instead of amount directly:
+          // priceId: contributionType === 'monthly' ? 'your_stripe_monthly_price_id' : undefined,
         }),
       });
 
@@ -65,7 +90,7 @@ export default function ContributeSection() {
       if (response.ok && session.id) {
         const stripe = await getStripe();
         if (!stripe) {
-          setErrorMessage("Stripe.js failed to load.");
+          setErrorMessage("Stripe.js failed to load. Ensure your publishable key is correct.");
           setIsLoading(false);
           return;
         }
@@ -74,11 +99,11 @@ export default function ContributeSection() {
         });
         if (error) {
           console.error("Stripe redirection error:", error.message);
-          setErrorMessage(error.message);
+          setErrorMessage(error.message ?? "An unknown error occurred during Stripe redirection.");
         }
       } else {
-        console.error("Failed to create Stripe session:", session.error || "Unknown error");
-        setErrorMessage(session.error || "Could not create payment session. Please try again. (Ensure backend is set up)");
+        console.error("Failed to create Stripe session:", session.error || "Unknown server error");
+        setErrorMessage(session.error || "Could not initiate payment. Please ensure the backend is correctly set up to create a Stripe Checkout session.");
       }
     } catch (error: any) {
       console.error("Error during contribution process:", error);
@@ -112,7 +137,7 @@ export default function ContributeSection() {
         </p>
 
         <Card className="p-6 sm:p-8 shadow-xl mx-auto max-w-md text-left mt-10 bg-card">
-          <CardContent className="p-0"> {/* Removed default padding from CardContent */}
+          <CardContent className="p-0"> 
             <div className="space-y-6">
               <div>
                 <Label htmlFor="contribution-amount-styled" className="text-base font-medium text-foreground mb-2 block">
@@ -182,10 +207,10 @@ export default function ContributeSection() {
                     : "bg-accent text-accent-foreground hover:bg-accent/90"
                 )}
                 onClick={handleContribution}
-                loading={isLoading} // Use the new loading prop
-                disabled={isLoading || !amount || parseFloat(amount) <= 0}
+                loading={isLoading}
+                disabled={isLoading || !amount || parseFloat(amount) <= 0 || STRIPE_PUBLISHABLE_KEY.startsWith("pk_test_YOUR_ACTUAL")}
               >
-                {`Contribute €${displayAmount}`}
+                {STRIPE_PUBLISHABLE_KEY.startsWith("pk_test_YOUR_ACTUAL") ? "Configure Stripe Key" : `Contribute €${displayAmount}`}
               </Button>
             </div>
           </CardContent>
@@ -197,6 +222,9 @@ export default function ContributeSection() {
 
         <p className="mt-8 text-sm text-muted-foreground">
           We use Stripe for secure and easy online contributions. Thank you for your support!
+        </p>
+        <p className="mt-2 text-xs text-muted-foreground">
+          Apple Pay and Google Pay may be available depending on your device and browser.
         </p>
 
         <div className="mt-12 max-w-2xl mx-auto text-left">
