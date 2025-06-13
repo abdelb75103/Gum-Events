@@ -174,7 +174,7 @@ export default function ContributeSection({ displayContributionSuccess = false }
           Your contribution, big or small, supports not just your Islamic journey but countless others.
         </p>
 
-        <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start max-w-5xl mx-auto">
+        <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center max-w-5xl mx-auto">
           <Card className="p-6 sm:p-8 shadow-xl text-left bg-card w-full">
             <CardContent className="p-0">
               <div className="space-y-6">
@@ -255,7 +255,7 @@ export default function ContributeSection({ displayContributionSuccess = false }
             </CardContent>
           </Card>
 
-          <div className="w-full flex items-center justify-center md:justify-start">
+          <div className="w-full flex items-center justify-center md:justify-center">
             {videoElement}
           </div>
         </div>
