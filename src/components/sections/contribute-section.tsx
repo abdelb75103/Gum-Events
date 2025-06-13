@@ -12,16 +12,17 @@ import { Gift, Euro } from "lucide-react";
 import { loadStripe, type Stripe } from '@stripe/stripe-js';
 import { cn } from "@/lib/utils";
 
-const STRIPE_PUBLISHABLE_KEY = "pk_live_51RZYeU03fmxR0FPJMt0o4IRKOQ67JpOPSxVBmA6any2JknMMJpvbjBYVXTy0VmITqqofPaA4e7u5zhKbgj05bdoV00YBfDfUm9";
+// Use your Stripe TEST Publishable Key for development
+const STRIPE_PUBLISHABLE_KEY = "pk_test_51RZYec09qz89DSAwDXCJdqiSaEipQoTUc0yf7XMjSENuHCmqMPP4vLgYSWVtwJckYKaioXfmxhs5EXlu7ZfKmy0a00NqaiVecw";
 
 let stripePromise: Promise<Stripe | null>;
 
 const getStripe = () => {
   if (!stripePromise) {
-    if (STRIPE_PUBLISHABLE_KEY && !STRIPE_PUBLISHABLE_KEY.startsWith("pk_test_") && !STRIPE_PUBLISHABLE_KEY.startsWith("YOUR_ACTUAL") && STRIPE_PUBLISHABLE_KEY.includes("_live_")) {
+    if (STRIPE_PUBLISHABLE_KEY && (STRIPE_PUBLISHABLE_KEY.startsWith("pk_test_") || STRIPE_PUBLISHABLE_KEY.startsWith("pk_live_"))) {
       stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY);
     } else {
-      console.warn("Stripe Publishable Key is a placeholder, invalid, or not a live key. Stripe.js will not be loaded for live transactions. Please use your LIVE publishable key.");
+      console.warn("Stripe Publishable Key is a placeholder or invalid. Stripe.js will not be loaded. Please use your actual Stripe Publishable key.");
       stripePromise = Promise.resolve(null);
     }
   }
@@ -38,8 +39,8 @@ export default function ContributeSection() {
     setIsLoading(true);
     setErrorMessage(null);
 
-    if (!STRIPE_PUBLISHABLE_KEY || STRIPE_PUBLISHABLE_KEY.startsWith("pk_test_") || STRIPE_PUBLISHABLE_KEY.startsWith("YOUR_ACTUAL") || !STRIPE_PUBLISHABLE_KEY.includes("_live_")) {
-        setErrorMessage("Stripe is not configured correctly with a LIVE Publishable Key. Please check the key in the code.");
+    if (!STRIPE_PUBLISHABLE_KEY || (!STRIPE_PUBLISHABLE_KEY.startsWith("pk_test_") && !STRIPE_PUBLISHABLE_KEY.startsWith("pk_live_"))) {
+        setErrorMessage("Stripe is not configured correctly with a valid Publishable Key. Please check the key in the code.");
         setIsLoading(false);
         return;
     }
@@ -71,7 +72,7 @@ export default function ContributeSection() {
       if (response.ok && session.id) {
         const stripe = await getStripe();
         if (!stripe) {
-          setErrorMessage("Stripe.js failed to load. Ensure your LIVE publishable key is correct and Stripe is not being blocked.");
+          setErrorMessage("Stripe.js failed to load. Ensure your Publishable key is correct and Stripe is not being blocked.");
           setIsLoading(false);
           return;
         }
@@ -79,23 +80,23 @@ export default function ContributeSection() {
           const { error: stripeJsError } = await stripe.redirectToCheckout({
             sessionId: session.id,
           });
-          // This error is typically if Stripe.js found an issue *before* attempting redirection.
           if (stripeJsError) {
             console.error("Stripe.js pre-redirection error:", stripeJsError.message);
             setErrorMessage(stripeJsError.message ?? "An error occurred preparing for Stripe redirection.");
           }
         } catch (domError: any) {
-          // This catches errors like the DOMException if the browser blocks the redirect.
           console.error("Error during Stripe redirection attempt:", domError);
-          if (domError.name === 'SecurityError' || (domError.message && domError.message.includes('permission to navigate'))) {
-            setErrorMessage("Redirect to Stripe Checkout was blocked, possibly by the current browsing environment (e.g., a sandboxed iframe). This might not occur in a standalone deployment.");
-          } else {
-            setErrorMessage(domError.message || "An unexpected error occurred during Stripe redirection.");
+          let displayMessage = "An unexpected error occurred during Stripe redirection. Please try again later.";
+          if (domError.name === 'SecurityError' || (domError.message && (domError.message.includes('permission to navigate') || domError.message.includes('sandboxed frame')))) {
+            displayMessage = "Redirect to Stripe Checkout was blocked. This can happen in restricted environments (like some development previews or iframes). Please try in a new browser tab or ensure the environment allows cross-origin navigation.";
+          } else if (domError.message) {
+            displayMessage = domError.message;
           }
+          setErrorMessage(displayMessage);
         }
       } else {
         console.error("Failed to create Stripe session:", session.error || "Unknown server error");
-        setErrorMessage(session.error || "Could not initiate payment. Please ensure the backend is correctly set up to create a Stripe Checkout session.");
+        setErrorMessage(session.error || "Could not initiate payment. Please ensure the backend is correctly set up to create a Stripe Checkout session and your Stripe Secret Key is configured.");
       }
     } catch (error: any) {
       console.error("Error during contribution process:", error);
@@ -106,7 +107,9 @@ export default function ContributeSection() {
   };
 
   const displayAmount = parseFloat(amount || "0").toFixed(2);
-  const isButtonDisabled = isLoading || !amount || parseFloat(amount) <= 0 || !STRIPE_PUBLISHABLE_KEY || STRIPE_PUBLISHABLE_KEY.startsWith("pk_test_") || STRIPE_PUBLISHABLE_KEY.startsWith("YOUR_ACTUAL") || !STRIPE_PUBLISHABLE_KEY.includes("_live_");
+  const isKeyPlaceholder = !STRIPE_PUBLISHABLE_KEY || (!STRIPE_PUBLISHABLE_KEY.startsWith("pk_test_") && !STRIPE_PUBLISHABLE_KEY.startsWith("pk_live_"));
+  const isButtonDisabled = isLoading || !amount || parseFloat(amount) <= 0 || isKeyPlaceholder;
+
 
   return (
     <section id="contribute" className="py-16 sm:py-24 bg-background">
@@ -203,7 +206,7 @@ export default function ContributeSection() {
                 loading={isLoading}
                 disabled={isButtonDisabled}
               >
-                {(!STRIPE_PUBLISHABLE_KEY || STRIPE_PUBLISHABLE_KEY.startsWith("pk_test_") || STRIPE_PUBLISHABLE_KEY.startsWith("YOUR_ACTUAL") || !STRIPE_PUBLISHABLE_KEY.includes("_live_")) ? "Configure LIVE Stripe Key" : `Contribute €${displayAmount}`}
+                {isKeyPlaceholder ? "Configure Stripe Key" : `Contribute €${displayAmount}`}
               </Button>
             </div>
           </CardContent>
@@ -211,6 +214,11 @@ export default function ContributeSection() {
 
         {errorMessage && (
           <p className="mt-4 text-sm text-destructive">{errorMessage}</p>
+        )}
+        {isKeyPlaceholder && (
+           <p className="mt-4 text-sm text-orange-600 dark:text-orange-400">
+            Stripe Publishable Key is not correctly configured. Payment cannot be processed.
+          </p>
         )}
 
         <p className="mt-8 text-sm text-muted-foreground">
@@ -241,3 +249,5 @@ export default function ContributeSection() {
     </section>
   );
 }
+
+    
