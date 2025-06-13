@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useRef, useEffect } from 'react';
@@ -13,7 +12,7 @@ export default function OurStorySection() {
     if (!video) return;
 
     const handleTimeUpdate = () => {
-      if (video.currentTime >= 34) {
+      if (video.currentTime >= 33) { // Changed from 34 to 33
         video.pause();
       }
     };
