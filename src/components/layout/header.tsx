@@ -80,6 +80,7 @@ export default function Header() {
               className="h-[72px] w-[72px]"
               data-ai-hint="logo"
               priority
+              style={{ objectFit: 'contain' }}
             />
           </Link>
           <div className="flex items-center gap-2">
@@ -109,6 +110,7 @@ export default function Header() {
             className="h-[72px] w-[72px]"
             data-ai-hint="logo"
             priority
+            style={{ objectFit: 'contain' }}
           />
         </Link>
 
@@ -141,6 +143,7 @@ export default function Header() {
                       height={62}
                       className="h-[62px] w-[62px]"
                       data-ai-hint="logo"
+                      style={{ objectFit: 'contain' }}
                     />
                   </Link>
                   <SheetTrigger asChild>
