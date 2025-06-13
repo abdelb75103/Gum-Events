@@ -1,35 +1,26 @@
 
-// IMPORTANT: This is a placeholder API route. You MUST implement this
-// with your Stripe Secret Key to process payments.
-
-// To use this placeholder for testing, you might want to return a mocked session ID.
-// For a real implementation, install the Stripe Node.js library:
-// npm install stripe
-// yarn add stripe
-// pnpm add stripe
-//
-// Then, use your Stripe Secret Key (kept private on the server) to create a session.
-
 import { NextResponse } from 'next/server';
-// Uncomment the following line when you implement the actual Stripe logic:
-// import Stripe from 'stripe';
+import Stripe from 'stripe';
 
-// #########################################################################
-// IMPORTANT: REPLACE WITH YOUR ACTUAL STRIPE SECRET KEY IN YOUR ENVIRONMENT VARIABLES
-// Never hardcode your secret key directly in the code.
-// Example: const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-// #########################################################################
-// const stripe = new Stripe('sk_test_YOUR_STRIPE_SECRET_KEY_HERE'); // Replace and use env var
+// Initialize Stripe with your secret key from environment variables
+// IMPORTANT: Ensure STRIPE_SECRET_KEY is set in your .env.local for development
+// and in your hosting environment's settings for production.
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  apiVersion: '2024-06-20', // Use the latest API version
+  typescript: true,
+});
 
 export async function POST(request: Request) {
   try {
-    const { amount, currency, contributionType /*, priceId */ } = await request.json();
+    const { amount, currency, contributionType } = await request.json();
 
-    // --- BEGIN ACTUAL STRIPE LOGIC (Example - Adapt as needed) ---
-    /*
-    if (!stripe) {
-      throw new Error('Stripe is not initialized. Check your secret key.');
+    if (!amount || !currency || !contributionType) {
+      return NextResponse.json({ error: 'Missing required parameters: amount, currency, or contributionType.' }, { status: 400 });
     }
+    if (amount <= 0) {
+        return NextResponse.json({ error: 'Amount must be positive.' }, { status: 400 });
+    }
+
 
     const YOUR_DOMAIN = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
 
@@ -40,10 +31,12 @@ export async function POST(request: Request) {
           price_data: {
             currency: currency,
             product_data: {
-              name: contributionType === 'monthly' ? 'Monthly Contribution' : 'One-off Contribution',
-              // You can add more product details like description or images
+              name: contributionType === 'monthly' ? 'Monthly Contribution to GUM Events' : 'One-off Contribution to GUM Events',
+              // You can add more product details like description or images here
+              // description: "Support Growing Up Muslim Events",
+              // images: [`${YOUR_DOMAIN}/images/logo.png`], // Example image
             },
-            unit_amount: amount, // Amount in cents
+            unit_amount: amount, // Amount in cents, e.g., 1000 for €10.00
             ...(contributionType === 'monthly' && { recurring: { interval: 'month' } }),
           },
           quantity: 1,
@@ -53,47 +46,46 @@ export async function POST(request: Request) {
       success_url: `${YOUR_DOMAIN}/?contribution_success=true&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${YOUR_DOMAIN}/?contribution_canceled=true`,
       // To enable Apple Pay / Google Pay, ensure they are active in your Stripe dashboard settings
-      // for Checkout. Stripe will automatically show them if the customer is eligible.
-      // You can also consider automatic_payment_methods:
+      // for Checkout. Stripe will automatically show them if the customer is eligible and has them set up.
+      // You may also need to verify your domain with Stripe for Apple Pay.
+      // Consider using automatic_payment_methods for broader payment method support if desired:
       // automatic_payment_methods: {enabled: true},
+      // For strong customer authentication (SCA) compliance, Stripe handles this by default with Checkout.
     };
 
-    // If using a pre-defined Price ID for subscriptions:
-    // if (contributionType === 'monthly' && priceId) {
-    //   sessionOptions.line_items = [{ price: priceId, quantity: 1 }];
-    // } else if (contributionType === 'monthly' && !priceId) {
+    // If you have predefined Stripe Price IDs for monthly subscriptions, you would use them here.
+    // For example:
+    // if (contributionType === 'monthly' && process.env.STRIPE_MONTHLY_PRICE_ID) {
+    //   sessionOptions.line_items = [{ price: process.env.STRIPE_MONTHLY_PRICE_ID, quantity: 1 }];
+    // } else if (contributionType === 'monthly' && !process.env.STRIPE_MONTHLY_PRICE_ID) {
     //   // Handle error: monthly contribution selected but no priceId provided/configured
-    //   return NextResponse.json({ error: 'Monthly Price ID not configured.' }, { status: 400 });
+    //   // Or, dynamically create a Price if that's your desired flow (more complex).
+    //   console.warn("Monthly contribution selected, but no STRIPE_MONTHLY_PRICE_ID environment variable is set. Using price_data with recurring.");
+    //   // The current price_data approach will create a new price each time for the subscription.
+    //   // For better management, consider creating a fixed Product and Price in your Stripe Dashboard
+    //   // or creating them via the API if they don't exist and then reusing them.
     // }
 
     const session = await stripe.checkout.sessions.create(sessionOptions);
 
+    if (!session.id) {
+        throw new Error('Stripe session ID not found after creation.');
+    }
+
     return NextResponse.json({ id: session.id });
-    */
-    // --- END ACTUAL STRIPE LOGIC ---
-
-
-    // --- PLACEHOLDER RESPONSE ---
-    // Remove this section once you implement the actual Stripe logic above.
-    console.warn(
-      `🔴 WARNING: API route /api/stripe/create-checkout-session is using placeholder logic. 
-      Received amount: ${amount}, currency: ${currency}, type: ${contributionType}.
-      Implement actual Stripe session creation with your SECRET KEY.`
-    );
-    
-    // Simulate a successful session creation for frontend testing if needed
-    // const MOCKED_SESSION_ID = "cs_test_a1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
-    // return NextResponse.json({ id: MOCKED_SESSION_ID });
-
-    // Or return an error indicating it's not implemented:
-    return NextResponse.json(
-      { error: 'Stripe Checkout backend not implemented. This is a placeholder.' },
-      { status: 501 } // 501 Not Implemented
-    );
-    // --- END PLACEHOLDER RESPONSE ---
 
   } catch (err: any) {
     console.error('Error creating Stripe session:', err);
-    return NextResponse.json({ error: err.message || 'Internal Server Error' }, { status: 500 });
+    // Don't expose detailed Stripe errors to the client in production
+    let errorMessage = 'An unexpected error occurred while processing your payment. Please try again.';
+    if (err instanceof Stripe.errors.StripeError) {
+        // More specific error handling for Stripe errors can be done here if needed
+        // For example, logging specific error types or codes
+        console.error('Stripe Error Type:', err.type);
+        console.error('Stripe Error Code:', err.code);
+    }
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
+
+    

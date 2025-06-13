@@ -13,20 +13,23 @@ import { loadStripe, type Stripe } from '@stripe/stripe-js';
 import { cn } from "@/lib/utils";
 
 // #########################################################################
-// IMPORTANT: REPLACE WITH YOUR ACTUAL STRIPE PUBLISHABLE KEY
+// Using the LIVE Stripe Publishable Key you provided.
+// For development, consider using your TEST Publishable Key.
 // #########################################################################
-const STRIPE_PUBLISHABLE_KEY = "pk_test_YOUR_ACTUAL_STRIPE_PUBLISHABLE_KEY_HERE"; 
+const STRIPE_PUBLISHABLE_KEY = "pk_live_51RZYeU03fmxR0FPJMt0o4IRKOQ67JpOPSxVBmA6any2JknMMJpvbjBYVXTy0VmITqqofPaA4e7u5zhKbgj05bdoV00YBfDfUm9"; 
 // #########################################################################
 
 let stripePromise: Promise<Stripe | null>; 
 
 const getStripe = () => {
   if (!stripePromise) {
-    if (!STRIPE_PUBLISHABLE_KEY.startsWith("pk_test_YOUR_ACTUAL") && !STRIPE_PUBLISHABLE_KEY.startsWith("pk_live_YOUR_ACTUAL")) {
+    if (STRIPE_PUBLISHABLE_KEY && !STRIPE_PUBLISHABLE_KEY.startsWith("pk_test_YOUR_ACTUAL")) {
       stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY);
     } else {
-      console.warn("Stripe Publishable Key is a placeholder. Stripe.js will not be loaded.");
-      stripePromise = Promise.resolve(null); // Don't load Stripe if key is placeholder
+      // This case should ideally not be hit if a real key is always provided.
+      // It's a fallback if the key is somehow still a placeholder.
+      console.warn("Stripe Publishable Key is a placeholder or invalid. Stripe.js will not be loaded.");
+      stripePromise = Promise.resolve(null); 
     }
   }
   return stripePromise;
@@ -42,12 +45,13 @@ export default function ContributeSection() {
     setIsLoading(true);
     setErrorMessage(null);
 
+    // Check if the key is still the initial placeholder template
     if (STRIPE_PUBLISHABLE_KEY.startsWith("pk_test_YOUR_ACTUAL")) {
-      setErrorMessage("Stripe is not configured. Please replace the placeholder Stripe Publishable Key.");
-      setIsLoading(false);
-      return;
+        setErrorMessage("Stripe is not configured. Please replace the placeholder Stripe Publishable Key in the code.");
+        setIsLoading(false);
+        return;
     }
-
+    
     const numericAmount = parseFloat(amount);
     if (isNaN(numericAmount) || numericAmount <= 0) {
       setErrorMessage("Please enter a valid amount.");
@@ -57,19 +61,6 @@ export default function ContributeSection() {
 
     console.log(`Initiating ${contributionType} contribution of EUR ${numericAmount.toFixed(2)}`);
 
-    // --- Backend Interaction Required ---
-    // This frontend code attempts to create a Stripe Checkout Session by calling your backend.
-    // You MUST implement the '/api/stripe/create-checkout-session' endpoint on your server.
-    // This endpoint will use your Stripe SECRET KEY to:
-    // 1. Create a Stripe Checkout Session (for one-time or recurring payments).
-    // 2. For one-time payments, include `mode: 'payment'`.
-    // 3. For monthly (recurring) payments, include `mode: 'subscription'` and set up a Price ID for your product in Stripe.
-    // 4. Include `success_url` and `cancel_url` to redirect users after payment.
-    // 5. Apple Pay & Google Pay: These are typically enabled in your Stripe Dashboard settings for Checkout.
-    //    Ensure your domain is verified with Stripe for Apple Pay.
-    //    Stripe Checkout will automatically show these options if available on the user's device/browser.
-    // 6. Return the `sessionId` from your backend.
-    // See `src/app/api/stripe/create-checkout-session/route.ts` for a placeholder and guidance.
     try {
       const response = await fetch('/api/stripe/create-checkout-session', {
         method: 'POST',
@@ -80,8 +71,6 @@ export default function ContributeSection() {
           amount: numericAmount * 100, // Stripe expects amount in cents
           currency: 'eur',
           contributionType: contributionType,
-          // For subscriptions, you might pass a Price ID instead of amount directly:
-          // priceId: contributionType === 'monthly' ? 'your_stripe_monthly_price_id' : undefined,
         }),
       });
 
@@ -90,7 +79,7 @@ export default function ContributeSection() {
       if (response.ok && session.id) {
         const stripe = await getStripe();
         if (!stripe) {
-          setErrorMessage("Stripe.js failed to load. Ensure your publishable key is correct.");
+          setErrorMessage("Stripe.js failed to load. Ensure your publishable key is correct and Stripe is not being blocked.");
           setIsLoading(false);
           return;
         }
@@ -114,6 +103,7 @@ export default function ContributeSection() {
   };
   
   const displayAmount = parseFloat(amount || "0").toFixed(2);
+  const isButtonDisabled = isLoading || !amount || parseFloat(amount) <= 0 || STRIPE_PUBLISHABLE_KEY.startsWith("pk_test_YOUR_ACTUAL");
 
   return (
     <section id="contribute" className="py-16 sm:py-24 bg-background">
@@ -208,7 +198,7 @@ export default function ContributeSection() {
                 )}
                 onClick={handleContribution}
                 loading={isLoading}
-                disabled={isLoading || !amount || parseFloat(amount) <= 0 || STRIPE_PUBLISHABLE_KEY.startsWith("pk_test_YOUR_ACTUAL")}
+                disabled={isButtonDisabled}
               >
                 {STRIPE_PUBLISHABLE_KEY.startsWith("pk_test_YOUR_ACTUAL") ? "Configure Stripe Key" : `Contribute €${displayAmount}`}
               </Button>
@@ -248,3 +238,5 @@ export default function ContributeSection() {
     </section>
   );
 }
+
+    
