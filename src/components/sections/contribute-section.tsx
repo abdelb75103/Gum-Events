@@ -142,12 +142,17 @@ export default function ContributeSection({ displayContributionSuccess = false }
         <div className="mt-2 mx-auto h-[3px] w-24 rounded-full bg-gradient-to-r from-primary to-accent"></div>
 
         {showSuccessAlert && (
-          <Alert className="mt-8 max-w-md mx-auto text-left border-green-500 dark:border-green-400">
-            <CheckCircle2 className="h-5 w-5 text-green-600 dark:text-green-400" />
-            <AlertTitle className="text-green-700 dark:text-green-300">Contribution Successful!</AlertTitle>
-            <AlertDescription className="text-green-600 dark:text-green-400">
-              Thank you for your generous support! Your contribution helps us continue our mission.
-            </AlertDescription>
+          <Alert className="mt-8 max-w-lg mx-auto text-left border-green-500 dark:border-green-400 bg-green-50 dark:bg-green-900/30 p-6 rounded-lg shadow-lg">
+            <div className="flex">
+              <CheckCircle2 className="h-6 w-6 text-green-600 dark:text-green-400 mr-3 mt-1 flex-shrink-0" />
+              <div>
+                <AlertTitle className="text-xl font-semibold text-green-700 dark:text-green-300">Contribution Successful!</AlertTitle>
+                <AlertDescription className="mt-2 text-base text-green-600 dark:text-green-400 space-y-2">
+                  <p>Thank you for your generous support! Your contribution helps us continue our mission. Barak Allahu feekum!</p>
+                  <p className="text-sm">Please think about sharing with family and friends who may also want to support, and please keep us in your duas - GUM team</p>
+                </AlertDescription>
+              </div>
+            </div>
           </Alert>
         )}
 
