@@ -1,9 +1,10 @@
 
 "use client";
 
+import * as React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Users, Award, CalendarDays, TrendingUp } from 'lucide-react'; // Users was Globe
-import Container from '@/components/ui/container'; 
+import { Users, Award, CalendarDays, TrendingUp } from 'lucide-react';
+import Container from '@/components/ui/container';
 import {
   AreaChart,
   Area,
@@ -42,7 +43,7 @@ const impactData = [
   {
     metric: "Events Hosted",
     value: "20+ in 2 Years",
-    description: "Consistently delivering engaging and meaningful events.",
+    description: "Consistently delivering engaging and\nmeaningful events.", // Added \n for line break
     icon: CalendarDays,
     valueColorClass: "text-primary", 
     watermarkColorClass: "text-accent",
@@ -95,22 +96,28 @@ export default function OurImpactSection() {
             return (
               <Card 
                 key={item.metric} 
-                className="text-card-foreground shadow-lg overflow-hidden" // Added overflow-hidden
+                className="text-card-foreground shadow-lg overflow-hidden"
               >
-                <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2 relative z-10"> {/* Ensure header is above watermark */}
-                  <CardTitle className="text-sm font-medium text-card-foreground"> {/* Explicitly text-card-foreground for clarity */}
+                <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2 relative z-10">
+                  <CardTitle className="text-sm font-medium text-card-foreground">
                     {item.metric}
                   </CardTitle>
-                  {/* Small icon previously here is removed */}
                 </CardHeader>
-                <CardContent className="relative pt-0"> {/* Ensure CardContent is relative for watermark positioning & adjust padding */}
-                  <div className="relative z-10"> {/* Text content with higher z-index */}
+                <CardContent className="relative pt-0">
+                  <div className="relative z-10">
                     <div className={cn("text-2xl font-bold", item.valueColorClass)}>{item.value}</div>
-                    <p className="text-xs text-muted-foreground pt-1">{item.description}</p>
+                    <div className="text-xs text-muted-foreground pt-1">
+                      {item.description.split('\n').map((line, index, arr) => (
+                        <React.Fragment key={index}>
+                          {line}
+                          {index < arr.length - 1 && <br />}
+                        </React.Fragment>
+                      ))}
+                    </div>
                   </div>
                   <IconComponent
                     className={cn(
-                      "absolute -right-5 -bottom-5 h-28 w-28 opacity-[0.18] z-0 pointer-events-none", // Increased opacity slightly
+                      "absolute -right-5 -bottom-5 h-28 w-28 opacity-[0.18] z-0 pointer-events-none", 
                       item.watermarkColorClass
                     )}
                     aria-hidden="true"
