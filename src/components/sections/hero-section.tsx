@@ -125,16 +125,6 @@ export default function HeroSection() {
                     Explore Events <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  asChild
-                  className="bg-transparent border-white text-white hover:bg-white hover:text-black px-8 py-6 text-lg shadow-md hover:shadow-lg transition-all w-full sm:w-auto"
-                >
-                  <Link href="#our-story">
-                    Learn More
-                  </Link>
-                </Button>
               </div>
             </div>
           </CarouselItem>
@@ -155,4 +145,3 @@ export default function HeroSection() {
     </section>
   );
 }
-
