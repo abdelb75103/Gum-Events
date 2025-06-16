@@ -2,14 +2,15 @@
 "use client";
 
 import Container from "@/components/ui/container";
-import { BookOpenText } from "lucide-react";
+import { BookOpenText, CheckCircle2 } from "lucide-react"; // Added CheckCircle2
 
 export default function OurStorySection() {
   return (
     <section id="our-story" className="py-16 sm:py-24 bg-card">
       <Container>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10 items-center">
-          <div className="space-y-6 md:order-1">
+        {/* Changed to single column grid, removed items-center as vertical alignment handled by flow */}
+        <div className="grid grid-cols-1 gap-y-10"> 
+          <div className="space-y-6"> {/* Text content */}
             <div className="flex items-center text-primary">
               <BookOpenText className="h-10 w-10 mr-3" />
               <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
@@ -32,31 +33,46 @@ export default function OurStorySection() {
               <p className="text-lg leading-8 text-muted-foreground">
                 But GUM is more than just events. It's about:
               </p>
-              <ul className="list-disc pl-6 mt-2 space-y-1 text-lg leading-8 text-muted-foreground">
-                <li>Reviving faith through engaging content and inspiring gatherings.</li>
-                <li>Building professional spaces for Muslim creatives, organizers, and businesses.</li>
-                <li>Creating an initiative that starts with events but leads to genuine growth, unity, and long-term impact.</li>
-              </ul>
+              {/* Replaced ul/li with divs and CheckCircle2 icons */}
+              <div className="mt-3 space-y-2">
+                <div className="flex items-start text-lg leading-8 text-muted-foreground">
+                  <CheckCircle2 className="h-5 w-5 text-primary mr-3 mt-1 shrink-0" />
+                  <span>Reviving faith through engaging content and inspiring gatherings.</span>
+                </div>
+                <div className="flex items-start text-lg leading-8 text-muted-foreground">
+                  <CheckCircle2 className="h-5 w-5 text-primary mr-3 mt-1 shrink-0" />
+                  <span>Building professional spaces for Muslim creatives, organizers, and businesses.</span>
+                </div>
+                <div className="flex items-start text-lg leading-8 text-muted-foreground">
+                  <CheckCircle2 className="h-5 w-5 text-primary mr-3 mt-1 shrink-0" />
+                  <span>Creating an initiative that starts with events but leads to genuine growth, unity, and long-term impact.</span>
+                </div>
+              </div>
             </div>
 
             <p className="text-lg leading-8 text-muted-foreground">
               Our journey is just getting started, and we're committed to building a sustainable future for our community.
             </p>
           </div>
-          <div className="md:order-2">
-            <video
-              width="100%"
-              controls
-              controlsList="nodownload"
-              preload="metadata"
-              className="rounded-xl shadow-xl aspect-video"
-              aria-label="Our Story Video"
-            >
-              <source src="/videos/ourstory.mp4" type="video/mp4" />
-              Your browser does not support the video tag. Consider updating to a more modern browser.
-            </video>
-            <p className="mt-3 text-sm text-center text-muted-foreground">
-            </p>
+          
+          {/* Video container, centered */}
+          <div className="flex justify-center">
+            <div className="w-full max-w-3xl"> {/* Max width for the video, adjust as needed */}
+              <video
+                width="100%"
+                controls
+                controlsList="nodownload"
+                preload="metadata"
+                className="rounded-xl shadow-xl aspect-video"
+                aria-label="Our Story Video"
+              >
+                <source src="/videos/ourstory.mp4" type="video/mp4" />
+                Your browser does not support the video tag. Consider updating to a more modern browser.
+              </video>
+              <p className="mt-3 text-sm text-center text-muted-foreground">
+                {/* Optional: caption for the video if needed */}
+              </p>
+            </div>
           </div>
         </div>
       </Container>
