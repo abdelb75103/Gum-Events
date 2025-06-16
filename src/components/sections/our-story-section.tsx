@@ -8,9 +8,8 @@ export default function OurStorySection() {
   return (
     <section id="our-story" className="py-16 sm:py-24 bg-card">
       <Container>
-        {/* Changed to single column grid, removed items-center as vertical alignment handled by flow */}
         <div className="grid grid-cols-1 gap-y-10"> 
-          <div className="space-y-6"> {/* Text content */}
+          <div className="space-y-6"> 
             <div className="flex items-center text-primary">
               <BookOpenText className="h-10 w-10 mr-3" />
               <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
@@ -33,7 +32,6 @@ export default function OurStorySection() {
               <p className="text-lg leading-8 text-muted-foreground">
                 But GUM is more than just events. It's about:
               </p>
-              {/* Replaced ul/li with divs and CheckCircle2 icons */}
               <div className="mt-3 space-y-2">
                 <div className="flex items-start text-lg leading-8 text-muted-foreground">
                   <CheckCircle2 className="h-5 w-5 text-primary mr-3 mt-1 shrink-0" />
@@ -55,14 +53,15 @@ export default function OurStorySection() {
             </p>
           </div>
           
-          {/* Video container, centered */}
           <div className="flex justify-center">
-            <div className="w-full max-w-3xl"> {/* Max width for the video, adjust as needed */}
+            <div className="w-full max-w-xl lg:max-w-2xl xl:max-w-3xl">
               <video
                 width="100%"
                 controls
                 controlsList="nodownload"
                 preload="metadata"
+                poster="https://placehold.co/600x338.png"
+                data-ai-hint="community event"
                 className="rounded-xl shadow-xl aspect-video"
                 aria-label="Our Story Video"
               >
@@ -70,7 +69,6 @@ export default function OurStorySection() {
                 Your browser does not support the video tag. Consider updating to a more modern browser.
               </video>
               <p className="mt-3 text-sm text-center text-muted-foreground">
-                {/* Optional: caption for the video if needed */}
               </p>
             </div>
           </div>
