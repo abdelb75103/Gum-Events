@@ -2,7 +2,7 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Globe, Award, CalendarDays, TrendingUp, Users } from 'lucide-react';
+import { Users, Award, CalendarDays, TrendingUp } from 'lucide-react'; // Users was Globe
 import Container from '@/components/ui/container'; 
 import {
   AreaChart,
@@ -20,26 +20,32 @@ import {
   type ChartConfig
 } from '@/components/ui/chart';
 import type { NameType, ValueType } from 'recharts/types/component/DefaultTooltipContent';
-
+import { cn } from "@/lib/utils";
 
 const impactData = [
   {
-    metric: "Lives Impacted Across Europe",
-    value: "1000s",
-    icon: Globe,
-    description: "Reaching and enriching numerous lives throughout the continent."
+    metric: "Lives Impacted Across the World",
+    value: "THOUSANDS",
+    description: "Reaching and enriching numerous lives throughout the globe.",
+    icon: Users,
+    valueColorClass: "text-primary", 
+    watermarkColorClass: "text-accent",
   },
   {
     metric: "Largest Islamic Event in Ireland",
     value: "Record Breaking",
+    description: "Hosted the most significant community gathering of its kind in Ireland.",
     icon: Award,
-    description: "Hosted the most significant community gathering of its kind in Ireland."
+    valueColorClass: "text-accent", 
+    watermarkColorClass: "text-primary",
   },
   {
     metric: "Events Hosted",
     value: "20+ in 2 Years",
+    description: "Consistently delivering engaging and meaningful events.",
     icon: CalendarDays,
-    description: "Consistently delivering engaging and meaningful events."
+    valueColorClass: "text-primary", 
+    watermarkColorClass: "text-accent",
   },
 ];
 
@@ -84,26 +90,38 @@ export default function OurImpactSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 md:mb-16"> 
-          {impactData.map((item) => (
-            <Card 
-              key={item.metric} 
-              className="text-card-foreground shadow-lg" // Removed blur and opacity, kept shadow-lg
-            >
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  {item.metric}
-                </CardTitle>
-                <item.icon className="h-5 w-5 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-primary">{item.value}</div>
-                <p className="text-xs text-muted-foreground pt-1">{item.description}</p>
-              </CardContent>
-            </Card>
-          ))}
+          {impactData.map((item) => {
+            const IconComponent = item.icon;
+            return (
+              <Card 
+                key={item.metric} 
+                className="text-card-foreground shadow-lg overflow-hidden" // Added overflow-hidden
+              >
+                <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2 relative z-10"> {/* Ensure header is above watermark */}
+                  <CardTitle className="text-sm font-medium text-card-foreground"> {/* Explicitly text-card-foreground for clarity */}
+                    {item.metric}
+                  </CardTitle>
+                  {/* Small icon previously here is removed */}
+                </CardHeader>
+                <CardContent className="relative pt-0"> {/* Ensure CardContent is relative for watermark positioning & adjust padding */}
+                  <div className="relative z-10"> {/* Text content with higher z-index */}
+                    <div className={cn("text-2xl font-bold", item.valueColorClass)}>{item.value}</div>
+                    <p className="text-xs text-muted-foreground pt-1">{item.description}</p>
+                  </div>
+                  <IconComponent
+                    className={cn(
+                      "absolute -right-5 -bottom-5 h-28 w-28 opacity-[0.18] z-0 pointer-events-none", // Increased opacity slightly
+                      item.watermarkColorClass
+                    )}
+                    aria-hidden="true"
+                  />
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
 
-        <Card className="text-card-foreground shadow-lg col-span-1 md:col-span-3"> {/* Removed blur and opacity, kept shadow-lg */}
+        <Card className="text-card-foreground shadow-lg col-span-1 md:col-span-3">
           <CardHeader>
             <div className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-xl font-semibold">Our Growing Community</CardTitle>
