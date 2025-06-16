@@ -162,8 +162,8 @@ export default function ContributeSection({ displayContributionSuccess = false }
           </Alert>
         )}
 
-        <div className="text-left mt-6 mb-10"> {/* Moved and adjusted text block */}
-            <p className="text-lg leading-8 text-muted-foreground">
+        <div className="mt-6 mb-10 text-left">
+            <p className="text-lg leading-8 text-muted-foreground text-center">
               <strong>We need your help!</strong>
             </p>
             <p className="mt-2 text-lg leading-8 text-muted-foreground">
