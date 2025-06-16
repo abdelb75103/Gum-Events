@@ -17,11 +17,30 @@ export default function OurStorySection() {
               </h2>
             </div>
             <div className="mt-2 h-[3px] w-24 rounded-full bg-gradient-to-r from-primary to-accent"></div>
+            
             <p className="text-lg leading-8 text-muted-foreground">
-              Discover the journey and inspiration behind Growing Up Muslim. We are dedicated to fostering a vibrant community through engaging events, insightful discussions, and shared experiences that resonate with young Muslims navigating faith and contemporary life.
+              Established in 2023, GUM Events was formed from one simple idea: our community deserves inspiring Islamic events, right here in Ireland. Our mission is simple:
+            </p>
+            <p className="text-lg leading-8 text-muted-foreground font-semibold">
+              To help young Muslims choose Islam again, not just by name or heritage, but with conviction and certainty.
             </p>
             <p className="text-lg leading-8 text-muted-foreground">
-              Our mission is to create spaces where individuals can connect, learn, and grow together, embracing their identity with confidence and contributing positively to the wider world. Join us as we build bridges and celebrate the rich tapestry of our heritage.
+              We do this by putting together high-quality events that speak to your heart and challenge your mind. We've been lucky enough to host most RENOWNED islamic speakers, like Dr. Omar Sulaiman, Sheikh Abu Bakr Zoud, Ustadh Nouman Ali Khan, and Ustadh Ali Hammuda. and impacted THOUSANDS of lives coming from across Europe!! We've also organised unforgettable tours and trips, including an Umrah pilgrimage with Riyad Muslim.
+            </p>
+            
+            <div>
+              <p className="text-lg leading-8 text-muted-foreground">
+                But GUM is more than just events. It's about:
+              </p>
+              <ul className="list-disc pl-6 mt-2 space-y-1 text-lg leading-8 text-muted-foreground">
+                <li>Reviving faith through engaging content and inspiring gatherings.</li>
+                <li>Building professional spaces for Muslim creatives, organizers, and businesses.</li>
+                <li>Creating an initiative that starts with events but leads to genuine growth, unity, and long-term impact.</li>
+              </ul>
+            </div>
+
+            <p className="text-lg leading-8 text-muted-foreground">
+              Our journey is just getting started, and we're committed to building a sustainable future for our community.
             </p>
           </div>
           <div className="md:order-2">
