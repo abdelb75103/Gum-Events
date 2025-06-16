@@ -121,8 +121,8 @@ export default function HeroSection() {
                   asChild
                   className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg shadow-md hover:shadow-lg transition-shadow w-full sm:w-auto"
                 >
-                  <Link href="#events">
-                    Explore Events <ArrowRight className="ml-2 h-5 w-5" />
+                  <Link href="#contribute">
+                    Support Our Work <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </Button>
               </div>
