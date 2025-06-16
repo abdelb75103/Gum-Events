@@ -54,12 +54,14 @@ export default function OurStorySection() {
           </div>
           
           <div className="flex justify-center">
-            <div className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-xl xl:max-w-2xl">
+            <div className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl">
               <video
                 width="100%"
                 controls
                 controlsList="nodownload"
                 preload="metadata"
+                poster="https://placehold.co/640x360.png"
+                data-ai-hint="community video"
                 className="rounded-xl shadow-xl aspect-video"
                 aria-label="Our Story Video"
               >
@@ -75,3 +77,4 @@ export default function OurStorySection() {
     </section>
   );
 }
+
