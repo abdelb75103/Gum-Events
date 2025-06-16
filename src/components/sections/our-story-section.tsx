@@ -60,7 +60,7 @@ export default function OurStorySection() {
                 controls
                 controlsList="nodownload"
                 preload="metadata"
-                poster="https://placehold.co/640x360.png"
+                poster="images/ourstory-cover.jpg"
                 data-ai-hint="community video"
                 className="rounded-xl shadow-xl aspect-video"
                 aria-label="Our Story Video"

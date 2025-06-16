@@ -162,19 +162,19 @@ export default function ContributeSection({ displayContributionSuccess = false }
           </Alert>
         )}
 
-        <div className="max-w-2xl mx-auto text-center">
-            <p className="mt-6 text-lg leading-8 text-muted-foreground">
+        <div className="text-left mt-6 mb-10"> {/* Moved and adjusted text block */}
+            <p className="text-lg leading-8 text-muted-foreground">
               <strong>We need your help!</strong>
             </p>
+            <p className="mt-2 text-lg leading-8 text-muted-foreground">
+              As we continue to grow and serve the community, your support helps us continue to host life-changing events and also offer free and/or discounted tickets to those who may not have the financial means and new Muslims. Together, we can build a sustainable future.
+            </p>
+            <p className="mt-4 text-lg leading-8 text-muted-foreground">
+              Your contribution, big or small, supports not just your Islamic journey but countless others.
+            </p>
         </div>
-        <p className="mt-2 max-w-2xl mx-auto text-lg leading-8 text-muted-foreground text-left">
-          As we continue to grow and serve the community, your support helps us continue to host life-changing events and also offer free and/or discounted tickets to those who may not have the financial means and new Muslims. Together, we can build a sustainable future.
-        </p>
-        <p className="mt-4 max-w-2xl mx-auto text-lg leading-8 text-muted-foreground text-left">
-          Your contribution, big or small, supports not just your Islamic journey but countless others.
-        </p>
 
-        <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center max-w-5xl mx-auto">
           <Card className="p-6 sm:p-8 shadow-xl text-left bg-card w-full">
             <CardContent className="p-0">
               <div className="space-y-6">
