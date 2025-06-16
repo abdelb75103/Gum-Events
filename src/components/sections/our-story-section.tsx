@@ -21,9 +21,9 @@ export default function OurStorySection() {
             <p className="text-lg leading-8 text-muted-foreground">
               Established in 2023, GUM Events was formed from one simple idea: our community deserves inspiring Islamic events, right here in Ireland. Our mission is simple:
             </p>
-            <p className="text-lg leading-8 text-muted-foreground font-semibold">
+            <blockquote className="border-l-4 border-primary pl-4 italic text-lg leading-8 text-muted-foreground font-semibold">
               To help young Muslims choose Islam again, not just by name or heritage, but with conviction and certainty.
-            </p>
+            </blockquote>
             <p className="text-lg leading-8 text-muted-foreground">
               We do this by putting together high-quality events that speak to your heart and challenge your mind. We've been lucky enough to host most RENOWNED islamic speakers, like Dr. Omar Sulaiman, Sheikh Abu Bakr Zoud, Ustadh Nouman Ali Khan, and Ustadh Ali Hammuda. and impacted THOUSANDS of lives coming from across Europe!! We've also organised unforgettable tours and trips, including an Umrah pilgrimage with Riyad Muslim.
             </p>
