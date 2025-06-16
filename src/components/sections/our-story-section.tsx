@@ -2,7 +2,7 @@
 "use client";
 
 import Container from "@/components/ui/container";
-import { BookOpenText, CheckCircle2 } from "lucide-react"; // Added CheckCircle2
+import { BookOpenText, CheckCircle2 } from "lucide-react"; 
 
 export default function OurStorySection() {
   return (
@@ -54,7 +54,7 @@ export default function OurStorySection() {
           </div>
           
           <div className="flex justify-center">
-            <div className="w-full max-w-xl lg:max-w-2xl xl:max-w-3xl">
+            <div className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-xl xl:max-w-2xl">
               <video
                 width="100%"
                 controls
