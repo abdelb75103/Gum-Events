@@ -3,7 +3,7 @@
 
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
+import NextLink from 'next/link'; // Aliased to avoid conflict if 'Link' name is used locally
 import { ArrowRight, Ticket } from 'lucide-react';
 import {
   Carousel,
@@ -14,7 +14,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
-import { events as allEvents } from '@/lib/data'; // Corrected import
+import { events as allEvents } from '@/lib/data';
 import React from 'react';
 import { cn } from '@/lib/utils';
 
@@ -40,7 +40,7 @@ export default function HeroSection() {
   const genericHeroImage = "/images/hero.png";
   const genericHeroImageHint = "community event";
 
-  const totalSlides = firstEvent ? 2 : 1; // If there's an upcoming event, we have 2 slides, otherwise 1
+  const totalSlides = firstEvent ? 2 : 1;
 
   return (
     <section
@@ -51,54 +51,67 @@ export default function HeroSection() {
         setApi={setApi}
         plugins={[autoplayPlugin.current]}
         className="w-full h-full"
-        opts={{ loop: totalSlides > 1 }} // Only loop if there's more than one slide
+        opts={{ loop: totalSlides > 1 }}
       >
         <CarouselContent className="h-full">
           {/* Slide 1: Upcoming Event */}
           {firstEvent && (
             <CarouselItem className="h-full relative">
-              {/* Blurred Background Layer */}
-              <div className="absolute inset-0 overflow-hidden">
-                <Image
-                  src={firstEvent.image}
-                  alt={`Blurred background for ${firstEvent.title}`}
-                  fill
-                  style={{ objectFit: 'cover' }}
-                  className="z-0 blur-lg scale-110 brightness-75"
-                  priority
-                  data-ai-hint={firstEvent.imageHint || "event promotion background"}
-                />
-              </div>
-
-              {/* Container for Centered Poster and Button Below It */}
-              <div className="relative z-10 flex flex-col items-center justify-center h-full p-4">
-                <div className="relative w-full max-w-[300px] xs:max-w-[340px] sm:max-w-[360px] md:max-w-[380px] lg:max-w-[400px] aspect-[4/5] shadow-2xl rounded-lg overflow-hidden">
+              <NextLink
+                href={firstEvent.registrationLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block h-full w-full group" 
+                aria-label={`Register for ${firstEvent.title}`}
+              >
+                {/* Blurred Background Layer */}
+                <div className="absolute inset-0 overflow-hidden">
                   <Image
                     src={firstEvent.image}
-                    alt={firstEvent.title}
+                    alt={`Blurred background for ${firstEvent.title}`}
                     fill
-                    style={{ objectFit: 'contain' }} // Changed to contain to show full poster
-                    data-ai-hint={firstEvent.imageHint || "event poster"}
-                    className="rounded-lg"
-                    priority // Added priority here as well
+                    style={{ objectFit: 'cover' }}
+                    className="z-0 blur-lg scale-110 brightness-75"
+                    priority
+                    data-ai-hint={firstEvent.imageHint || "event promotion background"}
                   />
                 </div>
-                <Button
-                  size="lg"
-                  asChild
-                  className="mt-6 w-full max-w-[280px] text-accent-foreground px-6 py-3 text-base font-semibold shadow-md hover:shadow-lg transition-shadow bg-gradient-to-r from-primary/70 to-accent/70 hover:from-primary/90 hover:to-accent/90"
-                >
-                  <Link href={firstEvent.registrationLink} target="_blank" rel="noopener noreferrer">
-                    Buy Tickets <Ticket className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-              </div>
+
+                {/* Container for Centered Poster and Button Below It */}
+                <div className="relative z-10 flex flex-col items-center justify-center h-full p-4">
+                  <div className="relative w-full max-w-[300px] xs:max-w-[340px] sm:max-w-[360px] md:max-w-[380px] lg:max-w-[400px] aspect-[4/5] shadow-2xl rounded-lg overflow-hidden group-hover:opacity-90 transition-opacity duration-300">
+                    <Image
+                      src={firstEvent.image}
+                      alt={firstEvent.title}
+                      fill
+                      style={{ objectFit: 'contain' }}
+                      data-ai-hint={firstEvent.imageHint || "event poster"}
+                      className="rounded-lg"
+                      priority
+                    />
+                  </div>
+                  {/* This button is inside the larger NextLink. Clicking it will navigate. */}
+                  <Button
+                    size="lg"
+                    asChild 
+                    className="mt-6 w-full max-w-[280px] text-accent-foreground px-6 py-3 text-base font-semibold shadow-md group-hover:shadow-lg transition-shadow bg-gradient-to-r from-primary/70 to-accent/70 group-hover:from-primary/90 group-hover:to-accent/90"
+                  >
+                    {/* The parent NextLink makes this whole area clickable.
+                        The inner NextLink for the button is technically redundant if the parent is a link,
+                        but browsers usually handle this fine, and it ensures the button itself is a link.
+                        Both outer and inner link go to the same place.
+                    */}
+                    <NextLink href={firstEvent.registrationLink} target="_blank" rel="noopener noreferrer">
+                      Buy Tickets <Ticket className="ml-2 h-4 w-4" />
+                    </NextLink>
+                  </Button>
+                </div>
+              </NextLink>
             </CarouselItem>
           )}
 
           {/* Slide 2: Generic Hero */}
           <CarouselItem className="h-full relative">
-            {/* Wrapper for the generic hero image to ensure it fills the space */}
             <div className="absolute inset-0 overflow-hidden">
               <Image
                 src={genericHeroImage}
@@ -109,9 +122,7 @@ export default function HeroSection() {
                 data-ai-hint={genericHeroImageHint}
               />
             </div>
-            {/* Overlay */}
             <div className="absolute inset-0 bg-black/60 z-10" />
-            {/* Content */}
             <div className="relative z-20 flex flex-col items-center justify-center text-center h-full container mx-auto px-6 text-white">
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-6 drop-shadow-lg">
                 Growing Up Muslim
@@ -125,9 +136,9 @@ export default function HeroSection() {
                   asChild
                   className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg shadow-md hover:shadow-lg transition-shadow w-full sm:w-auto"
                 >
-                  <Link href="#contribute">
+                  <NextLink href="#contribute">
                     Support Our Work <ArrowRight className="ml-2 h-5 w-5" />
-                  </Link>
+                  </NextLink>
                 </Button>
               </div>
             </div>
@@ -136,13 +147,13 @@ export default function HeroSection() {
         <CarouselPrevious
           className={cn(
             "absolute left-3 top-1/2 -translate-y-1/2 z-30 text-white bg-black/30 hover:bg-black/50 border-none",
-            {"hidden": totalSlides <= 1} // Hide if only one slide
+            {"hidden": totalSlides <= 1}
           )}
         />
         <CarouselNext
           className={cn(
             "absolute right-3 top-1/2 -translate-y-1/2 z-30 text-white bg-black/30 hover:bg-black/50 border-none",
-            {"hidden": totalSlides <= 1} // Hide if only one slide
+            {"hidden": totalSlides <= 1}
             )}
         />
       </Carousel>
