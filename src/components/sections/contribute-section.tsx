@@ -137,6 +137,26 @@ export default function ContributeSection({ displayContributionSuccess = false }
     </div>
   );
 
+  const contributionPoints = [
+    {
+      id: "empowering",
+      text: "Empowering New Muslims: We are committed to fostering an inclusive environment by sponsoring free tickets for new Muslims, ensuring they can access and benefit from our events without financial barriers."
+    },
+    {
+      id: "accessibility",
+      text: "Ensuring Accessibility for All: Your support enables us to offer free or significantly discounted tickets to individuals who may not have the financial means, making our transformative events accessible to a wider audience."
+    },
+    {
+      id: "high-quality",
+      text: "Delivering High-Quality Events: Contributions directly cover essential event costs, including securing suitable venues, managing travel and accommodation for speakers (flights, hotels), paying honorariums, and investing in photography and videography to capture and share these invaluable experiences."
+    },
+    {
+      id: "operations",
+      text: "Sustaining GUM Operations: Your support also contributes to the vital overheads and ongoing operational costs necessary to run GUM effectively, including marketing and outreach efforts, website subscriptions, administrative expenses, and other essential resources that enable us to consistently plan and execute these events."
+    }
+  ];
+
+
   return (
     <section id="contribute" className="py-16 sm:py-24 bg-background">
       <Container>
@@ -277,13 +297,13 @@ export default function ContributeSection({ displayContributionSuccess = false }
               <AccordionTrigger className="text-lg hover:no-underline">
                 What will my contribution be used for?
               </AccordionTrigger>
-              <AccordionContent className="text-base text-muted-foreground">
-                Your contributions will go towards:
-                <ul className="list-disc space-y-1 pl-5 mt-2">
-                  <li>Sponsoring free tickets for new Muslims.</li>
-                  <li>Sponsoring free/discunted tickets for those who may not have the financial means.</li>
-                  <li>Covering event costs: venues, flights, hotels, honorariums, photography/videography.</li>
-                </ul>
+              <AccordionContent className="text-base text-muted-foreground space-y-3">
+                {contributionPoints.map((point) => (
+                  <div key={point.id} className="flex items-start">
+                    <CheckCircle2 className="h-5 w-5 text-accent mr-3 mt-1 shrink-0" />
+                    <span>{point.text}</span>
+                  </div>
+                ))}
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -292,3 +312,4 @@ export default function ContributeSection({ displayContributionSuccess = false }
     </section>
   );
 }
+
