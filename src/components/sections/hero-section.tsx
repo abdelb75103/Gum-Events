@@ -2,7 +2,7 @@
 "use client";
 
 import Image from 'next/image';
-import { Button, buttonVariants } from '@/components/ui/button'; // Ensured buttonVariants is imported if needed, though not used directly in the fix
+import { Button, buttonVariants } from '@/components/ui/button';
 import NextLink from 'next/link'; 
 import { ArrowRight, Ticket } from 'lucide-react';
 import {
@@ -40,7 +40,7 @@ export default function HeroSection() {
   const genericHeroImage = "/images/hero.png";
   const genericHeroImageHint = "community event";
 
-  const totalSlides = firstEvent ? 2 : 1; // Only 2 slides if there's an event, otherwise 1 generic slide.
+  const totalSlides = firstEvent ? 2 : 1; 
 
   return (
     <section
@@ -51,7 +51,7 @@ export default function HeroSection() {
         setApi={setApi}
         plugins={[autoplayPlugin.current]}
         className="w-full h-full"
-        opts={{ loop: totalSlides > 1 }} // Loop only if there's more than one slide
+        opts={{ loop: totalSlides > 1 }} 
       >
         <CarouselContent className="h-full">
           {/* Slide 1: Upcoming Event */}
@@ -77,27 +77,20 @@ export default function HeroSection() {
                   />
                 </div>
 
-                {/* Container for Centered Poster and Button Below It */}
+                {/* Container for Centered Poster */}
                 <div className="relative z-10 flex flex-col items-center justify-center h-full p-4">
                   <div className="relative w-full max-w-[300px] xs:max-w-[340px] sm:max-w-[360px] md:max-w-[380px] lg:max-w-[400px] aspect-[4/5] shadow-2xl rounded-lg overflow-hidden group-hover:opacity-90 transition-opacity duration-300">
                     <Image
                       src={firstEvent.image}
                       alt={firstEvent.title}
                       fill
-                      style={{ objectFit: 'contain' }} // Changed from cover to contain for posters
+                      style={{ objectFit: 'contain' }} 
                       data-ai-hint={firstEvent.imageHint || "event poster"}
                       className="rounded-lg"
                       priority
                     />
                   </div>
-                  {/* This button is inside the larger NextLink. Clicking it will navigate. */}
-                  {/* Removed asChild and inner NextLink to prevent nested <a> tags */}
-                  <Button
-                    size="lg"
-                    className="mt-6 w-full max-w-[280px] text-accent-foreground px-6 py-3 text-base font-semibold shadow-md group-hover:shadow-lg transition-shadow bg-gradient-to-r from-primary/70 to-accent/70 group-hover:from-primary/90 group-hover:to-accent/90"
-                  >
-                    Buy Tickets <Ticket className="ml-2 h-4 w-4" />
-                  </Button>
+                  {/* The explicit Button was removed here. The NextLink above makes the whole slide clickable. */}
                 </div>
               </NextLink>
             </CarouselItem>
@@ -111,7 +104,7 @@ export default function HeroSection() {
                 alt="Community members engaging in an event"
                 fill
                 style={{ objectFit: 'cover' }}
-                priority={!firstEvent} // Only priority if it's the first/only slide
+                priority={!firstEvent} 
                 data-ai-hint={genericHeroImageHint}
               />
             </div>
@@ -137,7 +130,6 @@ export default function HeroSection() {
             </div>
           </CarouselItem>
         </CarouselContent>
-        {/* Conditionally render carousel controls only if there is more than one effective slide */}
         {totalSlides > 1 && (
           <>
             <CarouselPrevious
