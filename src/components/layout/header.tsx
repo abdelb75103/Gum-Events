@@ -66,9 +66,9 @@ export default function Header() {
     // Apply base classes, visibility will be true by default
     return (
       <header className={cn(
-        "sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-sm", // Added backdrop-blur-sm back
-        "transition-transform duration-300 ease-in-out", // Base transition classes
-        "translate-y-0" // Default to visible for SSR
+        "sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-sm", 
+        "transition-transform duration-300 ease-in-out", 
+        "translate-y-0" 
       )}>
         <div className="container mx-auto flex h-20 max-w-7xl items-center justify-between px-6 sm:px-8 lg:px-10">
            <Link href="#hero" className="flex items-center">
@@ -96,9 +96,9 @@ export default function Header() {
 
   return (
     <header className={cn(
-      "sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-sm", // Added backdrop-blur-sm back
-      "transition-transform duration-300 ease-in-out", // For smooth animation
-      isHeaderVisible ? "translate-y-0" : "-translate-y-full" // Conditional transform
+      "sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-sm", 
+      "transition-transform duration-300 ease-in-out", 
+      isHeaderVisible ? "translate-y-0" : "-translate-y-full" 
     )}>
       <div className="container mx-auto flex h-20 max-w-7xl items-center justify-between px-6 sm:px-8 lg:px-10">
         <Link href="#hero" className="flex items-center" onClick={() => setIsMobileMenuOpen(false)}>
@@ -114,14 +114,14 @@ export default function Header() {
           />
         </Link>
 
-        <div className="flex items-center gap-1 sm:gap-2"> {/* Wrapper for right-aligned items */}
+        <div className="flex items-center gap-1 sm:gap-2"> 
           <nav className="hidden items-center space-x-0.5 sm:space-x-1 md:flex">
             {navItems.map((item) => (
               <Button 
                 key={item.label} 
                 variant="ghost" 
                 asChild 
-                className="text-sm sm:text-base px-3 sm:px-4 hover:bg-transparent hover:text-foreground hover:ring-2 hover:ring-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-background"
+                className="text-sm sm:text-base px-3 sm:px-4 hover:bg-transparent hover:text-accent focus-visible:outline-none focus-visible:text-accent focus-visible:underline focus-visible:underline-offset-2"
               >
                 <Link href={item.href}>{item.label}</Link>
               </Button>
@@ -130,7 +130,7 @@ export default function Header() {
 
           <ThemeToggleButton />
 
-          <div className="flex items-center md:hidden"> {/* Mobile menu trigger */}
+          <div className="flex items-center md:hidden"> 
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon">
@@ -163,7 +163,7 @@ export default function Header() {
                     <Button
                       key={item.label}
                       variant="ghost"
-                      className="justify-start text-xl" // Mobile menu items use different styling, not changed here
+                      className="justify-start text-xl" 
                       asChild
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
@@ -179,4 +179,3 @@ export default function Header() {
     </header>
   );
 }
-
