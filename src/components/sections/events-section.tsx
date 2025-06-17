@@ -16,7 +16,7 @@ export default function EventsSection() {
   const upcomingEvent = upcomingEventsData.find(event => event.status === 'upcoming');
 
   return (
-    <section id="events" className="py-16 sm:py-24 bg-background">
+    <section id="events" className="pt-8 sm:pt-12 pb-16 sm:pb-24 bg-background">
       <Container>
         <div className="mb-12 text-center">
           <CalendarFold className="mx-auto h-12 w-12 text-primary mb-4" />
@@ -24,9 +24,7 @@ export default function EventsSection() {
             Upcoming Events
           </h2>
           <div className="mt-2 mx-auto h-[3px] w-24 rounded-full bg-gradient-to-r from-primary to-accent"></div>
-          <p className="mt-4 text-lg leading-8 text-muted-foreground">
-            Don't miss out on our feature event.
-          </p>
+          {/* Subtitle paragraph removed from here */}
         </div>
         {upcomingEvent ? (
           <Link
@@ -42,7 +40,7 @@ export default function EventsSection() {
             <Card className="aspect-[4/5] relative overflow-hidden rounded-2xl shadow-xl transition-all duration-300 ease-in-out group-hover:shadow-2xl">
               <Image
                 src={upcomingEvent.image}
-                alt={upcomingEvent.title}
+                alt={upcomingEvent.title} 
                 layout="fill"
                 objectFit="cover"
                 className="transition-transform duration-500 group-hover:scale-105"
@@ -64,7 +62,6 @@ export default function EventsSection() {
                     <span>{upcomingEvent.location}</span>
                   </div>
                 </div>
-                {/* The button is part of the larger Link's content. Clicking it will navigate. */}
                 <div
                   className={cn(
                     buttonVariants({ variant: "default", size: "lg" }),
