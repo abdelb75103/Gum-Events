@@ -13,7 +13,9 @@ interface EventCheckoutPageProps {
   };
 }
 
-export default function EventCheckoutPage({ params }: EventCheckoutPageProps) {
+// Make the component async and await params
+export default async function EventCheckoutPage({ params: paramsProp }: EventCheckoutPageProps) {
+  const params = await Promise.resolve(paramsProp);
   const { eventId } = params;
 
   if (!eventId) {
@@ -57,10 +59,10 @@ export default function EventCheckoutPage({ params }: EventCheckoutPageProps) {
             </CardContent>
           </Card>
           <div className="text-center mt-8">
-             <a 
-                href={`https://www.eventbrite.ie/e/${eventId}`} 
-                target="_blank" 
-                rel="noopener noreferrer" 
+             <a
+                href={`https://www.eventbrite.ie/e/${eventId}`}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-sm text-primary hover:underline hover:text-accent transition-colors"
              >
                 Problems with the checkout? Click here to open on Eventbrite.
