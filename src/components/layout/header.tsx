@@ -117,7 +117,12 @@ export default function Header() {
         <div className="flex items-center gap-1 sm:gap-2"> {/* Wrapper for right-aligned items */}
           <nav className="hidden items-center space-x-0.5 sm:space-x-1 md:flex">
             {navItems.map((item) => (
-              <Button key={item.label} variant="ghost" asChild className="text-sm sm:text-base px-3 sm:px-4">
+              <Button 
+                key={item.label} 
+                variant="ghost" 
+                asChild 
+                className="text-sm sm:text-base px-3 sm:px-4 hover:bg-transparent hover:text-foreground hover:ring-2 hover:ring-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-background"
+              >
                 <Link href={item.href}>{item.label}</Link>
               </Button>
             ))}
@@ -158,7 +163,7 @@ export default function Header() {
                     <Button
                       key={item.label}
                       variant="ghost"
-                      className="justify-start text-xl"
+                      className="justify-start text-xl" // Mobile menu items use different styling, not changed here
                       asChild
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
@@ -174,3 +179,4 @@ export default function Header() {
     </header>
   );
 }
+
