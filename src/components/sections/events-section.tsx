@@ -29,25 +29,23 @@ export default function EventsSection() {
           </p>
         </div>
         {upcomingEvent ? (
-          <Card className="mx-auto max-w-xs sm:max-w-sm md:max-w-md aspect-[4/5] relative overflow-hidden rounded-2xl shadow-xl group transition-all duration-300 ease-in-out hover:shadow-2xl">
+          <Card className="mx-auto max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl aspect-[4/5] relative overflow-hidden rounded-2xl shadow-xl group transition-all duration-300 ease-in-out hover:shadow-2xl">
             <Image
               src={upcomingEvent.image}
-              alt={upcomingEvent.title}
+              alt={upcomingEvent.title} // Alt text still includes title for accessibility
               layout="fill"
               objectFit="cover"
               className="transition-transform duration-500 group-hover:scale-105"
               data-ai-hint={upcomingEvent.imageHint || "event poster"}
               priority
             />
-            {/* Gradient overlay for text readability */}
+            {/* Gradient overlay for text readability - reduced intensity */}
             <div
-              className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"
+              className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent/5"
               aria-hidden="true"
             />
-            <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-5 space-y-2.5 sm:space-y-3">
-              <h3 className="text-xl sm:text-2xl font-bold text-white leading-tight shadow-black [text-shadow:_0_1px_3px_rgb(0_0_0_/_0.5)]">
-                {upcomingEvent.title}
-              </h3>
+            <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6 md:p-7 space-y-3 sm:space-y-4">
+              {/* Title removed as it's on the poster */}
 
               <div className="bg-background/80 dark:bg-neutral-900/80 backdrop-blur-sm text-foreground rounded-lg px-3 py-2 text-xs sm:text-sm shadow-md flex flex-col xs:flex-row xs:items-center xs:space-x-3 space-y-1 xs:space-y-0">
                 <div className="flex items-center">

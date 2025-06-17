@@ -4,14 +4,15 @@ import type { Event } from "./types";
 export const events: Event[] = [
   {
     id: "1",
-    title: "Annual Youth Conference",
-    date: "October 26, 2024",
-    time: "10:00 AM - 5:00 PM",
-    location: "Community Grand Hall",
+    title: "The Awakening",
+    date: "26th July 2025",
+    time: "1.30PM - 5.30PM",
+    location: "UCD Astra Hall",
     description: "Join us for an inspiring day of talks, workshops, and networking for young Muslims.",
-    registrationLink: "https://www.eventbrite.ie/e/1410834667469?aff=oddtdtcreator",
+    registrationLink: "https://www.eventbrite.ie/e/the-awakening-of-the-ummah-the-end-of-times-tickets-1410834667469",
     image: "/images/ireland.png",
     imageHint: "Ireland event poster",
+    status: "upcoming", // Uncomment this line and set the status to 'upcoming'
   },
   // {
   //   id: "2",
