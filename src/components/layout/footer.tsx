@@ -13,7 +13,7 @@ export default function Footer() {
           {/* Icon from example removed, Copyright icon can be used if desired */}
           {/* <Copyright className="hidden h-5 w-5 text-muted-foreground md:inline-block" /> */}
           <p className="text-xs leading-loose text-muted-foreground">
-            &copy; {new Date().getFullYear()} {'Growing Up Muslim'}. All rights reserved.
+            &copy; {new Date().getFullYear()} {'GUM Events'}. All rights reserved.
           </p>
         </div>
         
