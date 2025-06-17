@@ -64,7 +64,7 @@ export default function EventsSection() {
                     <span>{upcomingEvent.location}</span>
                   </div>
                 </div>
-                {/* This button is part of the larger Link's content. Clicking it will navigate. */}
+                {/* The button is part of the larger Link's content. Clicking it will navigate. */}
                 <div
                   className={cn(
                     buttonVariants({ variant: "default", size: "lg" }),
