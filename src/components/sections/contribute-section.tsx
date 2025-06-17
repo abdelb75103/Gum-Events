@@ -128,6 +128,8 @@ export default function ContributeSection({ displayContributionSuccess = false }
         controls
         controlsList="nodownload"
         preload="metadata"
+        poster="/images/contribution-cover.jpg"
+        data-ai-hint="contribution video cover"
         className="aspect-video"
         aria-label="Contribution Information Video"
       >
