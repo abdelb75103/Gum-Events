@@ -14,7 +14,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
-import { upcomingEvents } from '@/components/sections/events-section';
+import { events as allEvents } from '@/lib/data'; // Corrected import
 import React from 'react';
 import { cn } from '@/lib/utils';
 
@@ -35,9 +35,12 @@ export default function HeroSection() {
     })
   }, [api])
 
-  const firstEvent = upcomingEvents.length > 0 ? upcomingEvents[0] : null;
+  const upcomingEventsList = allEvents.filter(event => event.status === 'upcoming');
+  const firstEvent = upcomingEventsList.length > 0 ? upcomingEventsList[0] : null;
   const genericHeroImage = "/images/hero.png";
   const genericHeroImageHint = "community event";
+
+  const totalSlides = firstEvent ? 2 : 1; // If there's an upcoming event, we have 2 slides, otherwise 1
 
   return (
     <section
@@ -48,7 +51,7 @@ export default function HeroSection() {
         setApi={setApi}
         plugins={[autoplayPlugin.current]}
         className="w-full h-full"
-        opts={{ loop: true }}
+        opts={{ loop: totalSlides > 1 }} // Only loop if there's more than one slide
       >
         <CarouselContent className="h-full">
           {/* Slide 1: Upcoming Event */}
@@ -74,9 +77,10 @@ export default function HeroSection() {
                     src={firstEvent.image}
                     alt={firstEvent.title}
                     fill
-                    style={{ objectFit: 'contain' }}
+                    style={{ objectFit: 'contain' }} // Changed to contain to show full poster
                     data-ai-hint={firstEvent.imageHint || "event poster"}
                     className="rounded-lg"
+                    priority // Added priority here as well
                   />
                 </div>
                 <Button
@@ -132,13 +136,13 @@ export default function HeroSection() {
         <CarouselPrevious
           className={cn(
             "absolute left-3 top-1/2 -translate-y-1/2 z-30 text-white bg-black/30 hover:bg-black/50 border-none",
-            {"hidden": upcomingEvents.length < 2 && !firstEvent}
+            {"hidden": totalSlides <= 1} // Hide if only one slide
           )}
         />
         <CarouselNext
           className={cn(
             "absolute right-3 top-1/2 -translate-y-1/2 z-30 text-white bg-black/30 hover:bg-black/50 border-none",
-            {"hidden": upcomingEvents.length < 2 && !firstEvent}
+            {"hidden": totalSlides <= 1} // Hide if only one slide
             )}
         />
       </Carousel>
