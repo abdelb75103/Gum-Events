@@ -30,9 +30,15 @@ export default function Footer() {
           {socialLinks.map((link) => {
             const Icon = link.icon; // Get the icon component from the config
             return (
-              <Button key={link.name} variant="ghost" size="icon" asChild className="h-8 w-8 group">
+              <Button 
+                key={link.name} 
+                variant="ghost" 
+                size="icon" 
+                asChild 
+                className="h-8 w-8 group hover:ring-2 hover:ring-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 focus-visible:ring-offset-background"
+              >
                 <Link href={link.href} target="_blank" rel="noopener noreferrer" aria-label={link.name}>
-                  <Icon className={cn("h-4 w-4 text-muted-foreground group-hover:text-primary", link.iconColorClass)} />
+                  <Icon className={cn("h-4 w-4 text-muted-foreground", link.iconColorClass)} />
                 </Link>
               </Button>
             );
@@ -42,3 +48,4 @@ export default function Footer() {
     </footer>
   );
 }
+
