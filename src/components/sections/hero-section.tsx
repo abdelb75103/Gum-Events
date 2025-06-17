@@ -2,8 +2,8 @@
 "use client";
 
 import Image from 'next/image';
-import { Button } from '@/components/ui/button';
-import NextLink from 'next/link'; // Aliased to avoid conflict if 'Link' name is used locally
+import { Button, buttonVariants } from '@/components/ui/button'; // Ensured buttonVariants is imported if needed, though not used directly in the fix
+import NextLink from 'next/link'; 
 import { ArrowRight, Ticket } from 'lucide-react';
 import {
   Carousel,
@@ -40,7 +40,7 @@ export default function HeroSection() {
   const genericHeroImage = "/images/hero.png";
   const genericHeroImageHint = "community event";
 
-  const totalSlides = firstEvent ? 2 : 1;
+  const totalSlides = firstEvent ? 2 : 1; // Only 2 slides if there's an event, otherwise 1 generic slide.
 
   return (
     <section
@@ -51,7 +51,7 @@ export default function HeroSection() {
         setApi={setApi}
         plugins={[autoplayPlugin.current]}
         className="w-full h-full"
-        opts={{ loop: totalSlides > 1 }}
+        opts={{ loop: totalSlides > 1 }} // Loop only if there's more than one slide
       >
         <CarouselContent className="h-full">
           {/* Slide 1: Upcoming Event */}
@@ -84,26 +84,19 @@ export default function HeroSection() {
                       src={firstEvent.image}
                       alt={firstEvent.title}
                       fill
-                      style={{ objectFit: 'contain' }}
+                      style={{ objectFit: 'contain' }} // Changed from cover to contain for posters
                       data-ai-hint={firstEvent.imageHint || "event poster"}
                       className="rounded-lg"
                       priority
                     />
                   </div>
                   {/* This button is inside the larger NextLink. Clicking it will navigate. */}
+                  {/* Removed asChild and inner NextLink to prevent nested <a> tags */}
                   <Button
                     size="lg"
-                    asChild 
                     className="mt-6 w-full max-w-[280px] text-accent-foreground px-6 py-3 text-base font-semibold shadow-md group-hover:shadow-lg transition-shadow bg-gradient-to-r from-primary/70 to-accent/70 group-hover:from-primary/90 group-hover:to-accent/90"
                   >
-                    {/* The parent NextLink makes this whole area clickable.
-                        The inner NextLink for the button is technically redundant if the parent is a link,
-                        but browsers usually handle this fine, and it ensures the button itself is a link.
-                        Both outer and inner link go to the same place.
-                    */}
-                    <NextLink href={firstEvent.registrationLink} target="_blank" rel="noopener noreferrer">
-                      Buy Tickets <Ticket className="ml-2 h-4 w-4" />
-                    </NextLink>
+                    Buy Tickets <Ticket className="ml-2 h-4 w-4" />
                   </Button>
                 </div>
               </NextLink>
@@ -118,7 +111,7 @@ export default function HeroSection() {
                 alt="Community members engaging in an event"
                 fill
                 style={{ objectFit: 'cover' }}
-                priority
+                priority={!firstEvent} // Only priority if it's the first/only slide
                 data-ai-hint={genericHeroImageHint}
               />
             </div>
@@ -144,18 +137,21 @@ export default function HeroSection() {
             </div>
           </CarouselItem>
         </CarouselContent>
-        <CarouselPrevious
-          className={cn(
-            "absolute left-3 top-1/2 -translate-y-1/2 z-30 text-white bg-black/30 hover:bg-black/50 border-none",
-            {"hidden": totalSlides <= 1}
-          )}
-        />
-        <CarouselNext
-          className={cn(
-            "absolute right-3 top-1/2 -translate-y-1/2 z-30 text-white bg-black/30 hover:bg-black/50 border-none",
-            {"hidden": totalSlides <= 1}
-            )}
-        />
+        {/* Conditionally render carousel controls only if there is more than one effective slide */}
+        {totalSlides > 1 && (
+          <>
+            <CarouselPrevious
+              className={cn(
+                "absolute left-3 top-1/2 -translate-y-1/2 z-30 text-white bg-black/30 hover:bg-black/50 border-none"
+              )}
+            />
+            <CarouselNext
+              className={cn(
+                "absolute right-3 top-1/2 -translate-y-1/2 z-30 text-white bg-black/30 hover:bg-black/50 border-none"
+                )}
+            />
+          </>
+        )}
       </Carousel>
     </section>
   );
