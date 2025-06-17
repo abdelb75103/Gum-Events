@@ -21,7 +21,7 @@ export default function EventsSection() {
         <div className="mb-12 text-center">
           <CalendarFold className="mx-auto h-12 w-12 text-primary mb-4" />
           <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Upcoming Event
+            Upcoming Events
           </h2>
           <div className="mt-2 mx-auto h-[3px] w-24 rounded-full bg-gradient-to-r from-primary to-accent"></div>
           <p className="mt-4 text-lg leading-8 text-muted-foreground">
