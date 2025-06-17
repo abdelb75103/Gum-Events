@@ -8,6 +8,8 @@ export interface Event {
   registrationLink: string;
   image: string;
   imageHint?: string;
+  status?: 'upcoming' | 'past'; // Added status
+  eventId?: string; // Added eventId for direct reference if needed
 }
 
 export interface SpeakerCardProps {

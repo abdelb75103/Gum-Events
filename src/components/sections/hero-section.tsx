@@ -2,8 +2,8 @@
 "use client";
 
 import Image from 'next/image';
-import { Button, buttonVariants } from '@/components/ui/button';
-import NextLink from 'next/link'; 
+import { Button } from '@/components/ui/button';
+import NextLink from 'next/link'; // Using Next.js Link for internal navigation
 import { ArrowRight, Ticket } from 'lucide-react';
 import {
   Carousel,
@@ -58,9 +58,8 @@ export default function HeroSection() {
           {firstEvent && (
             <CarouselItem className="h-full relative">
               <NextLink
-                href={firstEvent.registrationLink}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={firstEvent.registrationLink} // Uses updated internal link
+                // Removed target="_blank" and rel="noopener noreferrer" for internal navigation
                 className="block h-full w-full group" 
                 aria-label={`Register for ${firstEvent.title}`}
               >
@@ -90,7 +89,7 @@ export default function HeroSection() {
                       priority
                     />
                   </div>
-                  {/* The explicit Button was removed here. The NextLink above makes the whole slide clickable. */}
+                  {/* Explicit "Buy Tickets" button removed, as the whole slide is clickable */}
                 </div>
               </NextLink>
             </CarouselItem>

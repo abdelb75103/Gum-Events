@@ -7,7 +7,7 @@ import { events as upcomingEventsData } from "@/lib/data";
 import type { Event } from "@/lib/types";
 import { CalendarFold, Ticket, MapPin, CalendarDays } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+import Link from "next/link"; // Using Next.js Link for internal navigation
 import { Card } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -24,13 +24,11 @@ export default function EventsSection() {
             Upcoming Events
           </h2>
           <div className="mt-2 mx-auto h-[3px] w-24 rounded-full bg-gradient-to-r from-primary to-accent"></div>
-          {/* Subtitle paragraph removed from here */}
         </div>
         {upcomingEvent ? (
           <Link
-            href={upcomingEvent.registrationLink}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={upcomingEvent.registrationLink} // Uses updated internal link
+            // Removed target="_blank" and rel="noopener noreferrer" for internal navigation
             className={cn(
               "group mx-auto block max-w-xs transition-transform duration-300 ease-out hover:no-underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-2xl sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl",
               "lg:transform lg:scale-70 lg:origin-center" 
@@ -62,11 +60,13 @@ export default function EventsSection() {
                     <span>{upcomingEvent.location}</span>
                   </div>
                 </div>
+                {/* This div is styled like a button but is part of the larger Link */}
                 <div
                   className={cn(
                     buttonVariants({ variant: "default", size: "lg" }),
                     "w-full bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground font-semibold shadow-lg group-hover:shadow-xl text-sm sm:text-base py-2.5 sm:py-3 h-auto"
                   )}
+                  // No onClick needed as parent Link handles navigation
                 >
                   Buy Tickets <Ticket className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
                 </div>

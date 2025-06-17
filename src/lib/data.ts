@@ -9,10 +9,12 @@ export const events: Event[] = [
     time: "1.30PM - 5.30PM",
     location: "UCD Astra Hall",
     description: "Join us for an inspiring day of talks, workshops, and networking for young Muslims.",
-    registrationLink: "https://www.eventbrite.ie/e/the-awakening-of-the-ummah-the-end-of-times-tickets-1410834667469",
+    // Updated registrationLink to point to the internal checkout page
+    registrationLink: "/events/checkout/1410834667469", 
     image: "/images/ireland.png",
     imageHint: "Ireland event poster",
-    status: "upcoming", // Uncomment this line and set the status to 'upcoming'
+    status: "upcoming",
+    eventId: "1410834667469", // Added eventId for clarity, matches the one in registrationLink
   },
   // {
   //   id: "2",

@@ -25,7 +25,7 @@ export default function OurStorySection() {
               To help young Muslims choose Islam again, not just by name or heritage, but with conviction and certainty.
             </blockquote>
             <p className="text-lg leading-8 text-muted-foreground">
-              We do this by putting together high-quality events that speak to your heart and challenge your mind. We've been lucky enough to host most RENOWNED islamic speakers, like Dr. Omar Sulaiman, Sheikh Abu Bakr Zoud, Ustadh Nouman Ali Khan, and Ustadh Ali Hammuda. and impacted THOUSANDS of lives coming from across Europe!! We've also organised unforgettable tours and trips, including an Umrah pilgrimage with Riyad Muslim.
+              We do this by putting together high-quality events that speak to your heart and challenge your mind. We've been lucky enough to host some of the most RENOWNED islamic speakers, like Dr. Omar Sulaiman, Sheikh Abu Bakr Zoud, Ustadh Nouman Ali Khan, and Sheikh Ali Hammuda. and impacted THOUSANDS of lives coming from across Europe!! We've also organised unforgettable tours and trips, including an Umrah pilgrimage with Riyad Muslim.
             </p>
             
             <div>
