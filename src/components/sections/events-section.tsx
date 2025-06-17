@@ -34,7 +34,8 @@ export default function EventsSection() {
             target="_blank"
             rel="noopener noreferrer"
             className={cn(
-              "group mx-auto block max-w-xs transition-transform duration-300 ease-out hover:no-underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-2xl sm:max-w-sm md:max-w-md lg:max-w-lg lg:origin-center lg:transform lg:scale-80 xl:max-w-xl"
+              "group mx-auto block max-w-xs transition-transform duration-300 ease-out hover:no-underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-2xl sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl",
+              "lg:transform lg:scale-80 lg:origin-center"
             )}
             aria-label={`Register for ${upcomingEvent.title}`}
           >
