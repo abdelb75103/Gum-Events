@@ -3,8 +3,8 @@
 
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import NextLink from 'next/link'; // Using Next.js Link for internal navigation
-import { ArrowRight, Ticket } from 'lucide-react';
+import NextLink from 'next/link';
+import { ArrowRight } from 'lucide-react';
 import {
   Carousel,
   CarouselContent,
@@ -19,28 +19,31 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 
 export default function HeroSection() {
-  const autoplayPlugin = React.useRef(
-    Autoplay({ delay: 5000, stopOnInteraction: true, stopOnMouseEnter: true })
-  );
-  const [api, setApi] = React.useState<CarouselApi>()
-  const [currentSlide, setCurrentSlide] = React.useState(0)
-
-  React.useEffect(() => {
-    if (!api) {
-      return
-    }
-    setCurrentSlide(api.selectedScrollSnap())
-    api.on("select", () => {
-      setCurrentSlide(api.selectedScrollSnap())
-    })
-  }, [api])
-
   const upcomingEventsList = allEvents.filter(event => event.status === 'upcoming');
   const firstEvent = upcomingEventsList.length > 0 ? upcomingEventsList[0] : null;
   const genericHeroImage = "/images/hero.png";
   const genericHeroImageHint = "community event";
+  const totalSlides = firstEvent ? 2 : 1;
 
-  const totalSlides = firstEvent ? 2 : 1; 
+  const autoplayPlugin = React.useRef(
+    Autoplay({ delay: 5000, stopOnInteraction: true, stopOnMouseEnter: true })
+  );
+  const [api, setApi] = React.useState<CarouselApi>();
+  const [currentSlide, setCurrentSlide] = React.useState(0); // Keep for potential future use with more slides
+
+  React.useEffect(() => {
+    if (!api || totalSlides <= 1) {
+      return;
+    }
+    setCurrentSlide(api.selectedScrollSnap());
+    const onSelect = () => {
+      setCurrentSlide(api.selectedScrollSnap());
+    };
+    api.on("select", onSelect);
+    return () => {
+      api.off("select", onSelect);
+    };
+  }, [api, totalSlides]);
 
   return (
     <section
@@ -49,21 +52,18 @@ export default function HeroSection() {
     >
       <Carousel
         setApi={setApi}
-        plugins={[autoplayPlugin.current]}
+        plugins={totalSlides > 1 ? [autoplayPlugin.current] : []}
         className="w-full h-full"
-        opts={{ loop: totalSlides > 1 }} 
+        opts={{ loop: totalSlides > 1 }}
       >
         <CarouselContent className="h-full">
-          {/* Slide 1: Upcoming Event */}
           {firstEvent && (
             <CarouselItem className="h-full relative">
               <NextLink
-                href={firstEvent.registrationLink} // Uses updated internal link
-                // Removed target="_blank" and rel="noopener noreferrer" for internal navigation
-                className="block h-full w-full group" 
+                href={firstEvent.registrationLink}
+                className="block h-full w-full group"
                 aria-label={`Register for ${firstEvent.title}`}
               >
-                {/* Blurred Background Layer */}
                 <div className="absolute inset-0 overflow-hidden">
                   <Image
                     src={firstEvent.image}
@@ -72,32 +72,28 @@ export default function HeroSection() {
                     style={{ objectFit: 'cover' }}
                     className="z-0 blur-lg scale-110 brightness-75"
                     priority
-                    sizes="100vw" // Background image covers the viewport
+                    sizes="100vw"
                     data-ai-hint={firstEvent.imageHint || "event promotion background"}
                   />
                 </div>
-
-                {/* Container for Centered Poster */}
                 <div className="relative z-10 flex flex-col items-center justify-center h-full p-4">
                   <div className="relative w-full max-w-[300px] xs:max-w-[340px] sm:max-w-[360px] md:max-w-[380px] lg:max-w-[400px] aspect-[4/5] shadow-2xl rounded-lg overflow-hidden group-hover:opacity-90 transition-opacity duration-300">
                     <Image
                       src={firstEvent.image}
                       alt={firstEvent.title}
                       fill
-                      style={{ objectFit: 'contain' }} 
+                      style={{ objectFit: 'contain' }}
                       className="rounded-lg"
                       sizes="(max-width: 479px) 300px, (max-width: 639px) 340px, (max-width: 767px) 360px, (max-width: 1023px) 380px, 400px"
                       data-ai-hint={firstEvent.imageHint || "event poster"}
                       priority
                     />
                   </div>
-                  {/* Explicit "Buy Tickets" button removed, as the whole slide is clickable */}
                 </div>
               </NextLink>
             </CarouselItem>
           )}
 
-          {/* Slide 2: Generic Hero */}
           <CarouselItem className="h-full relative">
             <div className="absolute inset-0 overflow-hidden">
               <Image
@@ -105,8 +101,8 @@ export default function HeroSection() {
                 alt="Community members engaging in an event"
                 fill
                 style={{ objectFit: 'cover' }}
-                priority={!firstEvent} 
-                sizes="100vw" // Full bleed hero image
+                priority={!firstEvent}
+                sizes="100vw"
                 data-ai-hint={genericHeroImageHint}
               />
             </div>

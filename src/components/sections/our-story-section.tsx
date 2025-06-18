@@ -68,8 +68,6 @@ export default function OurStorySection() {
                 <source src="/videos/ourstory.mp4" type="video/mp4" />
                 Your browser does not support the video tag. Consider updating to a more modern browser.
               </video>
-              <p className="mt-3 text-sm text-center text-muted-foreground">
-              </p>
             </div>
           </div>
         </div>
@@ -77,4 +75,3 @@ export default function OurStorySection() {
     </section>
   );
 }
-
