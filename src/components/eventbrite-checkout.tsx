@@ -3,6 +3,7 @@
 
 import Script from 'next/script';
 import { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation'; // Import useRouter
 import { Skeleton } from '@/components/ui/skeleton'; // For loading state
 
 interface EventbriteCheckoutProps {
@@ -22,13 +23,12 @@ const EventbriteCheckout: React.FC<EventbriteCheckoutProps> = ({ eventId, iframe
   const [isScriptLoaded, setIsScriptLoaded] = useState(false);
   const [isWidgetCreated, setIsWidgetCreated] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const router = useRouter(); // Instantiate the router
 
   const exampleCallback = () => {
     console.log('Order complete for eventId:', eventId);
-    // You can add logic here, e.g., redirect to a thank you page
-    // or display an inline success message.
-    // For example:
-    // router.push('/order-success'); 
+    // Redirect to the homepage with a query parameter indicating success
+    router.push('/?event_registration_complete=true'); 
   };
 
   useEffect(() => {
@@ -58,7 +58,7 @@ const EventbriteCheckout: React.FC<EventbriteCheckoutProps> = ({ eventId, iframe
         console.warn(`Container ${widgetContainerId} not found for Eventbrite widget.`);
       }
     }
-  }, [eventId, iframeContainerHeight, widgetContainerId, isScriptLoaded, isWidgetCreated]);
+  }, [eventId, iframeContainerHeight, widgetContainerId, isScriptLoaded, isWidgetCreated, exampleCallback]); // Added exampleCallback to dependency array
 
   const handleScriptLoad = () => {
     setIsScriptLoaded(true);

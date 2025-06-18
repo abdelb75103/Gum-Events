@@ -11,22 +11,21 @@ import { ThemeToggleButton } from "@/components/theme-toggle-button";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { label: "Home", href: "#hero" },
-  { label: "Our Story", href: "#our-story" },
-  { label: "Contribute", href: "#contribute" },
-  { label: "Events", href: "#events" },
-  { label: "Speakers", href: "#speakers" },
-  { label: "Volunteer", href: "#volunteer" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/#hero" },
+  { label: "Our Story", href: "/#our-story" },
+  { label: "Contribute", href: "/#contribute" },
+  { label: "Events", href: "/#events" },
+  { label: "Speakers", href: "/#speakers" },
+  { label: "Volunteer", href: "/#volunteer" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const lastScrollYRef = useRef(0);
-  const headerHeightRef = useRef(80); // Assuming header height is 80px (h-20)
+  const scrollThreshold = 50; // Hide header after scrolling down this much
 
   useEffect(() => {
     setMounted(true);
@@ -35,28 +34,18 @@ export default function Header() {
       return;
     }
 
-    // If you have a dynamic way to get header height, use it here.
-    // For now, we use a ref with a static value.
-    // const headerElement = document.querySelector('header'); // Or a more specific selector
-    // if (headerElement) headerHeightRef.current = headerElement.offsetHeight;
-
-
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      const localLastScrollY = lastScrollYRef.current;
-      const headerHeight = headerHeightRef.current;
+      const previousScrollY = lastScrollYRef.current;
 
-      if (currentScrollY <= headerHeight) {
-        // Always show if near the top or at the top
-        setIsHeaderVisible(true);
-      } else if (currentScrollY > localLastScrollY) {
-        // Scrolling DOWN
-        setIsHeaderVisible(false);
-      } else {
-        // Scrolling UP
-        setIsHeaderVisible(true);
+      if (currentScrollY <= scrollThreshold) {
+        setIsHeaderVisible(true); // Always show if near the top
+      } else if (currentScrollY > previousScrollY) {
+        setIsHeaderVisible(false); // Scrolling DOWN
+      } else if (currentScrollY < previousScrollY) {
+        setIsHeaderVisible(true); // Scrolling UP
       }
-      lastScrollYRef.current = currentScrollY; // Update last scroll position
+      lastScrollYRef.current = currentScrollY;
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -73,7 +62,7 @@ export default function Header() {
         "translate-y-0"
       )}>
         <div className="container mx-auto flex h-20 max-w-7xl items-center justify-between px-6 sm:px-8 lg:px-10">
-           <Link href="#hero" className="flex items-center">
+           <Link href="/#hero" className="flex items-center"> {/* Changed href */}
             <Image
               src="/images/logo.png"
               alt="GUM Events Logo"
@@ -103,7 +92,7 @@ export default function Header() {
       isHeaderVisible ? "translate-y-0" : "-translate-y-full"
     )}>
       <div className="container mx-auto flex h-20 max-w-7xl items-center justify-between px-6 sm:px-8 lg:px-10">
-        <Link href="#hero" className="flex items-center" onClick={() => setIsMobileMenuOpen(false)}>
+        <Link href="/#hero" className="flex items-center" onClick={() => setIsMobileMenuOpen(false)}> {/* Changed href */}
           <Image
             src="/images/logo.png"
             alt="GUM Events Logo"
@@ -142,7 +131,7 @@ export default function Header() {
               </SheetTrigger>
               <SheetContent side="right" className="w-full max-w-xs bg-background p-6">
                 <div className="mb-6 flex items-center justify-between">
-                  <Link href="#hero" className="flex items-center" onClick={() => setIsMobileMenuOpen(false)}>
+                  <Link href="/#hero" className="flex items-center" onClick={() => setIsMobileMenuOpen(false)}> {/* Changed href */}
                     <Image
                       src="/images/logo.png"
                       alt="GUM Events Logo"
