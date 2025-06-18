@@ -26,13 +26,15 @@ export async function POST(request: Request) {
     const success_url = `${YOUR_DOMAIN}/?contribution_success=true&session_id={CHECKOUT_SESSION_ID}`;
     const cancel_url = `${YOUR_DOMAIN}/?contribution_canceled=true`;
 
-    console.log('[Stripe API] Attempting to create session with:');
-    console.log('[Stripe API] Amount (cents):', amount);
-    console.log('[Stripe API] Currency:', currency);
-    console.log('[Stripe API] Contribution Type:', contributionType);
-    console.log('[Stripe API] Success URL:', success_url);
-    console.log('[Stripe API] Cancel URL:', cancel_url);
-    console.log('[Stripe API] YOUR_DOMAIN used:', YOUR_DOMAIN);
+    if (process.env.NODE_ENV !== 'production') {
+      console.log('[Stripe API] Attempting to create session with:');
+      console.log('[Stripe API] Amount (cents):', amount);
+      console.log('[Stripe API] Currency:', currency);
+      console.log('[Stripe API] Contribution Type:', contributionType);
+      console.log('[Stripe API] Success URL:', success_url);
+      console.log('[Stripe API] Cancel URL:', cancel_url);
+      console.log('[Stripe API] YOUR_DOMAIN used:', YOUR_DOMAIN);
+    }
 
 
     let sessionOptions: Stripe.Checkout.SessionCreateParams = {
@@ -61,7 +63,9 @@ export async function POST(request: Request) {
     if (!session.id) {
         throw new Error('Stripe session ID not found after creation.');
     }
-    console.log('[Stripe API] Session created successfully with ID:', session.id);
+    if (process.env.NODE_ENV !== 'production') {
+      console.log('[Stripe API] Session created successfully with ID:', session.id);
+    }
 
     return NextResponse.json({ id: session.id });
 

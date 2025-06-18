@@ -21,8 +21,10 @@ export async function submitNewsletterForm(prevState: any, formData: FormData) {
     };
   }
 
+  if (process.env.NODE_ENV !== 'production') {
+    console.log("Newsletter signup:", validatedFields.data.email);
+  }
   // Simulate API call
-  console.log("Newsletter signup:", validatedFields.data.email);
   await new Promise(resolve => setTimeout(resolve, 1000));
 
   return { message: "Thank you for subscribing to our newsletter!" };
@@ -52,8 +54,10 @@ export async function submitVolunteerForm(prevState: any, formData: FormData) {
     };
   }
 
+  if (process.env.NODE_ENV !== 'production') {
+    console.log("Volunteer signup:", validatedFields.data);
+  }
   // Simulate API call
-  console.log("Volunteer signup:", validatedFields.data);
   await new Promise(resolve => setTimeout(resolve, 1000));
 
   return { message: "Thank you for your interest in volunteering! We will be in touch soon." };
@@ -85,12 +89,14 @@ export async function submitContactForm(prevState: any, formData: FormData) {
 
   try {
     const sentimentAnalysis = await analyzeContactFormSentiment({ message });
-    console.log("Contact Form Submission:", { name, email, message });
-    console.log("Sentiment Analysis:", sentimentAnalysis);
+    if (process.env.NODE_ENV !== 'production') {
+      console.log("Contact Form Submission:", { name, email, message });
+      console.log("Sentiment Analysis:", sentimentAnalysis);
+    }
 
     // You could add logic here based on sentiment (e.g., if urgent, send notification)
     if (sentimentAnalysis.urgency === "urgent" || sentimentAnalysis.sentiment === "negative") {
-      console.warn("URGENT/NEGATIVE FEEDBACK RECEIVED:", sentimentAnalysis);
+      console.warn("URGENT/NEGATIVE FEEDBACK RECEIVED:", { name, email, sentiment: sentimentAnalysis.sentiment, urgency: sentimentAnalysis.urgency });
       // Potentially send an email to admin, log to a special system, etc.
     }
 
