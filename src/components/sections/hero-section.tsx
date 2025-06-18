@@ -113,7 +113,7 @@ export default function HeroSection() {
                 Growing Up Muslim
               </h1>
               <p className="text-lg sm:text-xl md:text-2xl text-neutral-100 mb-10 max-w-3xl mx-auto drop-shadow-md">
-                Discover inspiring events, connect with a vibrant community, and explore your faith together.
+                Discover inspiring events, connect with a diverse community, and explore your faith together.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Button
@@ -147,3 +147,4 @@ export default function HeroSection() {
     </section>
   );
 }
+
