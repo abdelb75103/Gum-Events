@@ -1,3 +1,4 @@
+
 import Image from "next/image";
 import Link from "next/link";
 import { CalendarDays, MapPin, ArrowRight } from "lucide-react";
@@ -16,8 +17,8 @@ export default function EventCard({ event }: EventCardProps) {
         <Image
           src={event.image}
           alt={event.title}
-          layout="fill"
-          objectFit="cover"
+          fill
+          className="object-cover"
           data-ai-hint={event.imageHint}
         />
       </div>

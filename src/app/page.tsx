@@ -9,6 +9,8 @@ import EventsSection from "@/components/sections/events-section";
 import SpeakersSection from "@/components/sections/speakers-section";
 import VolunteerSection from "@/components/sections/volunteer-section";
 import ContactSection from "@/components/sections/contact-section";
+import ExpandableChatDemoSection from "@/components/sections/expandable-chat-demo-section";
+
 
 interface HomePageProps {
   searchParams?: {
@@ -18,7 +20,8 @@ interface HomePageProps {
   };
 }
 
-export default function Home({ searchParams }: HomePageProps) {
+export default async function Home({ searchParams: searchParamsProp }: HomePageProps) {
+  const searchParams = await Promise.resolve(searchParamsProp);
   const showContributionSuccess = searchParams?.contribution_success === 'true';
   // We could also handle contribution_canceled here if needed in the future
 
@@ -34,6 +37,7 @@ export default function Home({ searchParams }: HomePageProps) {
         <SpeakersSection />
         <VolunteerSection />
         <ContactSection />
+        <ExpandableChatDemoSection />
       </main>
       <Footer />
     </div>
