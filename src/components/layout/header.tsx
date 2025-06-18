@@ -78,7 +78,7 @@ export default function Header() {
               width={72}
               height={72}
               className="h-[72px] w-[72px]"
-              data-ai-hint="logo"
+              data-ai-hint="logo brand"
               priority
               style={{ objectFit: 'contain' }}
             />
@@ -108,7 +108,7 @@ export default function Header() {
             width={72}
             height={72}
             className="h-[72px] w-[72px]"
-            data-ai-hint="logo"
+            data-ai-hint="logo brand"
             priority
             style={{ objectFit: 'contain' }}
           />
@@ -121,7 +121,7 @@ export default function Header() {
                 key={item.label} 
                 variant="ghost" 
                 asChild 
-                className="text-sm sm:text-base px-3 sm:px-4 hover:bg-transparent hover:text-accent focus-visible:outline-none focus-visible:text-accent focus-visible:underline focus-visible:underline-offset-2"
+                className="text-sm sm:text-base px-3 sm:px-4 hover:bg-transparent hover:text-accent hover:font-semibold focus-visible:outline-none focus-visible:text-accent focus-visible:underline focus-visible:underline-offset-2 will-change-[color,font-weight]"
               >
                 <Link href={item.href}>{item.label}</Link>
               </Button>
@@ -147,7 +147,7 @@ export default function Header() {
                       width={62}
                       height={62}
                       className="h-[62px] w-[62px]"
-                      data-ai-hint="logo"
+                      data-ai-hint="logo brand"
                       style={{ objectFit: 'contain' }}
                     />
                   </Link>
@@ -179,3 +179,4 @@ export default function Header() {
     </header>
   );
 }
+
