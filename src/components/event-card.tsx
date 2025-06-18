@@ -19,6 +19,7 @@ export default function EventCard({ event }: EventCardProps) {
           alt={event.title}
           fill
           className="object-cover"
+          sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw"
           data-ai-hint={event.imageHint}
         />
       </div>

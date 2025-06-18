@@ -15,6 +15,7 @@ export default function SpeakerCard({ speaker }: Props) {
         alt={speaker.name}
         fill
         className="object-cover transition-transform duration-300 group-hover:scale-105"
+        sizes="(max-width: 639px) 45vw, 30vw"
         data-ai-hint={speaker.imageHint}
       />
       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/60 to-transparent p-3 transition-opacity duration-300">

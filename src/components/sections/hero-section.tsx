@@ -72,6 +72,7 @@ export default function HeroSection() {
                     style={{ objectFit: 'cover' }}
                     className="z-0 blur-lg scale-110 brightness-75"
                     priority
+                    sizes="100vw" // Background image covers the viewport
                     data-ai-hint={firstEvent.imageHint || "event promotion background"}
                   />
                 </div>
@@ -84,8 +85,9 @@ export default function HeroSection() {
                       alt={firstEvent.title}
                       fill
                       style={{ objectFit: 'contain' }} 
-                      data-ai-hint={firstEvent.imageHint || "event poster"}
                       className="rounded-lg"
+                      sizes="(max-width: 479px) 300px, (max-width: 639px) 340px, (max-width: 767px) 360px, (max-width: 1023px) 380px, 400px"
+                      data-ai-hint={firstEvent.imageHint || "event poster"}
                       priority
                     />
                   </div>
@@ -104,6 +106,7 @@ export default function HeroSection() {
                 fill
                 style={{ objectFit: 'cover' }}
                 priority={!firstEvent} 
+                sizes="100vw" // Full bleed hero image
                 data-ai-hint={genericHeroImageHint}
               />
             </div>
@@ -147,4 +150,3 @@ export default function HeroSection() {
     </section>
   );
 }
-

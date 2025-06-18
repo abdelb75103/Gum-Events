@@ -39,9 +39,10 @@ export default function EventsSection() {
               <Image
                 src={upcomingEvent.image}
                 alt={upcomingEvent.title} 
-                layout="fill"
+                fill
                 objectFit="cover"
                 className="transition-transform duration-500 group-hover:scale-105"
+                sizes="(max-width: 479px) 100vw, (max-width: 639px) 20rem, (max-width: 767px) 24rem, (max-width: 1023px) 28rem, (max-width: 1279px) 32rem, 36rem"
                 data-ai-hint={upcomingEvent.imageHint || "event poster"}
                 priority
               />
