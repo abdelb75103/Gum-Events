@@ -38,7 +38,7 @@ export default function Footer() {
                 className="h-8 w-8 group hover:ring-2 hover:ring-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 focus-visible:ring-offset-background"
               >
                 <Link href={link.href} target="_blank" rel="noopener noreferrer" aria-label={link.name}>
-                  <Icon className={cn("h-4 w-4 text-muted-foreground", link.iconColorClass)} />
+                  <Icon className={cn("h-8 w-8 text-muted-foreground", link.iconColorClass)} />
                 </Link>
               </Button>
             );
