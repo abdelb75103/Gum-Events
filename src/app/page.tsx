@@ -9,7 +9,6 @@ import EventsSection from "@/components/sections/events-section";
 import SpeakersSection from "@/components/sections/speakers-section";
 import VolunteerSection from "@/components/sections/volunteer-section";
 import ContactSection from "@/components/sections/contact-section";
-import ExpandableChatDemoSection from "@/components/sections/expandable-chat-demo-section";
 
 
 interface HomePageProps {
@@ -32,12 +31,11 @@ export default async function Home({ searchParams: searchParamsProp }: HomePageP
         <HeroSection />
         <OurStorySection />
         <OurImpactSection />
-        <ContributeSection displayContributionSuccess={showContributionSuccess} /> 
+        <ContributeSection displayContributionSuccess={showContributionSuccess} />
         <EventsSection />
         <SpeakersSection />
         <VolunteerSection />
         <ContactSection />
-        <ExpandableChatDemoSection />
       </main>
       <Footer />
     </div>
