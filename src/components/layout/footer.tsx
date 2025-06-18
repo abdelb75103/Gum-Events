@@ -35,10 +35,10 @@ export default function Footer() {
                 variant="ghost" 
                 size="icon" 
                 asChild 
-                className="h-8 w-8 group hover:ring-2 hover:ring-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 focus-visible:ring-offset-background"
+                className="h-8 w-8 group hover:bg-transparent focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 focus-visible:ring-offset-background"
               >
                 <Link href={link.href} target="_blank" rel="noopener noreferrer" aria-label={link.name}>
-                  <Icon className={cn("h-6 w-6 text-muted-foreground", link.iconColorClass)} />
+                  <Icon className={cn("h-6 w-6 text-muted-foreground group-hover:text-accent transition-colors duration-200 ease-in-out", link.iconColorClass)} />
                 </Link>
               </Button>
             );
@@ -48,4 +48,3 @@ export default function Footer() {
     </footer>
   );
 }
-
