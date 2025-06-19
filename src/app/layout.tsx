@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   title: 'Growing Up Muslim Events',
   description: 'Events, speakers, and community for Growing Up Muslim.',
   icons: {
-    icon: '/images/logo.png', // Standard favicon
+    icon: '/images/logo.png', // Standard favicon, should resolve to public/images/logo.png
     apple: '/images/logo.png', // Apple touch icon
     shortcut: '/images/logo.png', // For some older browsers
   },
