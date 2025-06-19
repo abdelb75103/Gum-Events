@@ -19,7 +19,7 @@ export default function OurStorySection() {
             <div className="mt-2 h-[3px] w-24 rounded-full bg-gradient-to-r from-primary to-accent"></div>
             
             <p className="text-lg leading-8 text-muted-foreground">
-              Established in 2023, GUM Events was formed from one simple idea: our community deserves inspiring Islamic events, right here in Ireland. Our mission is simple:
+              GUM Events was formed from one simple idea: our community deserves inspiring Islamic events, right here in Ireland. Our mission is simple:
             </p>
             <blockquote className="border-l-4 border-primary pl-4 italic text-lg leading-8 text-muted-foreground font-semibold">
               To help young Muslims choose Islam again, not just by name or heritage, but with conviction and certainty.
