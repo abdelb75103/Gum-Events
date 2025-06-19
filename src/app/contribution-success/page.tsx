@@ -2,7 +2,7 @@
 "use client";
 
 import { useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation'; // Removed useSearchParams from import
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import Container from '@/components/ui/container';
@@ -11,7 +11,7 @@ import { CheckCircle2, Loader2 } from 'lucide-react';
 
 export default function ContributionSuccessPage() {
   const router = useRouter();
-  const searchParams = useSearchParams(); // To potentially access session_id if needed in future
+  // Removed: const searchParams = useSearchParams(); 
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -22,8 +22,7 @@ export default function ContributionSuccessPage() {
     return () => clearTimeout(timer);
   }, [router]);
 
-  // Optional: You can retrieve session_id if you want to display it or use it
-  // const sessionId = searchParams.get('session_id');
+  // Removed: const sessionId = searchParams.get('session_id');
 
   return (
     <div className="flex min-h-screen flex-col bg-secondary dark:bg-background">
