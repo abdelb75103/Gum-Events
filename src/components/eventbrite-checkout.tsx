@@ -2,9 +2,9 @@
 "use client";
 
 import Script from 'next/script';
-import { useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation'; // Import useRouter
-import { Skeleton } from '@/components/ui/skeleton'; // For loading state
+import { useEffect, useRef, useState, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface EventbriteCheckoutProps {
   eventId: string;
@@ -23,22 +23,18 @@ const EventbriteCheckout: React.FC<EventbriteCheckoutProps> = ({ eventId, iframe
   const [isScriptLoaded, setIsScriptLoaded] = useState(false);
   const [isWidgetCreated, setIsWidgetCreated] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const router = useRouter(); // Instantiate the router
+  const router = useRouter();
 
-  const exampleCallback = () => {
+  const exampleCallback = useCallback(() => {
     console.log('Order complete for eventId:', eventId);
-    // Redirect to the homepage with a query parameter indicating success
-    router.push('/?event_registration_complete=true'); 
-  };
+    router.push('/?event_registration_complete=true');
+  }, [eventId, router]);
 
   useEffect(() => {
-    // This effect handles widget creation/re-creation if eventId changes
-    // or if the script loads after the component has already mounted.
     if (isScriptLoaded && window.EBWidgets && !isWidgetCreated) {
       const containerElement = document.getElementById(widgetContainerId);
       if (containerElement) {
-        // Clear previous widget if any to avoid multiple initializations
-        containerElement.innerHTML = ''; 
+        containerElement.innerHTML = '';
         try {
           window.EBWidgets.createWidget({
             widgetType: 'checkout',
@@ -54,11 +50,10 @@ const EventbriteCheckout: React.FC<EventbriteCheckoutProps> = ({ eventId, iframe
           setError('Failed to initialize the checkout widget. Please try refreshing or use the link below.');
         }
       } else {
-        // This case might occur if the div is not yet rendered for some reason
         console.warn(`Container ${widgetContainerId} not found for Eventbrite widget.`);
       }
     }
-  }, [eventId, iframeContainerHeight, widgetContainerId, isScriptLoaded, isWidgetCreated, exampleCallback]); // Added exampleCallback to dependency array
+  }, [eventId, iframeContainerHeight, widgetContainerId, isScriptLoaded, isWidgetCreated, exampleCallback]);
 
   const handleScriptLoad = () => {
     setIsScriptLoaded(true);
@@ -79,9 +74,7 @@ const EventbriteCheckout: React.FC<EventbriteCheckoutProps> = ({ eventId, iframe
           strategy="lazyOnload"
           onLoad={handleScriptLoad}
           onError={handleScriptError}
-          onReady={() => { 
-            // onReady is called after the script has executed.
-            // This is another point where we can be sure EBWidgets might be available.
+          onReady={() => {
             if (window.EBWidgets) {
               setIsScriptLoaded(true);
             }
@@ -89,8 +82,7 @@ const EventbriteCheckout: React.FC<EventbriteCheckoutProps> = ({ eventId, iframe
           }}
         />
       )}
-      
-      {/* Show skeleton or loading indicator while script/widget is initializing */}
+
       {(!isWidgetCreated || !isScriptLoaded) && !error && (
         <Skeleton className="w-full" style={{ minHeight: `${iframeContainerHeight}px` }} />
       )}
@@ -100,10 +92,9 @@ const EventbriteCheckout: React.FC<EventbriteCheckoutProps> = ({ eventId, iframe
           <p>{error}</p>
         </div>
       )}
-      
-      {/* The container for the Eventbrite widget */}
+
       <div id={widgetContainerId} style={{ width: '100%', minHeight: isWidgetCreated ? 'auto' : `${iframeContainerHeight}px` }}>
-        {/* Eventbrite widget will be embedded here. Content is dynamically inserted by Eventbrite. */}
+        {/* Eventbrite widget will be embedded here. */}
       </div>
     </>
   );
