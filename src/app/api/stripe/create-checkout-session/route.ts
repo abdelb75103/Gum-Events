@@ -2,15 +2,35 @@
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
-// Initialize Stripe with your secret key from environment variables
-// IMPORTANT: Ensure STRIPE_SECRET_KEY is set in your .env.local for development
-// and in your hosting environment's settings for production.
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2024-06-20', // Use the latest API version
-  typescript: true,
-});
+// IMPORTANT: Ensure STRIPE_SECRET_KEY and NEXT_PUBLIC_APP_URL are set in your .env.local for development
+// and in your Vercel (or other hosting environment) project settings for production.
+
+let stripe: Stripe | null = null;
+if (process.env.STRIPE_SECRET_KEY) {
+  stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+    apiVersion: '2024-06-20', // Use the latest API version
+    typescript: true,
+  });
+} else {
+  console.error('[Stripe API] CRITICAL: STRIPE_SECRET_KEY is not set. Stripe functionality will fail.');
+}
+
 
 export async function POST(request: Request) {
+  if (!stripe) {
+    console.error('[Stripe API] Stripe is not initialized. STRIPE_SECRET_KEY might be missing.');
+    return NextResponse.json({ error: 'Payment processing is not configured correctly. Please contact support.', details: 'Stripe secret key missing.' }, { status: 500 });
+  }
+
+  const YOUR_DOMAIN = process.env.NEXT_PUBLIC_APP_URL;
+
+  if (process.env.NODE_ENV === 'production' && (!YOUR_DOMAIN || YOUR_DOMAIN.includes('localhost'))) {
+    console.error('[Stripe API] CRITICAL: NEXT_PUBLIC_APP_URL is not set correctly for production. It should be your Vercel app URL.');
+    return NextResponse.json({ error: 'Application URL is not configured correctly for production. Please contact support.', details: 'NEXT_PUBLIC_APP_URL misconfiguration.' }, { status: 500 });
+  }
+  
+  const finalDomain = YOUR_DOMAIN || 'http://localhost:3000'; // Fallback for non-production if still needed
+
   try {
     const { amount, currency, contributionType } = await request.json();
 
@@ -21,10 +41,8 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: 'Amount must be positive.' }, { status: 400 });
     }
 
-    const YOUR_DOMAIN = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-
-    const success_url = `${YOUR_DOMAIN}/?contribution_success=true&session_id={CHECKOUT_SESSION_ID}`;
-    const cancel_url = `${YOUR_DOMAIN}/?contribution_canceled=true`;
+    const success_url = `${finalDomain}/?contribution_success=true&session_id={CHECKOUT_SESSION_ID}`;
+    const cancel_url = `${finalDomain}/?contribution_canceled=true`;
 
     if (process.env.NODE_ENV !== 'production') {
       console.log('[Stripe API] Attempting to create session with:');
@@ -33,7 +51,7 @@ export async function POST(request: Request) {
       console.log('[Stripe API] Contribution Type:', contributionType);
       console.log('[Stripe API] Success URL:', success_url);
       console.log('[Stripe API] Cancel URL:', cancel_url);
-      console.log('[Stripe API] YOUR_DOMAIN used:', YOUR_DOMAIN);
+      console.log('[Stripe API] finalDomain used:', finalDomain);
     }
 
 
@@ -55,7 +73,6 @@ export async function POST(request: Request) {
       mode: contributionType === 'monthly' ? 'subscription' : 'payment',
       success_url: success_url,
       cancel_url: cancel_url,
-      // automatic_payment_methods: {enabled: true}, // Consider enabling for more payment methods
     };
 
     const session = await stripe.checkout.sessions.create(sessionOptions);
@@ -71,17 +88,17 @@ export async function POST(request: Request) {
 
   } catch (err: any) {
     console.error('[Stripe API] Error creating Stripe session:', err.message);
-    // Log the full error for server-side debugging, but don't expose it all to client
-    // console.error(err); 
     
     let errorMessage = 'An unexpected error occurred while processing your payment. Please try again.';
     if (err instanceof Stripe.errors.StripeError) {
-        console.error('[Stripe API] Stripe Error Type:', err.type);
-        console.error('[Stripe API] Stripe Error Code:', err.code);
-        // Potentially customize message based on err.code or err.type
-        // For instance, if it's a card error, Stripe.js often handles it on the client.
-        // If it reaches here, it might be a configuration or more general API issue.
+        if (process.env.NODE_ENV !== 'production') {
+            console.error('[Stripe API] Stripe Error Type:', err.type);
+            console.error('[Stripe API] Stripe Error Code:', err.code);
+        }
+        // You could customize messages further based on err.code or err.type
     }
-    return NextResponse.json({ error: errorMessage, details: err.message }, { status: 500 });
+    // In production, you might want to return a more generic error message to the client
+    // and rely on server-side logs for detailed debugging.
+    return NextResponse.json({ error: errorMessage, details: process.env.NODE_ENV !== 'production' ? err.message : undefined }, { status: 500 });
   }
 }
