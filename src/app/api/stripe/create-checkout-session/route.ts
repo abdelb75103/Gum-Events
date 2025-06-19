@@ -27,7 +27,6 @@ if (secretKey && (secretKey.startsWith('sk_live_') || secretKey.startsWith('sk_t
 
 export async function POST(request: Request) {
   if (!stripe) {
-    // This detailed error will now be logged if the key was missing or malformed based on the check above.
     console.error('[Stripe API] Stripe is not initialized. STRIPE_SECRET_KEY might be missing, invalid, or not a secret key.');
     return NextResponse.json({ error: 'Payment processing is not configured correctly. Please contact support.', details: 'Stripe secret key misconfiguration.' }, { status: 500 });
   }
@@ -36,7 +35,6 @@ export async function POST(request: Request) {
 
   if (process.env.NODE_ENV === 'production' && (!YOUR_DOMAIN || YOUR_DOMAIN.includes('localhost'))) {
     console.error('[Stripe API] CRITICAL: NEXT_PUBLIC_APP_URL is not set correctly for production. It should be your Vercel app URL.');
-    // Log the actual value for easier debugging in Vercel logs, but only if it's not entirely undefined.
     if (YOUR_DOMAIN) {
         console.error(`[Stripe API] NEXT_PUBLIC_APP_URL in production is currently: ${YOUR_DOMAIN}`);
     } else {
@@ -57,8 +55,9 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: 'Amount must be positive.' }, { status: 400 });
     }
 
-    const success_url = `${finalDomain}/?contribution_success=true&session_id={CHECKOUT_SESSION_ID}`;
-    const cancel_url = `${finalDomain}/?contribution_canceled=true`;
+    // Updated success_url to point to the new /contribution-success page
+    const success_url = `${finalDomain}/contribution-success?session_id={CHECKOUT_SESSION_ID}`;
+    const cancel_url = `${finalDomain}/?contribution_canceled=true`; // Keep cancel URL pointing to homepage for now
 
     if (process.env.NODE_ENV !== 'production') {
       console.log('[Stripe API] Attempting to create session with:');
@@ -103,7 +102,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ id: session.id });
 
   } catch (err: any) {
-    // This is where the "You did not provide an API key" error from Stripe's library is caught.
     console.error(`[Stripe API] Error creating Stripe session: ${err.message}`);
     
     let errorMessage = 'An unexpected error occurred while processing your payment. Please try again.';
@@ -112,7 +110,6 @@ export async function POST(request: Request) {
             console.error('[Stripe API] Stripe Error Type:', err.type);
             console.error('[Stripe API] Stripe Error Code:', err.code);
         }
-        // Specific message for authentication errors
         if (err.type === 'StripeAuthenticationError') {
             errorMessage = 'Payment processing authentication failed. Please contact support. (Dev: Check Stripe Secret Key)';
         }

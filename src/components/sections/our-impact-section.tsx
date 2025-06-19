@@ -35,7 +35,7 @@ const impactData = [
   {
     metric: "Largest Islamic Event in Ireland",
     value: "Record Breaking",
-    description: "Hosted the largest Islamc event of its kind in Ireland.",
+    description: "Hosted the largest Islamic event of its kind in Ireland.",
     icon: Award,
     valueColorClass: "text-accent", 
     watermarkColorClass: "text-primary",

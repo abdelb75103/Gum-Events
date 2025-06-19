@@ -1,14 +1,14 @@
 
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "react"; // Removed useSearchParams as it's no longer needed here for success message
 import Container from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Card, CardContent } from "@/components/ui/card";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+// Alert components are no longer needed here for success message
 import { Euro, CheckCircle2 } from "lucide-react";
 import { loadStripe, type Stripe } from '@stripe/stripe-js';
 import { cn } from "@/lib/utils";
@@ -30,32 +30,18 @@ const getStripe = () => {
   return stripePromise;
 };
 
-interface ContributeSectionProps {
-  displayContributionSuccess?: boolean;
-}
-
-export default function ContributeSection({ displayContributionSuccess = false }: ContributeSectionProps) {
+// displayContributionSuccess prop is removed as success is handled on a separate page
+export default function ContributeSection() {
   const [amount, setAmount] = useState<string>("");
   const [contributionType, setContributionType] = useState<'once-off' | 'monthly'>('once-off');
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [showSuccessAlert, setShowSuccessAlert] = useState(displayContributionSuccess);
-
-  useEffect(() => {
-    setShowSuccessAlert(displayContributionSuccess);
-    if (displayContributionSuccess) {
-      const url = new URL(window.location.href);
-      url.searchParams.delete('contribution_success');
-      url.searchParams.delete('session_id');
-      window.history.replaceState({}, '', url.toString());
-    }
-  }, [displayContributionSuccess]);
-
+  // Removed showSuccessAlert and related useEffect, as success is handled on a separate page
 
   const handleContribution = async () => {
     setIsLoading(true);
     setErrorMessage(null);
-    setShowSuccessAlert(false);
+    // Removed setShowSuccessAlert(false);
 
     const numericAmount = parseFloat(amount);
     if (isNaN(numericAmount) || numericAmount <= 0) {
@@ -64,7 +50,9 @@ export default function ContributeSection({ displayContributionSuccess = false }
       return;
     }
 
-    console.log(`Initiating ${contributionType} contribution of EUR ${numericAmount.toFixed(2)}`);
+    if (process.env.NODE_ENV !== 'production') {
+      console.log(`Initiating ${contributionType} contribution of EUR ${numericAmount.toFixed(2)}`);
+    }
 
     try {
       const response = await fetch('/api/stripe/create-checkout-session', {
@@ -107,11 +95,15 @@ export default function ContributeSection({ displayContributionSuccess = false }
           setErrorMessage(displayMessage);
         }
       } else {
-        console.error("Failed to create Stripe session:", session.error || "Unknown server error");
+        if (process.env.NODE_ENV !== 'production') {
+            console.error("Failed to create Stripe session:", session.error || "Unknown server error");
+        }
         setErrorMessage(session.error || "Could not initiate payment. Please ensure the backend is correctly set up to create a Stripe Checkout session and your Stripe Secret Key is configured.");
       }
     } catch (error: any) {
-      console.error("Error during contribution process:", error);
+      if (process.env.NODE_ENV !== 'production') {
+        console.error("Error during contribution process:", error);
+      }
       setErrorMessage(error.message || "An unexpected error occurred. Please try again.");
     } finally {
       setIsLoading(false);
@@ -169,20 +161,7 @@ export default function ContributeSection({ displayContributionSuccess = false }
           <div className="mt-2 mx-auto h-[3px] w-24 rounded-full bg-gradient-to-r from-primary to-accent"></div>
         </div>
 
-        {showSuccessAlert && (
-          <Alert className="mt-8 max-w-lg mx-auto text-left border-green-500 dark:border-green-400 bg-green-50 dark:bg-green-900/30 p-6 rounded-lg shadow-lg">
-            <div className="flex">
-              <CheckCircle2 className="h-6 w-6 text-green-600 dark:text-green-400 mr-3 mt-1 flex-shrink-0" />
-              <div>
-                <AlertTitle className="text-xl font-semibold text-green-700 dark:text-green-300">Contribution Successful!</AlertTitle>
-                <AlertDescription className="mt-2 text-base text-green-600 dark:text-green-400 space-y-2">
-                  <p>Thank you for your generous support! Your contribution helps us continue our mission. Barak Allahu feekum!</p>
-                  <p className="text-sm">Please think about sharing with family and friends who may also want to support, and please keep us in your duas - GUM team</p>
-                </AlertDescription>
-              </div>
-            </div>
-          </Alert>
-        )}
+        {/* Removed success alert section */}
 
         <div className="mt-6 mb-10 text-left">
             <p className="text-lg leading-8 text-muted-foreground text-center">
@@ -314,4 +293,3 @@ export default function ContributeSection({ displayContributionSuccess = false }
     </section>
   );
 }
-
