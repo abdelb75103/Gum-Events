@@ -6,26 +6,42 @@ import Stripe from 'stripe';
 // and in your Vercel (or other hosting environment) project settings for production.
 
 let stripe: Stripe | null = null;
-if (process.env.STRIPE_SECRET_KEY) {
-  stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+const secretKey = process.env.STRIPE_SECRET_KEY;
+
+if (secretKey && (secretKey.startsWith('sk_live_') || secretKey.startsWith('sk_test_'))) {
+  stripe = new Stripe(secretKey, {
     apiVersion: '2024-06-20', // Use the latest API version
     typescript: true,
   });
+  if (process.env.NODE_ENV !== 'production') {
+    console.log('[Stripe API] Stripe initialized successfully with a valid secret key format.');
+  }
 } else {
-  console.error('[Stripe API] CRITICAL: STRIPE_SECRET_KEY is not set. Stripe functionality will fail.');
+  if (!secretKey) {
+    console.error('[Stripe API] CRITICAL: STRIPE_SECRET_KEY environment variable is not set. Stripe functionality will fail.');
+  } else {
+    console.error(`[Stripe API] CRITICAL: STRIPE_SECRET_KEY environment variable appears to be invalid or is not a secret key. It should start with 'sk_live_' or 'sk_test_'. Received key starts with: '${secretKey.substring(0, 7)}...'. Stripe functionality will fail.`);
+  }
 }
 
 
 export async function POST(request: Request) {
   if (!stripe) {
-    console.error('[Stripe API] Stripe is not initialized. STRIPE_SECRET_KEY might be missing.');
-    return NextResponse.json({ error: 'Payment processing is not configured correctly. Please contact support.', details: 'Stripe secret key missing.' }, { status: 500 });
+    // This detailed error will now be logged if the key was missing or malformed based on the check above.
+    console.error('[Stripe API] Stripe is not initialized. STRIPE_SECRET_KEY might be missing, invalid, or not a secret key.');
+    return NextResponse.json({ error: 'Payment processing is not configured correctly. Please contact support.', details: 'Stripe secret key misconfiguration.' }, { status: 500 });
   }
 
   const YOUR_DOMAIN = process.env.NEXT_PUBLIC_APP_URL;
 
   if (process.env.NODE_ENV === 'production' && (!YOUR_DOMAIN || YOUR_DOMAIN.includes('localhost'))) {
     console.error('[Stripe API] CRITICAL: NEXT_PUBLIC_APP_URL is not set correctly for production. It should be your Vercel app URL.');
+    // Log the actual value for easier debugging in Vercel logs, but only if it's not entirely undefined.
+    if (YOUR_DOMAIN) {
+        console.error(`[Stripe API] NEXT_PUBLIC_APP_URL in production is currently: ${YOUR_DOMAIN}`);
+    } else {
+        console.error(`[Stripe API] NEXT_PUBLIC_APP_URL in production is not set.`);
+    }
     return NextResponse.json({ error: 'Application URL is not configured correctly for production. Please contact support.', details: 'NEXT_PUBLIC_APP_URL misconfiguration.' }, { status: 500 });
   }
   
@@ -87,7 +103,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ id: session.id });
 
   } catch (err: any) {
-    console.error('[Stripe API] Error creating Stripe session:', err.message);
+    // This is where the "You did not provide an API key" error from Stripe's library is caught.
+    console.error(`[Stripe API] Error creating Stripe session: ${err.message}`);
     
     let errorMessage = 'An unexpected error occurred while processing your payment. Please try again.';
     if (err instanceof Stripe.errors.StripeError) {
@@ -95,10 +112,12 @@ export async function POST(request: Request) {
             console.error('[Stripe API] Stripe Error Type:', err.type);
             console.error('[Stripe API] Stripe Error Code:', err.code);
         }
-        // You could customize messages further based on err.code or err.type
+        // Specific message for authentication errors
+        if (err.type === 'StripeAuthenticationError') {
+            errorMessage = 'Payment processing authentication failed. Please contact support. (Dev: Check Stripe Secret Key)';
+        }
     }
-    // In production, you might want to return a more generic error message to the client
-    // and rely on server-side logs for detailed debugging.
+    
     return NextResponse.json({ error: errorMessage, details: process.env.NODE_ENV !== 'production' ? err.message : undefined }, { status: 500 });
   }
 }
