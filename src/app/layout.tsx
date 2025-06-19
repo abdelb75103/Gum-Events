@@ -1,3 +1,4 @@
+
 import type {Metadata} from 'next';
 import {Geist, Geist_Mono} from 'next/font/google';
 import './globals.css';
@@ -16,6 +17,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: 'Growing Up Muslim Events',
   description: 'Events, speakers, and community for Growing Up Muslim.',
+  icons: {
+    icon: '/images/logo.png', // Standard favicon
+    apple: '/images/logo.png', // Apple touch icon
+    shortcut: '/images/logo.png', // For some older browsers
+  },
 };
 
 export default function RootLayout({
