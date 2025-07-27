@@ -5,7 +5,7 @@ export const events: Event[] = [
   {
     id: "1",
     title: "The Digital Sisterhood",
-    date: "16th August 2025",
+    date: "17th August 2025",
     time: "1.15PM - 5.30PM",
     location: "UCD Astra Hall",
     // Updated registrationLink to point to the internal checkout page
