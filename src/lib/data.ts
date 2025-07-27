@@ -4,17 +4,17 @@ import type { Event } from "./types";
 export const events: Event[] = [
   {
     id: "1",
-    title: "The Awakening",
-    date: "26th July 2025",
-    time: "1.30PM - 5.30PM",
+    title: "The Digital Sisterhood",
+    date: "16th August 2025",
+    time: "1.15PM - 5.30PM",
     location: "UCD Astra Hall",
-    description: "Join us for an inspiring day of talks, workshops, and networking for young Muslims.",
     // Updated registrationLink to point to the internal checkout page
-    registrationLink: "/events/checkout/1410834667469", 
-    image: "/images/ireland.png",
+    registrationLink: "/events/checkout/1532993267129", 
+    image: "/images/The digital sisterhood-3.png",
     imageHint: "Ireland event poster",
     status: "upcoming",
-    eventId: "1410834667469", // Added eventId for clarity, matches the one in registrationLink
+    eventId: "1532993267129", // Added eventId for clarity
+    description: "Join us for an inspiring and uplifting event with The Digital Sisterhood. An event for all sisters to come together and connect.",
   },
   // {
   //   id: "2",
