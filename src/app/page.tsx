@@ -10,24 +10,10 @@ import SpeakersSection from "@/components/sections/speakers-section";
 import VolunteerSection from "@/components/sections/volunteer-section";
 import ContactSection from "@/components/sections/contact-section";
 
-
-interface HomePageProps {
-  searchParams?: {
-    // contribution_success is no longer handled here for the success message
-    contribution_canceled?: string;
-    session_id?: string; // Kept in case it's used for other purposes like analytics
-    event_registration_complete?: string; // For Eventbrite redirects
-  };
-}
-
-export default async function Home({ searchParams: searchParamsProp }: HomePageProps) {
-  const searchParams = await Promise.resolve(searchParamsProp);
-  // The logic for showContributionSuccess is removed as it's handled by the new dedicated page
-  // const showContributionSuccess = searchParams?.contribution_success === 'true';
-
-  // We could also handle contribution_canceled here if needed in the future
-  // Or event_registration_complete for Eventbrite
-
+// No props are being passed to Home, so we can simplify the component definition.
+export default function Home() {
+  // Logic for contribution_success, contribution_canceled, etc.,
+  // is handled on other pages or via components, so no logic is needed here.
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
@@ -35,7 +21,6 @@ export default async function Home({ searchParams: searchParamsProp }: HomePageP
         <HeroSection />
         <OurStorySection />
         <OurImpactSection />
-        {/* displayContributionSuccess prop removed from ContributeSection */}
         <ContributeSection />
         <EventsSection />
         <SpeakersSection />

@@ -62,7 +62,7 @@ export default function Header() {
         "translate-y-0"
       )}>
         <div className="container mx-auto flex h-20 max-w-7xl items-center justify-between px-6 sm:px-8 lg:px-10">
-           <Link href="/#hero" className="flex items-center"> {/* Changed href */}
+           <Link href="/#hero" className="flex items-center">
             <Image
               src="/images/logo.png"
               alt="GUM Events Logo"
@@ -92,7 +92,7 @@ export default function Header() {
       isHeaderVisible ? "translate-y-0" : "-translate-y-full"
     )}>
       <div className="container mx-auto flex h-20 max-w-7xl items-center justify-between px-6 sm:px-8 lg:px-10">
-        <Link href="/#hero" className="flex items-center" onClick={() => setIsMobileMenuOpen(false)}> {/* Changed href */}
+        <Link href="/#hero" className="flex items-center" onClick={() => setIsMobileMenuOpen(false)}>
           <Image
             src="/images/logo.png"
             alt="GUM Events Logo"
@@ -131,7 +131,7 @@ export default function Header() {
               </SheetTrigger>
               <SheetContent side="right" className="w-full max-w-xs bg-background p-6">
                 <div className="mb-6 flex items-center justify-between">
-                  <Link href="/#hero" className="flex items-center" onClick={() => setIsMobileMenuOpen(false)}> {/* Changed href */}
+                  <Link href="/#hero" className="flex items-center" onClick={() => setIsMobileMenuOpen(false)}>
                     <Image
                       src="/images/logo.png"
                       alt="GUM Events Logo"
