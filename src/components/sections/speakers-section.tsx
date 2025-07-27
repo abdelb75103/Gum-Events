@@ -11,6 +11,7 @@ const featuredSpeakers: SpeakerCardProps[] = [
   { name: "Sh. Jamal Abinasir", imageUrl: "/images/speakers/jamal.jpg", imageHint: "male speaker" },
   { name: "Ustadh Nouman Ali Khan", imageUrl: "/images/speakers/nak.jpg", imageHint: "male speaker" },
   { name: "Dr. Sohaib Saeed", imageUrl: "/images/speakers/tafsirdoc.jpg", imageHint: "male speaker" },
+  { name: "Ustadh Abu Taymiyyah", imageUrl: "/images/speakers/abut.jpg", imageHint: "male speaker" },
   { name: "Akhi Ayman", imageUrl: "/images/speakers/ayman.jpg", imageHint: "male speaker" },
   { name: "The Sunnah Guy", imageUrl: "/images/speakers/sunnahg.jpg", imageHint: "male speaker" },
   { name: "Sh. Ammar Alshukry", imageUrl: "/images/speakers/ammar.jpg", imageHint: "male speaker" },
