@@ -7,6 +7,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
+export const dynamic = 'force-dynamic'; // Ensures the page is always rendered dynamically
+
 interface EventCheckoutPageProps {
   params: {
     eventId: string;
