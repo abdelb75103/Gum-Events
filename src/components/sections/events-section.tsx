@@ -5,7 +5,7 @@ import * as React from 'react';
 import Container from "@/components/ui/container";
 import { events as upcomingEventsData } from "@/lib/data";
 import type { Event } from "@/lib/types";
-import { CalendarFold, Ticket, MapPin, CalendarDays } from "lucide-react";
+import { CalendarFold, Ticket, MapPin, CalendarDays, Eye } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link"; // Using Next.js Link for internal navigation
 import { Card } from "@/components/ui/card";
@@ -75,9 +75,12 @@ export default function EventsSection() {
             </Card>
           </Link>
         ) : (
-          <p className="text-center text-muted-foreground">
-            No upcoming events at the moment. Check back soon!
-          </p>
+          <div className="text-center text-muted-foreground flex flex-col items-center space-y-4">
+            <p className="text-lg md:text-xl">
+              Something big is coming soon! Keep an eye on our socials for announcements.
+            </p>
+            <Eye className="h-8 w-8 text-primary" />
+          </div>
         )}
       </Container>
     </section>
