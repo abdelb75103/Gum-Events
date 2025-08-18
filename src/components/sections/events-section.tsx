@@ -1,4 +1,3 @@
-
 "use client";
 
 import * as React from 'react';
@@ -77,7 +76,7 @@ export default function EventsSection() {
         ) : (
           <div className="max-w-md mx-auto p-8 text-center rounded-xl shadow-lg bg-gradient-to-r from-primary to-accent text-primary-foreground">
             <p className="text-xl md:text-2xl font-bold">
-              Something big is coming soon. Keep an eye out!
+              Something big is coming soon, insha'Allah. Keep an eye out!
             </p>
             <p className="text-md md:text-lg mt-2 opacity-90">
               Follow our socials for the latest announcements. You won't want to miss it!
