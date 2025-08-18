@@ -75,11 +75,11 @@ export default function EventsSection() {
             </Card>
           </Link>
         ) : (
-          <div className="text-center text-muted-foreground flex flex-col items-center space-y-4">
-            <p className="text-lg md:text-xl font-bold text-foreground">
+          <div className="max-w-md mx-auto p-8 text-center rounded-xl shadow-lg bg-gradient-to-tr from-primary/90 to-accent/90 text-primary-foreground">
+            <p className="text-xl md:text-2xl font-bold">
               Something big is coming soon. Keep an eye out!
             </p>
-            <p className="text-base md:text-lg -mt-2">
+            <p className="text-md md:text-lg mt-2 opacity-90">
               Follow our socials for the latest announcements. You won't want to miss it!
             </p>
           </div>
