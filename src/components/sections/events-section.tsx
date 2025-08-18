@@ -79,7 +79,6 @@ export default function EventsSection() {
             <p className="text-lg md:text-xl">
               Something big is coming soon! Keep an eye on our socials for announcements.
             </p>
-            <Eye className="h-8 w-8 text-primary" />
           </div>
         )}
       </Container>
