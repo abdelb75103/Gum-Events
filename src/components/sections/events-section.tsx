@@ -75,7 +75,7 @@ export default function EventsSection() {
             </Card>
           </Link>
         ) : (
-          <div className="max-w-md mx-auto p-8 text-center rounded-xl shadow-lg bg-gradient-to-tr from-primary/90 to-accent/90 text-primary-foreground">
+          <div className="max-w-md mx-auto p-8 text-center rounded-xl shadow-lg bg-gradient-to-r from-primary to-accent text-primary-foreground">
             <p className="text-xl md:text-2xl font-bold">
               Something big is coming soon. Keep an eye out!
             </p>
