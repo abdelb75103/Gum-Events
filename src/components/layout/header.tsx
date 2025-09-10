@@ -11,7 +11,6 @@ import { ThemeToggleButton } from "@/components/theme-toggle-button";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { label: "Home", href: "/#hero" },
   { label: "Our Story", href: "/our-story" },
   { label: "Contribute", href: "/#contribute" },
   { label: "Events", href: "/#events" },
@@ -114,7 +113,7 @@ export default function Header() {
                 asChild
                 className="text-sm sm:text-base px-3 sm:px-4 hover:bg-transparent hover:text-accent hover:font-semibold focus-visible:outline-none focus-visible:text-accent focus-visible:underline focus-visible:underline-offset-2 will-change-[color,font-weight]"
               >
-                <Link href={item.href}>{item.href.startsWith('/') ? item.href : `/${item.href}`}</Link>
+                <Link href={item.href}>{item.label}</Link>
               </Button>
             ))}
           </nav>
@@ -158,7 +157,7 @@ export default function Header() {
                       asChild
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
-                      <Link href={item.href.startsWith('/') ? item.href : `/${item.href}`}>{item.label}</Link>
+                      <Link href={item.href}>{item.label}</Link>
                     </Button>
                   ))}
                 </nav>
