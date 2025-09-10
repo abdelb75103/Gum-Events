@@ -1,10 +1,27 @@
 
 "use client";
 
+import { useState, useRef } from 'react';
 import Container from "@/components/ui/container";
-import { BookOpenText, CheckCircle2 } from "lucide-react"; 
+import { BookOpenText, CheckCircle2, PlayCircle } from "lucide-react"; 
 
 export default function OurStorySection() {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handlePlay = () => {
+    if (videoRef.current) {
+      videoRef.current.play();
+      setIsPlaying(true);
+    }
+  };
+
+  const handleVideoStateChange = () => {
+    if (videoRef.current) {
+      setIsPlaying(!videoRef.current.paused);
+    }
+  };
+
   return (
     <section id="our-story" className="pb-16 sm:pb-24 bg-card">
       <Container>
@@ -54,20 +71,31 @@ export default function OurStorySection() {
           </div>
           
           <div className="flex justify-center">
-            <div className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl">
+            <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl group">
               <video
+                ref={videoRef}
                 width="100%"
-                controls
+                controls={isPlaying}
                 controlsList="nodownload"
                 preload="metadata"
-                poster="images/ourstory-cover.jpg"
+                poster="/images/ourstory-cover.jpg"
                 data-ai-hint="community video"
-                className="rounded-xl shadow-xl aspect-video"
+                className="rounded-xl shadow-xl aspect-video w-full"
                 aria-label="Our Story Video"
+                onPlay={handleVideoStateChange}
+                onPause={handleVideoStateChange}
               >
                 <source src="/videos/ourstory.mp4" type="video/mp4" />
                 Your browser does not support the video tag. Consider updating to a more modern browser.
               </video>
+              {!isPlaying && (
+                <div 
+                  className="absolute inset-0 flex items-center justify-center bg-black/30 cursor-pointer rounded-xl"
+                  onClick={handlePlay}
+                >
+                  <PlayCircle className="h-16 w-16 text-white/80 transition-transform group-hover:scale-110" />
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -1,15 +1,14 @@
 
 "use client";
 
-import { useState, useEffect } from "react"; // Removed useSearchParams as it's no longer needed here for success message
+import { useState, useEffect, useRef } from "react";
 import Container from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Card, CardContent } from "@/components/ui/card";
-// Alert components are no longer needed here for success message
-import { Euro, CheckCircle2 } from "lucide-react";
+import { Euro, CheckCircle2, PlayCircle } from "lucide-react";
 import { loadStripe, type Stripe } from '@stripe/stripe-js';
 import { cn } from "@/lib/utils";
 
@@ -30,18 +29,30 @@ const getStripe = () => {
   return stripePromise;
 };
 
-// displayContributionSuccess prop is removed as success is handled on a separate page
 export default function ContributeSection() {
   const [amount, setAmount] = useState<string>("");
   const [contributionType, setContributionType] = useState<'once-off' | 'monthly'>('once-off');
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  // Removed showSuccessAlert and related useEffect, as success is handled on a separate page
+  const [isPlaying, setIsPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handlePlay = () => {
+    if (videoRef.current) {
+      videoRef.current.play();
+      setIsPlaying(true);
+    }
+  };
+
+  const handleVideoStateChange = () => {
+    if (videoRef.current) {
+      setIsPlaying(!videoRef.current.paused);
+    }
+  };
 
   const handleContribution = async () => {
     setIsLoading(true);
     setErrorMessage(null);
-    // Removed setShowSuccessAlert(false);
 
     const numericAmount = parseFloat(amount);
     if (isNaN(numericAmount) || numericAmount <= 0) {
@@ -114,20 +125,31 @@ export default function ContributeSection() {
   const isButtonDisabled = isLoading || !amount || parseFloat(amount) <= 0;
 
   const videoElement = (
-    <div className="w-full rounded-xl shadow-xl overflow-hidden">
+    <div className="relative w-full rounded-xl shadow-xl overflow-hidden group">
       <video
+        ref={videoRef}
         width="100%"
-        controls
+        controls={isPlaying}
         controlsList="nodownload"
         preload="metadata"
         poster="/images/contribution-cover.jpg"
         data-ai-hint="contribution video cover"
-        className="aspect-video"
+        className="aspect-video w-full"
         aria-label="Contribution Information Video"
+        onPlay={handleVideoStateChange}
+        onPause={handleVideoStateChange}
       >
         <source src="/videos/contribution.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
+      {!isPlaying && (
+        <div 
+          className="absolute inset-0 flex items-center justify-center bg-black/30 cursor-pointer"
+          onClick={handlePlay}
+        >
+          <PlayCircle className="h-16 w-16 text-white/80 transition-transform group-hover:scale-110" />
+        </div>
+      )}
     </div>
   );
 
@@ -160,8 +182,6 @@ export default function ContributeSection() {
           </h2>
           <div className="mt-2 mx-auto h-[3px] w-24 rounded-full bg-gradient-to-r from-primary to-accent"></div>
         </div>
-
-        {/* Removed success alert section */}
 
         <div className="mt-6 mb-10 text-left">
             <p className="text-lg leading-8 text-muted-foreground text-center">
@@ -290,5 +310,3 @@ export default function ContributeSection() {
     </section>
   );
 }
-
-    
