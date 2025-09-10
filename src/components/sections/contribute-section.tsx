@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Card, CardContent } from "@/components/ui/card";
-import { Euro, CheckCircle2, PlayCircle } from "lucide-react";
+import { Euro, CheckCircle2, Play } from "lucide-react";
 import { loadStripe, type Stripe } from '@stripe/stripe-js';
 import { cn } from "@/lib/utils";
 
@@ -147,7 +147,7 @@ export default function ContributeSection() {
           className="absolute inset-0 flex items-center justify-center bg-black/30 cursor-pointer"
           onClick={handlePlay}
         >
-          <PlayCircle className="h-16 w-16 text-white/80 transition-transform group-hover:scale-110" />
+          <Play className="h-16 w-16 text-white/80 transition-transform group-hover:scale-110 fill-white/80" />
         </div>
       )}
     </div>

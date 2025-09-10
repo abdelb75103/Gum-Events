@@ -3,7 +3,7 @@
 
 import { useState, useRef } from 'react';
 import Container from "@/components/ui/container";
-import { BookOpenText, CheckCircle2, PlayCircle } from "lucide-react"; 
+import { BookOpenText, CheckCircle2, Play } from "lucide-react"; 
 
 export default function OurStorySection() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -93,7 +93,7 @@ export default function OurStorySection() {
                   className="absolute inset-0 flex items-center justify-center bg-black/30 cursor-pointer rounded-xl"
                   onClick={handlePlay}
                 >
-                  <PlayCircle className="h-16 w-16 text-white/80 transition-transform group-hover:scale-110" />
+                  <Play className="h-16 w-16 text-white/80 transition-transform group-hover:scale-110 fill-white/80" />
                 </div>
               )}
             </div>
