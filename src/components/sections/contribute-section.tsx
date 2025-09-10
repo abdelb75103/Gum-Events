@@ -167,9 +167,6 @@ export default function ContributeSection() {
             <p className="text-lg leading-8 text-muted-foreground text-center">
               <strong>We need your help!</strong>
             </p>
-            <p className="mt-2 text-lg leading-8 text-muted-foreground">
-              As we continue to grow and serve the community, your support helps us continue to host life-changing events and also offer free and/or discounted tickets to those who may not have the financial means and new Muslims. Together, we can build a sustainable future.
-            </p>
             <p className="mt-4 text-lg leading-8 text-muted-foreground">
               Your contribution, big or small, supports not just your Islamic journey but countless others.
             </p>
@@ -293,3 +290,5 @@ export default function ContributeSection() {
     </section>
   );
 }
+
+    
