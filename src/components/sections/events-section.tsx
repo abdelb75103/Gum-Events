@@ -27,7 +27,7 @@ export default function EventsSection() {
         {upcomingEvent ? (
           <div className="max-w-md mx-auto">
              <Card className="flex h-full flex-col overflow-hidden rounded-2xl shadow-xl transition-shadow hover:shadow-2xl">
-                <div className="relative h-96 w-full">
+                <div className="relative aspect-[4/5] w-full">
                     <Image
                         src={upcomingEvent.image}
                         alt={upcomingEvent.title}
