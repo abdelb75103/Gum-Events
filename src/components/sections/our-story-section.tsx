@@ -6,7 +6,7 @@ import { BookOpenText, CheckCircle2 } from "lucide-react";
 
 export default function OurStorySection() {
   return (
-    <section id="our-story" className="py-16 sm:py-24 bg-card">
+    <section id="our-story" className="pb-16 sm:pb-24 bg-card">
       <Container>
         <div className="grid grid-cols-1 gap-y-10"> 
           <div className="space-y-6"> 
