@@ -2,20 +2,18 @@
 import type { Event } from "./types";
 
 export const events: Event[] = [
-  // {
-  //   id: "1",
-  //   title: "The Digital Sisterhood",
-  //   date: "17th August 2025",
-  //   time: "1.15PM - 5.30PM",
-  //   location: "UCD Astra Hall",
-  //   // Updated registrationLink to point to the internal checkout page
-  //   registrationLink: "/events/checkout/1532993267129", 
-  //   image: "/images/The digital sisterhood-3.png",
-  //   imageHint: "Ireland event poster",
-  //   status: "upcoming",
-  //   eventId: "1532993267129", // Added eventId for clarity
-  //   description: "Join us for an inspiring and uplifting event with The Digital Sisterhood. An event for all sisters to come together and connect.",
-  // },
+  {
+    id: "1",
+    title: "Light Upon Light: Winter Conference",
+    date: "30th December 2025",
+    time: "",
+    location: "International Convention Centre Belfast",
+    description: "",
+    registrationLink: "https://www.tickettailor.com/events/knowledge1st/1848003",
+    image: "/images/LUL X GUM.jpeg",
+    imageHint: "conference event poster",
+    status: "upcoming",
+  },
   // {
   //   id: "2",
   //   title: "Family Fun Day",

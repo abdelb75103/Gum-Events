@@ -1,3 +1,4 @@
+
 "use client";
 
 import * as React from 'react';
@@ -27,7 +28,8 @@ export default function EventsSection() {
         {upcomingEvent ? (
           <Link
             href={upcomingEvent.registrationLink} // Uses updated internal link
-            // Removed target="_blank" and rel="noopener noreferrer" for internal navigation
+            target="_blank" 
+            rel="noopener noreferrer"
             className={cn(
               "group mx-auto block max-w-xs transition-transform duration-300 ease-out hover:no-underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-2xl sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl",
               "lg:transform lg:scale-70 lg:origin-center" 
@@ -53,7 +55,7 @@ export default function EventsSection() {
                 <div className="bg-background/80 dark:bg-neutral-900/80 backdrop-blur-sm text-foreground rounded-lg px-3 py-2 text-xs sm:text-sm shadow-md flex flex-col xs:flex-row xs:items-center xs:space-x-3 space-y-1 xs:space-y-0">
                   <div className="flex items-center">
                     <CalendarDays className="h-4 w-4 mr-1.5 text-primary shrink-0" />
-                    <span>{upcomingEvent.date} at {upcomingEvent.time}</span>
+                    <span>{upcomingEvent.date}</span>
                   </div>
                   <div className="flex items-center">
                     <MapPin className="h-4 w-4 mr-1.5 text-primary shrink-0" />

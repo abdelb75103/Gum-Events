@@ -29,7 +29,7 @@ export default function EventCard({ event }: EventCardProps) {
       <CardContent className="flex-grow space-y-3">
         <div className="flex items-center text-sm text-muted-foreground">
           <CalendarDays className="mr-2 h-4 w-4 text-primary" />
-          <span>{event.date} at {event.time}</span>
+          <span>{event.date} {event.time ? `at ${event.time}`: ''}</span>
         </div>
         <div className="flex items-center text-sm text-muted-foreground">
           <MapPin className="mr-2 h-4 w-4 text-primary" />
@@ -41,7 +41,7 @@ export default function EventCard({ event }: EventCardProps) {
       </CardContent>
       <CardFooter>
         <Button asChild className="w-full">
-          <Link href={event.registrationLink}>
+          <Link href={event.registrationLink} target="_blank" rel="noopener noreferrer">
             Register Now <ArrowRight className="ml-2 h-4 w-4" />
           </Link>
         </Button>

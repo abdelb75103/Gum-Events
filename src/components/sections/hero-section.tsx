@@ -63,6 +63,8 @@ export default function HeroSection() {
                 href={firstEvent.registrationLink}
                 className="block h-full w-full group"
                 aria-label={`Register for ${firstEvent.title}`}
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <div className="absolute inset-0 overflow-hidden">
                   <Image
