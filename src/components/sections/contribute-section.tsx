@@ -167,7 +167,7 @@ export default function ContributeSection() {
             <p className="text-lg leading-8 text-muted-foreground text-center">
               <strong>We need your help!</strong>
             </p>
-            <p className="mt-4 text-lg leading-8 text-muted-foreground">
+            <p className="mt-4 text-lg leading-8 text-muted-foreground text-center">
               Your contribution, big or small, supports not just your Islamic journey but countless others.
             </p>
         </div>
