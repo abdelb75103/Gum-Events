@@ -9,7 +9,7 @@ export const events: Event[] = [
     time: "",
     location: "International Convention Centre Belfast",
     description: "",
-    registrationLink: "https://www.tickettailor.com/events/knowledge1st/1848003",
+    registrationLink: "https://www.tickettailor.com/checkout/view-event/id/6780502/chk/d477/?modal_widget=true&widget=true",
     image: "/images/LUL X GUM.jpeg",
     imageHint: "conference event poster",
     status: "upcoming",
