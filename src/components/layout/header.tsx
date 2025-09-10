@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -11,6 +10,7 @@ import { ThemeToggleButton } from "@/components/theme-toggle-button";
 import { cn } from "@/lib/utils";
 
 const navItems = [
+  { label: "Home", href: "/" },
   { label: "Our Story", href: "/our-story" },
   { label: "Contribute", href: "/#contribute" },
   { label: "Events", href: "/#events" },
