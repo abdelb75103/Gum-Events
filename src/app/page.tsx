@@ -2,10 +2,7 @@
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import HeroSection from "@/components/sections/hero-section";
-<<<<<<< HEAD
 import AboutSection from "@/components/sections/about-section";
-=======
->>>>>>> e291805ef7cef679879b1cbe12df2e8037d3a4da
 import ContributeSection from "@/components/sections/contribute-section";
 import EventsSection from "@/components/sections/events-section";
 import SpeakersSection from "@/components/sections/speakers-section";
@@ -21,10 +18,7 @@ export default function Home() {
       <Header />
       <main className="flex-grow">
         <HeroSection />
-<<<<<<< HEAD
         <AboutSection />
-=======
->>>>>>> e291805ef7cef679879b1cbe12df2e8037d3a4da
         <ContributeSection />
         <EventsSection />
         <SpeakersSection />
@@ -35,3 +29,4 @@ export default function Home() {
     </div>
   );
 }
+
