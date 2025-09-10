@@ -5,6 +5,7 @@ import Container from "@/components/ui/container";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import { BookOpenText, CheckCircle2 } from "lucide-react"; 
+import OurImpactSection from "@/components/sections/our-impact-section";
 
 export default function OurStoryPage() {
   return (
@@ -78,6 +79,7 @@ export default function OurStoryPage() {
             </div>
           </Container>
         </section>
+        <OurImpactSection />
       </main>
       <Footer />
     </div>
