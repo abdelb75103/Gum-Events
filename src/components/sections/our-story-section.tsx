@@ -1,13 +1,18 @@
 
 "use client";
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Container from "@/components/ui/container";
 import { BookOpenText, CheckCircle2, Play } from "lucide-react"; 
 
 export default function OurStorySection() {
   const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handlePlay = () => {
     if (videoRef.current) {
@@ -75,7 +80,7 @@ export default function OurStorySection() {
               <video
                 ref={videoRef}
                 width="100%"
-                controls={isPlaying}
+                controls={isMounted && isPlaying}
                 controlsList="nodownload"
                 preload="metadata"
                 poster="/images/ourstory-cover.jpg"
@@ -84,11 +89,14 @@ export default function OurStorySection() {
                 aria-label="Our Story Video"
                 onPlay={handleVideoStateChange}
                 onPause={handleVideoStateChange}
+                playsInline
+                muted
+                loop
               >
                 <source src="/videos/ourstory.mp4" type="video/mp4" />
                 Your browser does not support the video tag. Consider updating to a more modern browser.
               </video>
-              {!isPlaying && (
+              {isMounted && !isPlaying && (
                 <div 
                   className="absolute inset-0 flex items-center justify-center bg-black/30 cursor-pointer rounded-xl"
                   onClick={handlePlay}
@@ -103,4 +111,3 @@ export default function OurStorySection() {
     </section>
   );
 }
-
