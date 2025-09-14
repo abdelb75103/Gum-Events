@@ -90,8 +90,6 @@ export default function OurStorySection() {
                 onPlay={handleVideoStateChange}
                 onPause={handleVideoStateChange}
                 playsInline
-                muted
-                loop
               >
                 <source src="/videos/ourstory.mp4" type="video/mp4" />
                 Your browser does not support the video tag. Consider updating to a more modern browser.

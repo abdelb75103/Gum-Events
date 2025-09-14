@@ -144,8 +144,6 @@ export default function ContributeSection() {
         onPlay={handleVideoStateChange}
         onPause={handleVideoStateChange}
         playsInline
-        muted
-        loop
       >
         <source src="/videos/contribution.mp4" type="video/mp4" />
         Your browser does not support the video tag.
