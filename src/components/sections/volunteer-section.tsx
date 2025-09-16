@@ -3,13 +3,10 @@
 
 import Container from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
-import { HeartHandshake, ExternalLink } from "lucide-react";
+import { HeartHandshake, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 export default function VolunteerSection() {
-  // Replace with your actual Google Form link
-  const googleFormLink = "https://docs.google.com/forms/d/e/1FAIpQLSdJxFScjAEpc9IhhSYK_5WpFNhJWwYai8_wwaAP8lKfuLanEw/viewform?usp=share_link&ouid=109662173832548011035"; 
-
   return (
     <section id="volunteer" className="py-16 sm:py-24 bg-secondary">
       <Container>
@@ -30,9 +27,9 @@ export default function VolunteerSection() {
             size="lg"
             className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground text-lg py-4 px-8 font-semibold shadow-lg"
           >
-            <Link href={googleFormLink} target="_blank" rel="noopener noreferrer">
+            <Link href="/volunteer">
               Sign Up to Volunteer
-              <ExternalLink className="ml-2 h-5 w-5" />
+              <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </Button>
         </div>
