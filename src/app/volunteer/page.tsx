@@ -25,15 +25,15 @@ export default function VolunteerPage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="pt-6">
-              <div className="aspect-[1/1.5] sm:aspect-[1/1.2] md:aspect-[1/1] lg:aspect-[4/3] w-full overflow-hidden rounded-lg border">
+              <div className="w-full overflow-hidden rounded-lg border">
                 <iframe
                   src="https://docs.google.com/forms/d/e/1FAIpQLSdJxFScjAEpc9IhhSYK_5WpFNhJWwYai8_wwaAP8lKfuLanEw/viewform?embedded=true"
                   width="100%"
-                  height="100%"
+                  height="2400"
                   frameBorder="0"
                   marginHeight={0}
                   marginWidth={0}
-                  className="w-full h-full"
+                  className="w-full"
                 >
                   Loading…
                 </iframe>
