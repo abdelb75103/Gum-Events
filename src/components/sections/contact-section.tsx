@@ -1,37 +1,42 @@
-
 "use client";
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import Container from "@/components/ui/container"; // Added standard container
+import Container from "@/components/ui/container";
 import { Mail } from 'lucide-react';
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
-export default function ContactSection() { // Changed to export default
+export default function ContactSection() {
   return (
-    <section id="contact" className="py-16 sm:py-24 bg-background"> {/* Adjusted padding and background */}
-      <Container> {/* Used standard container */}
-        <Card className="max-w-2xl mx-auto shadow-xl bg-card">
-          <CardHeader className="text-center">
-            <Mail className="h-12 w-12 text-primary mx-auto mb-4" />
-            <CardTitle className="text-3xl md:text-4xl font-bold tracking-tight text-card-foreground">Get In Touch</CardTitle>
-            <div className="mt-2 mx-auto h-[3px] w-24 rounded-full bg-gradient-to-r from-primary to-accent"></div> {/* Standard underline */}
-            <CardDescription className="text-lg md:text-xl text-muted-foreground mt-4"> {/* Added mt-4 for spacing after underline */}
-              Have questions or want to learn more? We'd love to hear from you. Reach out to us directly via email.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="text-center pt-6 pb-8">
-            <Button
-              asChild
-              size="lg" // Retained for base height context if needed, but overridden by className
-              className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground font-bold w-full whitespace-normal h-auto text-xs px-2 py-2 xs:text-sm xs:px-3 xs:py-2 sm:text-base sm:px-4 sm:py-2.5 md:text-base md:px-6 md:py-3 break-words"
-            >
-              <a href="mailto:info@growingupmuslimevents.com">
-                info@growingupmuslimevents.com
-                <Mail className="ml-1 h-3 w-3 xs:ml-1.5 xs:h-3.5 xs:w-3.5 sm:ml-2 sm:h-4 sm:w-4 md:h-5 md:w-5" />
-              </a>
-            </Button>
-          </CardContent>
-        </Card>
+    <section id="contact" className="py-16 sm:py-24 bg-background relative">
+      <Container>
+        <ScrollReveal>
+          <Card className="max-w-3xl mx-auto shadow-2xl bg-card border-primary/10 overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary to-accent" />
+            <CardHeader className="text-center pt-10">
+              <div className="mx-auto bg-primary/10 p-4 rounded-full mb-4 w-fit">
+                <Mail className="h-8 w-8 text-primary" />
+              </div>
+              <CardTitle className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">Get In Touch</CardTitle>
+              <div className="mt-4 mx-auto h-1 w-20 rounded-full bg-gradient-to-r from-primary to-accent"></div>
+              <CardDescription className="text-lg md:text-xl text-muted-foreground mt-6 max-w-xl mx-auto">
+                Have questions or want to learn more? We'd love to hear from you. Reach out to us directly via email.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="text-center pb-10 px-6 sm:px-10">
+              <Button
+                asChild
+                size="lg"
+                className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground font-bold w-full sm:w-auto h-auto py-4 px-8 text-base sm:text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5 rounded-full"
+              >
+                <a href="mailto:info@growingupmuslimevents.com" className="flex items-center justify-center gap-2">
+                  info@growingupmuslimevents.com
+                  <Mail className="h-5 w-5" />
+                </a>
+              </Button>
+            </CardContent>
+          </Card>
+        </ScrollReveal>
       </Container>
     </section>
   );

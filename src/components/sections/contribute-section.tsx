@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -11,6 +10,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Euro, CheckCircle2, Play } from "lucide-react";
 import { loadStripe, type Stripe } from '@stripe/stripe-js';
 import { cn } from "@/lib/utils";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
 // Use your Stripe LIVE Publishable Key
 const STRIPE_PUBLISHABLE_KEY = "pk_live_51RZYeU03fmxR0FPJMt0o4IRKOQ67JpOPSxVBmA6any2JknMMJpvbjBYVXTy0VmITqqofPaA4e7u5zhKbgj05bdoV00YBfDfUm9";
@@ -112,7 +112,7 @@ export default function ContributeSection() {
         }
       } else {
         if (process.env.NODE_ENV !== 'production') {
-            console.error("Failed to create Stripe session:", session.error || "Unknown server error");
+          console.error("Failed to create Stripe session:", session.error || "Unknown server error");
         }
         setErrorMessage(session.error || "Could not initiate payment. Please ensure the backend is correctly set up to create a Stripe Checkout session and your Stripe Secret Key is configured.");
       }
@@ -130,7 +130,7 @@ export default function ContributeSection() {
   const isButtonDisabled = isLoading || !amount || parseFloat(amount) <= 0;
 
   const videoElement = (
-    <div className="relative w-full rounded-xl shadow-xl overflow-hidden group">
+    <div className="relative w-full rounded-2xl shadow-2xl overflow-hidden group ring-1 ring-white/10">
       <video
         ref={videoRef}
         width="100%"
@@ -139,7 +139,7 @@ export default function ContributeSection() {
         preload="metadata"
         poster="/images/contribution-cover.jpg"
         data-ai-hint="contribution video cover"
-        className="aspect-video w-full"
+        className="aspect-video w-full object-cover"
         aria-label="Contribution Information Video"
         onPlay={handleVideoStateChange}
         onPause={handleVideoStateChange}
@@ -149,11 +149,13 @@ export default function ContributeSection() {
         Your browser does not support the video tag.
       </video>
       {isMounted && !isPlaying && (
-        <div 
-          className="absolute inset-0 flex items-center justify-center bg-black/30 cursor-pointer"
+        <div
+          className="absolute inset-0 flex items-center justify-center bg-black/40 cursor-pointer transition-colors group-hover:bg-black/30"
           onClick={handlePlay}
         >
-          <Play className="h-16 w-16 text-white/80 transition-transform group-hover:scale-110 fill-white/80" />
+          <div className="w-20 h-20 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center transition-transform group-hover:scale-110">
+            <Play className="h-10 w-10 text-white fill-white ml-1" />
+          </div>
         </div>
       )}
     </div>
@@ -180,42 +182,43 @@ export default function ContributeSection() {
 
 
   return (
-    <section id="contribute" className="py-16 sm:py-24 bg-background">
-      <Container>
-        <div className="text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Support Our Mission
-          </h2>
-          <div className="mt-2 mx-auto h-[3px] w-24 rounded-full bg-gradient-to-r from-primary to-accent"></div>
-        </div>
+    <section id="contribute" className="py-16 sm:py-24 bg-background relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+        <div className="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-primary/5 blur-[100px]" />
+        <div className="absolute top-[40%] -right-[10%] w-[40%] h-[40%] rounded-full bg-accent/5 blur-[100px]" />
+      </div>
 
-        <div className="mt-6 mb-10 text-left">
-            <p className="text-lg leading-8 text-muted-foreground text-center">
-              <strong>We need your help!</strong>
-            </p>
-            <p className="mt-4 text-lg leading-8 text-muted-foreground text-center">
+      <Container className="relative z-10">
+        <ScrollReveal>
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-foreground mb-6">
+              Support Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Mission</span>
+            </h2>
+            <p className="mt-6 text-lg md:text-xl leading-8 text-muted-foreground max-w-2xl mx-auto font-medium">
               Your contribution, big or small, supports not just your Islamic journey but countless others.
             </p>
-        </div>
+          </div>
+        </ScrollReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center max-w-5xl mx-auto">
-          <Card className="p-6 sm:p-8 shadow-xl text-left bg-card w-full">
-            <CardContent className="p-0">
-              <div className="space-y-6">
-                <div>
-                  <Label htmlFor="contribution-amount-styled" className="text-base font-medium text-foreground mb-2 block">
-                    Choose your contribution amount
-                  </Label>
-                  <div className="rounded-lg p-0.5 bg-gradient-to-r from-primary to-accent">
-                    <div className="relative flex items-center rounded-md bg-background">
-                      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start max-w-6xl mx-auto">
+          <ScrollReveal delay={0.2} className="w-full">
+            <Card className="p-6 sm:p-8 shadow-2xl text-left bg-card/50 backdrop-blur-sm border-primary/10 w-full h-full">
+              <CardContent className="p-0 h-full flex flex-col justify-between">
+                <div className="space-y-8">
+                  <div>
+                    <Label htmlFor="contribution-amount-styled" className="text-lg font-semibold text-foreground mb-3 block">
+                      Choose your contribution amount
+                    </Label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
                         <Euro className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
                       </div>
                       <Input
                         type="number"
                         name="contribution-amount-styled"
                         id="contribution-amount-styled"
-                        className="w-full border-transparent bg-transparent pl-10 pr-4 text-foreground placeholder:text-muted-foreground focus-visible:ring-0 sm:text-sm"
+                        className="pl-12 h-14 text-lg bg-background/50 border-input focus:border-primary focus:ring-primary/20 transition-all"
                         placeholder="Enter amount"
                         value={amount}
                         onChange={(e) => setAmount(e.target.value)}
@@ -225,92 +228,90 @@ export default function ContributeSection() {
                       />
                     </div>
                   </div>
-                </div>
 
-                <div>
-                  <Label className="text-base font-medium text-foreground mb-2 block">
-                    Select contribution type
-                  </Label>
-                  <div className="grid grid-cols-2 gap-3">
-                    <Button
-                      variant={contributionType === 'once-off' ? "default" : "outline"}
-                      onClick={() => setContributionType('once-off')}
-                      className={cn(
-                        "py-3 text-base rounded-md",
-                        contributionType === 'once-off'
-                          ? "bg-primary text-primary-foreground hover:bg-primary/90"
-                          : "bg-card text-foreground border-border hover:bg-muted"
-                      )}
-                      disabled={isLoading}
-                    >
-                      Once-off
-                    </Button>
-                    <Button
-                      variant={contributionType === 'monthly' ? "default" : "outline"}
-                      onClick={() => setContributionType('monthly')}
-                      className={cn(
-                        "py-3 text-base rounded-md",
-                        contributionType === 'monthly'
-                          ? "bg-accent text-accent-foreground hover:bg-accent/90"
-                          : "bg-card text-foreground border-border hover:bg-muted"
-                      )}
-                      disabled={isLoading}
-                    >
-                      Monthly
-                    </Button>
+                  <div>
+                    <Label className="text-lg font-semibold text-foreground mb-3 block">
+                      Select contribution type
+                    </Label>
+                    <div className="grid grid-cols-2 gap-4">
+                      <Button
+                        variant={contributionType === 'once-off' ? "default" : "outline"}
+                        onClick={() => setContributionType('once-off')}
+                        className={cn(
+                          "h-12 text-base transition-all duration-300",
+                          contributionType === 'once-off'
+                            ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20 scale-[1.02]"
+                            : "hover:bg-primary/5 hover:text-primary hover:border-primary/30"
+                        )}
+                        disabled={isLoading}
+                      >
+                        Once-off
+                      </Button>
+                      <Button
+                        variant={contributionType === 'monthly' ? "default" : "outline"}
+                        onClick={() => setContributionType('monthly')}
+                        className={cn(
+                          "h-12 text-base transition-all duration-300",
+                          contributionType === 'monthly'
+                            ? "bg-accent text-accent-foreground shadow-lg shadow-accent/20 scale-[1.02]"
+                            : "hover:bg-accent/5 hover:text-accent hover:border-accent/30"
+                        )}
+                        disabled={isLoading}
+                      >
+                        Monthly
+                      </Button>
+                    </div>
                   </div>
+
+                  <Button
+                    size="lg"
+                    className={cn(
+                      "w-full h-14 text-lg font-bold rounded-full shadow-xl transition-all duration-300 transform hover:-translate-y-1",
+                      contributionType === 'once-off'
+                        ? "bg-gradient-to-r from-primary to-primary/80 hover:shadow-primary/30"
+                        : "bg-gradient-to-r from-accent to-accent/80 hover:shadow-accent/30"
+                    )}
+                    onClick={handleContribution}
+                    loading={isLoading}
+                    disabled={isButtonDisabled}
+                  >
+                    {isLoading ? "Processing..." : `Contribute €${displayAmount}`}
+                  </Button>
                 </div>
 
-                <Button
-                  size="lg"
-                  className={cn(
-                    "w-full text-lg py-3 rounded-md",
-                    contributionType === 'once-off'
-                      ? "bg-primary text-primary-foreground hover:bg-primary/90"
-                      : "bg-accent text-accent-foreground hover:bg-accent/90"
-                  )}
-                  onClick={handleContribution}
-                  loading={isLoading}
-                  disabled={isButtonDisabled}
-                >
-                  {isLoading ? "Processing..." : `Contribute €${displayAmount}`}
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+                <div className="mt-8 pt-6 border-t border-border/50">
+                  <p className="text-sm text-muted-foreground text-center">
+                    Secure payment via Stripe. Apple Pay & Google Pay supported.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+            {errorMessage && (
+              <p className="mt-4 text-sm text-destructive text-center bg-destructive/10 p-3 rounded-md">{errorMessage}</p>
+            )}
+          </ScrollReveal>
 
-          <div className="w-full flex items-center justify-center md:justify-center">
+          <ScrollReveal delay={0.4} className="w-full space-y-8">
             {videoElement}
-          </div>
-        </div>
 
-        {errorMessage && (
-          <p className="mt-4 text-sm text-destructive text-center">{errorMessage}</p>
-        )}
-
-        <p className="mt-8 text-sm text-muted-foreground text-center">
-          We use Stripe for secure and easy online contributions. Thank you for your support!
-        </p>
-        <p className="mt-2 text-xs text-muted-foreground text-center">
-          Apple Pay and Google Pay may be available depending on your device and browser.
-        </p>
-
-        <div className="mt-12 max-w-2xl mx-auto text-left">
-          <Accordion type="single" collapsible className="w-full">
-            <AccordionItem value="item-1">
-              <AccordionTrigger className="text-lg hover:no-underline">
-                What will my contribution be used for?
-              </AccordionTrigger>
-              <AccordionContent className="text-base text-muted-foreground space-y-3">
-                {contributionPoints.map((point) => (
-                  <div key={point.id} className="flex items-start">
-                    <CheckCircle2 className="h-5 w-5 text-accent mr-3 mt-1 shrink-0" />
-                    <span>{point.text}</span>
-                  </div>
-                ))}
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
+            <div className="bg-card/30 rounded-xl p-1">
+              <Accordion type="single" collapsible className="w-full">
+                <AccordionItem value="item-1" className="border-none">
+                  <AccordionTrigger className="text-lg font-medium px-4 hover:no-underline hover:bg-muted/50 rounded-lg transition-colors">
+                    What will my contribution be used for?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-base text-muted-foreground space-y-4 px-4 pt-4 pb-2">
+                    {contributionPoints.map((point) => (
+                      <div key={point.id} className="flex items-start group">
+                        <CheckCircle2 className="h-5 w-5 text-primary mr-3 mt-1 shrink-0 transition-transform group-hover:scale-110" />
+                        <span className="leading-relaxed">{point.text}</span>
+                      </div>
+                    ))}
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </div>
+          </ScrollReveal>
         </div>
       </Container>
     </section>
