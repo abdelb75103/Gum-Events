@@ -19,10 +19,14 @@ const navItems = [
   { label: "Contact", href: "/#contact" },
 ];
 
-export default function Header() {
+interface HeaderProps {
+  hideOnLoad?: boolean;
+}
+
+export default function Header({ hideOnLoad = false }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(!hideOnLoad);
   const lastScrollYRef = useRef(0);
   const scrollThreshold = 50; // Hide header after scrolling down this much
 
@@ -61,7 +65,7 @@ export default function Header() {
         "translate-y-0"
       )}>
         <div className="container mx-auto flex h-20 max-w-7xl items-center justify-between px-6 sm:px-8 lg:px-10">
-           <Link href="/" className="flex items-center">
+          <Link href="/" className="flex items-center">
             <Image
               src="/images/logo.png"
               alt="GUM Events Logo"
