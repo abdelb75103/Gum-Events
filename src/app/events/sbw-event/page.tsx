@@ -40,9 +40,11 @@ export default function SBWEventPage() {
                                     transition={{ delay: 0.1 }}
                                 >
                                     <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.1] text-zinc-900 dark:text-white transition-colors duration-500">
-                                        Embrace your<br />
-                                        <span className="text-emerald-600 dark:text-emerald-500 transition-colors duration-500">identity.</span><br />
-                                        Stand firm.
+                                        <span className="block">UNAPOLOGETIC</span>
+                                        <span className="block">
+                                            <span className="text-emerald-600 dark:text-emerald-500 transition-colors duration-500 mr-1">with</span>
+                                            <span className="inline-block text-zinc-900 dark:text-white transition-colors duration-500">Sonny Bill Williams</span>
+                                        </span>
                                     </h1>
                                 </motion.div>
 
@@ -82,14 +84,17 @@ export default function SBWEventPage() {
                                         <Ticket className="w-5 h-5 mr-2" />
                                         Buy Tickets Now
                                     </Button>
-                                    <Button
-                                        size="lg"
-                                        variant="outline"
-                                        className="border-2 border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 font-bold px-8 py-6 rounded-lg transition-all"
-                                    >
+                                <Button
+                                    asChild
+                                    size="lg"
+                                    variant="outline"
+                                    className="border-2 border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 font-bold px-8 py-6 rounded-lg transition-all"
+                                >
+                                    <Link href="#event-description" className="flex items-center">
                                         Learn More
                                         <ArrowRight className="w-5 h-5 ml-2" />
-                                    </Button>
+                                    </Link>
+                                </Button>
                                 </motion.div>
                             </div>
 
@@ -233,7 +238,7 @@ export default function SBWEventPage() {
                 </section>
 
                 {/* About Section */}
-                <section className="py-20 bg-white dark:bg-zinc-900 transition-colors duration-500">
+                <section id="event-description" className="py-20 bg-white dark:bg-zinc-900 transition-colors duration-500">
                     <Container>
                         <div className="max-w-4xl mx-auto">
                             <motion.div

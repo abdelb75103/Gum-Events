@@ -60,6 +60,7 @@ function EventCard({ event, index }: { event: any, index: number }) {
   const [isFocused, setIsFocused] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [opacity, setOpacity] = useState(0);
+  const isSBWEvent = event.id?.toLowerCase().includes("sbw");
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!divRef.current || isFocused) return;
@@ -153,7 +154,17 @@ function EventCard({ event, index }: { event: any, index: number }) {
                 </div>
 
                 <h3 className="text-xl md:text-5xl font-bold text-foreground mt-1 md:mt-2 leading-tight">
-                  {event.title}
+                  {isSBWEvent ? (
+                    <>
+                      <span className="block">UNAPOLOGETIC</span>
+                      <span className="block">
+                        <span className="text-primary inline-block mr-1">with</span>
+                        <span className="inline-block">Sonny Bill Williams</span>
+                      </span>
+                    </>
+                  ) : (
+                    event.title
+                  )}
                 </h3>
               </div>
 

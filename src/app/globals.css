@@ -119,7 +119,7 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: var(--font-geist-sans);
+    font-family: "Inter", "SF Pro Display", "SF Pro Text", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
 
   /* Hide number input arrows */
