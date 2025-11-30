@@ -12,6 +12,7 @@ import Container from "@/components/ui/container";
 
 export default function SBWEventPage() {
     const [selectedTicket, setSelectedTicket] = useState<string | null>(null);
+    const [isAboutVisible, setIsAboutVisible] = useState(false);
 
     return (
         <div className="flex min-h-screen flex-col bg-zinc-50 dark:bg-zinc-950 font-sans selection:bg-emerald-500/30 transition-colors duration-500">
@@ -30,7 +31,7 @@ export default function SBWEventPage() {
                                     animate={{ opacity: 1, y: 0 }}
                                     className="text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-[0.3em] text-sm transition-colors duration-500"
                                 >
-                                    26 December 2025
+                                    27 December 2025
                                 </motion.p>
 
                                 {/* Main Heading */}
@@ -55,7 +56,7 @@ export default function SBWEventPage() {
                                     transition={{ delay: 0.2 }}
                                     className="text-lg md:text-xl text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-xl transition-colors duration-500"
                                 >
-                                    A night of inspiration and connection. This isn't just an event—it's a movement.
+                                    Millions have connected with his story from a distance, but this is your chance to hear it directly from him, unfiltered and in person.
                                 </motion.p>
 
                                 {/* Compact Countdown Timer */}
@@ -66,7 +67,7 @@ export default function SBWEventPage() {
                                     className="bg-gradient-to-r from-emerald-600 to-teal-600 rounded-xl p-4 inline-block"
                                 >
                                     <p className="text-white text-xs font-bold uppercase tracking-widest mb-2 opacity-90">Event Starts In</p>
-                                    <CompactCountdown targetDate={new Date("2025-12-26T16:30:00")} />
+                                    <CompactCountdown targetDate={new Date("2025-12-27T11:00:00")} />
                                 </motion.div>
 
                                 {/* CTA Buttons */}
@@ -84,17 +85,82 @@ export default function SBWEventPage() {
                                         <Ticket className="w-5 h-5 mr-2" />
                                         Buy Tickets Now
                                     </Button>
-                                <Button
-                                    asChild
-                                    size="lg"
-                                    variant="outline"
-                                    className="border-2 border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 font-bold px-8 py-6 rounded-lg transition-all"
+                                    <Button
+                                        size="lg"
+                                        variant="outline"
+                                        className="border-2 border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 font-bold px-8 py-6 rounded-lg transition-all"
+                                        onClick={() => {
+                                            setIsAboutVisible(!isAboutVisible);
+                                        }}
+                                    >
+                                        {isAboutVisible ? 'Show Less' : 'Learn More'}
+                                        <ArrowRight className={`w-5 h-5 ml-2 transition-transform duration-300 ${isAboutVisible ? 'rotate-90' : ''}`} />
+                                    </Button>
+                                </motion.div>
+
+                                {/* About Section - Conditionally Rendered */}
+                                <motion.div
+                                    id="event-description"
+                                    initial={false}
+                                    animate={{
+                                        height: isAboutVisible ? "auto" : 0,
+                                        opacity: isAboutVisible ? 1 : 0,
+                                        marginTop: isAboutVisible ? 32 : 0
+                                    }}
+                                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                                    className="overflow-hidden"
                                 >
-                                    <Link href="#event-description" className="flex items-center">
-                                        Learn More
-                                        <ArrowRight className="w-5 h-5 ml-2" />
-                                    </Link>
-                                </Button>
+                                    <div className="pt-8 space-y-8">
+                                        <div className="space-y-12">
+                                            {/* Intro Block */}
+                                            <div className="relative">
+                                                <h3 className="text-4xl md:text-6xl font-black text-zinc-100 dark:text-zinc-800/50 absolute -top-6 -left-6 select-none z-0">
+                                                    UNAPOLOGETIC
+                                                </h3>
+                                                <p className="relative z-10 text-xl md:text-2xl font-medium text-zinc-900 dark:text-white leading-relaxed">
+                                                    An Afternoon with <span className="font-bold">Sonny Bill Williams</span> invites you to an afternoon of <span className="text-emerald-600 dark:text-emerald-500 font-bold italic">honesty, growth</span> and <span className="text-emerald-600 dark:text-emerald-500 font-bold italic">unapologetic truth</span>.
+                                                </p>
+                                            </div>
+
+                                            {/* Main Story Block */}
+                                            <div className="prose prose-lg dark:prose-invert text-zinc-600 dark:text-zinc-400">
+                                                <p>
+                                                    Join two-time Rugby World Cup Champion <strong className="text-zinc-900 dark:text-white">Sonny Bill Williams</strong> live in Dublin for an intimate and deeply personal conversation about the journey behind the headlines.
+                                                </p>
+                                                <p>
+                                                    We'll explore the weight of fame, moments of doubt, the search for meaning, and the <span className="text-emerald-600 dark:text-emerald-500 font-medium">faith that ultimately grounded him</span>.
+                                                </p>
+                                            </div>
+
+                                            {/* Speakers/Hosts Grid */}
+                                            <div className="grid md:grid-cols-2 gap-6">
+                                                <div className="bg-white dark:bg-zinc-900 p-6 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-sm hover:shadow-md transition-shadow">
+                                                    <p className="text-xs font-bold text-emerald-600 dark:text-emerald-500 uppercase tracking-wider mb-2">Hosted By</p>
+                                                    <h4 className="text-xl font-bold text-zinc-900 dark:text-white mb-2">Faisal Choudhry</h4>
+                                                    <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                                                        From <span className="font-medium text-zinc-900 dark:text-white">Freshly Grounded</span>. Diving into themes of identity, discipline, transformation and spiritual awakening.
+                                                    </p>
+                                                </div>
+                                                <div className="bg-white dark:bg-zinc-900 p-6 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-sm hover:shadow-md transition-shadow">
+                                                    <p className="text-xs font-bold text-emerald-600 dark:text-emerald-500 uppercase tracking-wider mb-2">Spiritual Reminder</p>
+                                                    <h4 className="text-xl font-bold text-zinc-900 dark:text-white mb-2">Ustadh Abdul Ahad</h4>
+                                                    <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                                                        Delivering a reminder designed to <span className="font-medium text-zinc-900 dark:text-white">realign the soul</span> and reconnect you with Allah.
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            {/* Closing Statement */}
+                                            <div className="space-y-6 pt-8 border-t border-zinc-200 dark:border-zinc-800">
+                                                <p className="text-lg text-zinc-600 dark:text-zinc-400">
+                                                    <strong className="text-zinc-900 dark:text-white">UNAPOLOGETIC</strong> brings together meaningful reflection, uplifting reminders and powerful storytelling. A space to think deeply, feel inspired and walk away with a renewed sense of purpose.
+                                                </p>
+                                                <p className="text-xl md:text-2xl font-serif italic text-emerald-600 dark:text-emerald-500">
+                                                    "Live your truth boldly, sincerely and unapologetically."
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </motion.div>
                             </div>
 
@@ -204,7 +270,7 @@ export default function SBWEventPage() {
                             >
                                 <Calendar className="w-10 h-10 text-emerald-600 dark:text-emerald-500 mb-3 transition-colors duration-500" />
                                 <p className="text-xs text-emerald-600 dark:text-emerald-500 uppercase tracking-wider font-bold mb-1 transition-colors duration-500">DATE</p>
-                                <p className="text-xl font-bold text-zinc-900 dark:text-white transition-colors duration-500">December 26th</p>
+                                <p className="text-xl font-bold text-zinc-900 dark:text-white transition-colors duration-500">December 27th</p>
                                 <p className="text-sm text-zinc-500 dark:text-zinc-400 transition-colors duration-500">2025</p>
                             </motion.div>
 
@@ -217,7 +283,7 @@ export default function SBWEventPage() {
                             >
                                 <Clock className="w-10 h-10 text-emerald-600 dark:text-emerald-500 mb-3 transition-colors duration-500" />
                                 <p className="text-xs text-emerald-600 dark:text-emerald-500 uppercase tracking-wider font-bold mb-1 transition-colors duration-500">TIME</p>
-                                <p className="text-xl font-bold text-zinc-900 dark:text-white transition-colors duration-500">4:30 PM</p>
+                                <p className="text-xl font-bold text-zinc-900 dark:text-white transition-colors duration-500">11:00 AM</p>
                                 <p className="text-sm text-zinc-500 dark:text-zinc-400 transition-colors duration-500">Doors Open</p>
                             </motion.div>
 
@@ -230,52 +296,7 @@ export default function SBWEventPage() {
                             >
                                 <MapPin className="w-10 h-10 text-emerald-600 dark:text-emerald-500 mb-3 transition-colors duration-500" />
                                 <p className="text-xs text-emerald-600 dark:text-emerald-500 uppercase tracking-wider font-bold mb-1 transition-colors duration-500">VENUE</p>
-                                <p className="text-xl font-bold text-zinc-900 dark:text-white transition-colors duration-500">UCD Astra Hall</p>
-                                <p className="text-sm text-zinc-500 dark:text-zinc-400 transition-colors duration-500">University College Dublin</p>
-                            </motion.div>
-                        </div>
-                    </Container>
-                </section>
-
-                {/* About Section */}
-                <section id="event-description" className="py-20 bg-white dark:bg-zinc-900 transition-colors duration-500">
-                    <Container>
-                        <div className="max-w-4xl mx-auto">
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                className="text-center space-y-8"
-                            >
-                                <h2 className="text-4xl md:text-5xl font-black text-zinc-900 dark:text-white transition-colors duration-500">
-                                    About The <span className="text-emerald-600 dark:text-emerald-500 transition-colors duration-500">Event</span>
-                                </h2>
-
-                                <div className="prose prose-lg dark:prose-invert mx-auto text-zinc-600 dark:text-zinc-400 space-y-6 transition-colors duration-500">
-                                    <p className="text-xl leading-relaxed">
-                                        Expect powerful talks, engaging discussions, and a community atmosphere that feels like home. We're bringing together voices that inspire and challenge, creating a space for growth and connection.
-                                    </p>
-
-                                    <div className="my-12 p-8 bg-emerald-50 dark:bg-emerald-950/30 rounded-xl border-l-4 border-emerald-600 dark:border-emerald-500 transition-colors duration-500">
-                                        <p className="text-2xl font-bold text-zinc-900 dark:text-white italic transition-colors duration-500">
-                                            "Come as you are, leave inspired."
-                                        </p>
-                                    </div>
-
-                                    <p>
-                                        Whether you're looking for answers, inspiration, or just good company, Unapologetic is the place to be.
-                                    </p>
-                                </div>
-
-                                {/* Another CTA */}
-                                <Button
-                                    size="lg"
-                                    className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-10 py-6 rounded-lg shadow-lg hover:shadow-xl transition-all"
-                                    onClick={() => document.getElementById('tickets')?.scrollIntoView({ behavior: 'smooth' })}
-                                >
-                                    <Ticket className="w-5 h-5 mr-2" />
-                                    Get Your Tickets
-                                </Button>
+                                <p className="text-xl font-bold text-zinc-900 dark:text-white transition-colors duration-500">RDS Concert Hall</p>
                             </motion.div>
                         </div>
                     </Container>
