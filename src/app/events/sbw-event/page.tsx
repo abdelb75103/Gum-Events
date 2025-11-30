@@ -30,7 +30,7 @@ export default function SBWEventPage() {
                                     animate={{ opacity: 1, y: 0 }}
                                     className="text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-[0.3em] text-sm transition-colors duration-500"
                                 >
-                                    26 December 2025
+                                    27 December 2025
                                 </motion.p>
 
                                 {/* Main Heading */}
@@ -66,7 +66,7 @@ export default function SBWEventPage() {
                                     className="bg-gradient-to-r from-emerald-600 to-teal-600 rounded-xl p-4 inline-block"
                                 >
                                     <p className="text-white text-xs font-bold uppercase tracking-widest mb-2 opacity-90">Event Starts In</p>
-                                    <CompactCountdown targetDate={new Date("2025-12-26T16:30:00")} />
+                                    <CompactCountdown targetDate={new Date("2025-12-27T16:30:00")} />
                                 </motion.div>
 
                                 {/* CTA Buttons */}
@@ -204,7 +204,7 @@ export default function SBWEventPage() {
                             >
                                 <Calendar className="w-10 h-10 text-emerald-600 dark:text-emerald-500 mb-3 transition-colors duration-500" />
                                 <p className="text-xs text-emerald-600 dark:text-emerald-500 uppercase tracking-wider font-bold mb-1 transition-colors duration-500">DATE</p>
-                                <p className="text-xl font-bold text-zinc-900 dark:text-white transition-colors duration-500">December 26th</p>
+                                <p className="text-xl font-bold text-zinc-900 dark:text-white transition-colors duration-500">December 27th</p>
                                 <p className="text-sm text-zinc-500 dark:text-zinc-400 transition-colors duration-500">2025</p>
                             </motion.div>
 
@@ -230,7 +230,7 @@ export default function SBWEventPage() {
                             >
                                 <MapPin className="w-10 h-10 text-emerald-600 dark:text-emerald-500 mb-3 transition-colors duration-500" />
                                 <p className="text-xs text-emerald-600 dark:text-emerald-500 uppercase tracking-wider font-bold mb-1 transition-colors duration-500">VENUE</p>
-                                <p className="text-xl font-bold text-zinc-900 dark:text-white transition-colors duration-500">UCD Astra Hall</p>
+                                <p className="text-xl font-bold text-zinc-900 dark:text-white transition-colors duration-500">RDS Concert Hall</p>
                                 <p className="text-sm text-zinc-500 dark:text-zinc-400 transition-colors duration-500">University College Dublin</p>
                             </motion.div>
                         </div>
@@ -252,18 +252,24 @@ export default function SBWEventPage() {
                                 </h2>
 
                                 <div className="prose prose-lg dark:prose-invert mx-auto text-zinc-600 dark:text-zinc-400 space-y-6 transition-colors duration-500">
-                                    <p className="text-xl leading-relaxed">
-                                        Expect powerful talks, engaging discussions, and a community atmosphere that feels like home. We're bringing together voices that inspire and challenge, creating a space for growth and connection.
+                                    <p className="text-sm font-bold tracking-[0.35em] text-emerald-600 dark:text-emerald-500 uppercase">
+                                        Unapologetic
                                     </p>
 
-                                    <div className="my-12 p-8 bg-emerald-50 dark:bg-emerald-950/30 rounded-xl border-l-4 border-emerald-600 dark:border-emerald-500 transition-colors duration-500">
-                                        <p className="text-2xl font-bold text-zinc-900 dark:text-white italic transition-colors duration-500">
-                                            "Come as you are, leave inspired."
-                                        </p>
-                                    </div>
+                                    <p className="text-xl leading-relaxed font-bold text-zinc-900 dark:text-white">
+                                        An Evening with Sonny Bill Williams
+                                    </p>
 
-                                    <p>
-                                        Whether you're looking for answers, inspiration, or just good company, Unapologetic is the place to be.
+                                    <p className="text-lg leading-relaxed">
+                                        Step into a night of honesty, growth, and unapologetic truth with Sonny Bill Williams live in Dublin. This intimate and deeply personal conversation explores the journey behind the headlines, the weight of fame, moments of doubt, the search for meaning, and the faith that ultimately grounded him. Millions have connected with his story from afar—this is your chance to hear it unfiltered and in person.
+                                    </p>
+
+                                    <p className="text-lg leading-relaxed">
+                                        Hosted by Faisal Choudhry from Freshly Grounded, the evening dives into identity, discipline, transformation, and spiritual awakening. A live audience Q&amp;A brings you into the heart of the conversation, while Ustadh Abdul Ahad delivers a spiritual reminder to realign the soul and reconnect with Allah.
+                                    </p>
+
+                                    <p className="text-lg leading-relaxed">
+                                        UNAPOLOGETIC blends meaningful reflection with uplifting reminders and powerful storytelling. Expect a space to think deeply, feel inspired, and leave with a renewed sense of purpose—a gathering that calls you to live your truth boldly, sincerely, and unapologetically.
                                     </p>
                                 </div>
 
