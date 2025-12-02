@@ -43,9 +43,9 @@ export default function SBWEventPage() {
 
             <main className="flex-grow">
                 {/* Hero Section - Matching Reference Image */}
-                <section className="relative bg-white dark:bg-zinc-900 pt-24 pb-16 transition-colors duration-500">
+                <section className="relative bg-white dark:bg-zinc-900 pt-20 sm:pt-24 pb-12 sm:pb-16 transition-colors duration-500">
                     <Container>
-                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 items-start">
                             {/* Left Content */}
                             <div className="lg:col-span-7 space-y-8">
                                 {/* Date */}
@@ -63,7 +63,7 @@ export default function SBWEventPage() {
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.1 }}
                                 >
-                                    <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.1] text-zinc-900 dark:text-white transition-colors duration-500">
+                                    <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.1] text-zinc-900 dark:text-white transition-colors duration-500">
                                         <span className="block">UNAPOLOGETIC</span>
                                         <span className="block">
                                             <span className="text-emerald-600 dark:text-emerald-500 transition-colors duration-500 mr-1">with</span>
@@ -77,7 +77,7 @@ export default function SBWEventPage() {
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.2 }}
-                                    className="text-lg md:text-xl text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-xl transition-colors duration-500"
+                                    className="text-base sm:text-lg md:text-xl text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-xl transition-colors duration-500"
                                 >
                                     Millions have connected with his story from a distance, but this is your chance to hear it directly from him, unfiltered and in person.
                                 </motion.p>
@@ -87,18 +87,19 @@ export default function SBWEventPage() {
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.3 }}
-                                    className="flex flex-col md:flex-row gap-4 items-start"
+                                    className="flex flex-col md:flex-row gap-3 sm:gap-4 items-stretch"
                                 >
                                     {/* Countdown Timer */}
-                                    <div className="bg-gradient-to-r from-emerald-600 to-teal-600 rounded-xl p-4">
+                                    <div className="bg-gradient-to-r from-emerald-600 to-teal-600 rounded-xl p-4 w-full md:w-auto h-full">
                                         <p className="text-white text-xs font-bold uppercase tracking-widest mb-2 opacity-90">Event Starts In</p>
                                         <CompactCountdown targetDate={new Date("2025-12-31T16:30:00")} />
                                     </div>
 
                                     {/* Event Details - Single Compact Card */}
-                                    <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-sm border border-zinc-200 dark:border-zinc-800 transition-colors duration-500 flex flex-col justify-between p-3 min-w-0">
+                                    <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-sm border border-zinc-200 dark:border-zinc-800 transition-colors duration-500 flex-1 h-full">
+                                        <div className="flex flex-col md:flex-row h-full divide-y md:divide-y-0 md:divide-x divide-zinc-200 dark:divide-zinc-800">
                                         {/* Date */}
-                                        <div className="flex items-center gap-2 py-1">
+                                        <div className="flex items-center gap-2 py-2 px-3 flex-1 min-w-0">
                                             <Calendar className="w-5 h-5 text-emerald-600 dark:text-emerald-500 shrink-0" />
                                             <div className="min-w-0">
                                                 <p className="text-[10px] text-emerald-600 dark:text-emerald-500 uppercase tracking-wider font-bold">DATE</p>
@@ -106,11 +107,8 @@ export default function SBWEventPage() {
                                             </div>
                                         </div>
 
-                                        {/* Divider */}
-                                        <div className="h-px bg-zinc-200 dark:bg-zinc-800 my-1"></div>
-
                                         {/* Time */}
-                                        <div className="flex items-center gap-2 py-1">
+                                        <div className="flex items-center gap-2 py-2 px-3 flex-1 min-w-0">
                                             <Clock className="w-5 h-5 text-emerald-600 dark:text-emerald-500 shrink-0" />
                                             <div className="min-w-0">
                                                 <p className="text-[10px] text-emerald-600 dark:text-emerald-500 uppercase tracking-wider font-bold">TIME</p>
@@ -118,16 +116,14 @@ export default function SBWEventPage() {
                                             </div>
                                         </div>
 
-                                        {/* Divider */}
-                                        <div className="h-px bg-zinc-200 dark:bg-zinc-800 my-1"></div>
-
                                         {/* Venue */}
-                                        <div className="flex items-center gap-2 py-1">
+                                        <div className="flex items-center gap-2 py-2 px-3 flex-1 min-w-0">
                                             <MapPin className="w-5 h-5 text-emerald-600 dark:text-emerald-500 shrink-0" />
                                             <div className="min-w-0">
                                                 <p className="text-[10px] text-emerald-600 dark:text-emerald-500 uppercase tracking-wider font-bold">VENUE</p>
                                                 <p className="text-sm font-bold text-zinc-900 dark:text-white truncate">RDS Concert Hall</p>
                                             </div>
+                                        </div>
                                         </div>
                                     </div>
                                 </motion.div>
@@ -137,11 +133,11 @@ export default function SBWEventPage() {
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.4 }}
-                                    className="flex flex-wrap gap-4 pt-4"
+                                    className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4"
                                 >
                                     <Button
                                         size="lg"
-                                        className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-8 py-6 rounded-lg shadow-lg hover:shadow-xl transition-all"
+                                        className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 sm:px-8 py-5 sm:py-6 rounded-lg shadow-lg hover:shadow-xl transition-all w-full sm:w-auto"
                                         onClick={() => document.getElementById('tickets')?.scrollIntoView({ behavior: 'smooth' })}
                                     >
                                         <Ticket className="w-5 h-5 mr-2" />
@@ -150,7 +146,7 @@ export default function SBWEventPage() {
                                     <Button
                                         size="lg"
                                         variant="outline"
-                                        className="border-2 border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 font-bold px-8 py-6 rounded-lg transition-all"
+                                        className="border-2 border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 font-bold px-6 sm:px-8 py-5 sm:py-6 rounded-lg transition-all w-full sm:w-auto"
                                         onClick={() => {
                                             setIsAboutVisible(!isAboutVisible);
                                         }}
@@ -217,7 +213,7 @@ export default function SBWEventPage() {
                                     initial={{ opacity: 0, scale: 0.95 }}
                                     animate={{ opacity: 1, scale: 1 }}
                                     transition={{ delay: 0.2 }}
-                                    className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border-4 border-emerald-500/30"
+                                    className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border-4 border-emerald-500/30 w-full max-w-md mx-auto lg:mx-0"
                                 >
                                     <Image
                                         src="/images/SBW%20Event.JPG"

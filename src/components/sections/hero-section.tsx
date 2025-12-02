@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { motion, useScroll, useTransform, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
+import { motion, useScroll, useTransform, AnimatePresence, useMotionValue, useSpring, useReducedMotion } from "framer-motion";
 import { Ticket, ChevronLeft, ChevronRight } from "lucide-react";
 import { Magnetic } from "@/components/ui/magnetic";
 import Image from "next/image";
@@ -22,6 +22,7 @@ export default function HeroSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const reduceMotion = useReducedMotion();
   const [glowPos, setGlowPos] = useState({ x: 50, y: 50 });
   const tiltX = useMotionValue(0);
   const tiltY = useMotionValue(0);
@@ -51,19 +52,19 @@ export default function HeroSection() {
       clearTimeout(timerRef.current);
     }
 
-    if (upcomingEvents.length <= 1) {
+    if (reduceMotion || upcomingEvents.length <= 1) {
       timerRef.current = null;
       return;
     }
 
     scheduleNextRotation();
-  }, [scheduleNextRotation, upcomingEvents.length]);
+  }, [scheduleNextRotation, upcomingEvents.length, reduceMotion]);
 
   useEffect(() => {
     resetTimer();
     return () => {
       if (timerRef.current) {
-        clearInterval(timerRef.current);
+        clearTimeout(timerRef.current);
       }
     };
   }, [resetTimer]);
