@@ -22,9 +22,11 @@ function SubmitButton() {
   );
 }
 
+type ContactFormState = { message: string; errors?: Record<string, string[]> };
+
 export default function ContactForm() {
-  const initialState = { message: null, errors: {} };
-  const [state, dispatch] = useActionState(submitContactForm, initialState);
+  const initialState: ContactFormState = { message: "", errors: {} };
+  const [state, dispatch] = useActionState<ContactFormState, FormData>(submitContactForm, initialState);
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
   const { pending } = useFormStatus(); // Get pending state for the overlay

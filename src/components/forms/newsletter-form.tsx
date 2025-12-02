@@ -20,9 +20,11 @@ function SubmitButton() {
   );
 }
 
+type NewsletterFormState = { message: string; errors?: Record<string, string[]> };
+
 export default function NewsletterForm() {
-  const initialState = { message: null, errors: {} };
-  const [state, dispatch] = useActionState(submitNewsletterForm, initialState);
+  const initialState: NewsletterFormState = { message: "", errors: {} };
+  const [state, dispatch] = useActionState<NewsletterFormState, FormData>(submitNewsletterForm, initialState);
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null); // Added formRef
 

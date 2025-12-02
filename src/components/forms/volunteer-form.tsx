@@ -22,9 +22,11 @@ function SubmitButton() {
   );
 }
 
+type VolunteerFormState = { message: string; errors?: Record<string, string[]> };
+
 export default function VolunteerForm() {
-  const initialState = { message: null, errors: {} };
-  const [state, dispatch] = useActionState(submitVolunteerForm, initialState);
+  const initialState: VolunteerFormState = { message: "", errors: {} };
+  const [state, dispatch] = useActionState<VolunteerFormState, FormData>(submitVolunteerForm, initialState);
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
   const { pending } = useFormStatus(); // Get pending state for the overlay

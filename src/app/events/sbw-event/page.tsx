@@ -1,18 +1,41 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Ticket, Calendar, MapPin, Clock, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Ticket, Calendar, MapPin, Clock, ArrowRight } from "lucide-react";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import Container from "@/components/ui/container";
 
 export default function SBWEventPage() {
-    const [selectedTicket, setSelectedTicket] = useState<string | null>(null);
     const [isAboutVisible, setIsAboutVisible] = useState(false);
+    const ticketWidgetRef = useRef<HTMLDivElement | null>(null);
+    const ticketTailorUrl = "https://www.tickettailor.com/all-tickets/growingupmuslim/?ref=website_widget&show_search_filter=true&show_date_filter=true&show_sort=true";
+
+    useEffect(() => {
+        const widgetContainer = ticketWidgetRef.current;
+        if (!widgetContainer) return;
+
+        const existing = document.querySelector('script[data-tt-widget="true"]');
+        if (existing) return;
+
+        const script = document.createElement("script");
+        script.src = "https://cdn.tickettailor.com/js/widgets/min/widget.js";
+        script.async = true;
+        script.dataset.url = ticketTailorUrl;
+        script.dataset.type = "inline";
+        script.dataset.inlineMinimal = "true";
+        script.dataset.inlineShowLogo = "false";
+        script.dataset.inlineBgFill = "false";
+        script.dataset.inlineInheritRefFromUrlParam = "";
+        script.dataset.inlineRef = "website_widget";
+        script.dataset.ttWidget = "true";
+
+        widgetContainer.appendChild(script);
+    }, [ticketTailorUrl]);
 
     return (
         <div className="flex min-h-screen flex-col bg-zinc-50 dark:bg-zinc-950 font-sans selection:bg-emerald-500/30 transition-colors duration-500">
@@ -219,62 +242,21 @@ export default function SBWEventPage() {
                                         Select Your Tickets
                                     </h3>
 
-                                    <div className="space-y-3">
-                                        {/* General Admission Ticket */}
-                                        <button
-                                            onClick={() => setSelectedTicket('general')}
-                                            className={`w-full text-left p-4 rounded-lg border-2 transition-all ${selectedTicket === 'general'
-                                                ? 'border-emerald-600 bg-emerald-50 dark:bg-emerald-950/30'
-                                                : 'border-zinc-200 dark:border-zinc-700 hover:border-emerald-300 dark:hover:border-emerald-700'
-                                                }`}
-                                        >
-                                            <div className="flex items-start justify-between">
-                                                <div className="flex-1">
-                                                    <div className="flex items-center gap-2 mb-1">
-                                                        <h4 className="font-bold text-zinc-900 dark:text-white">General Admission</h4>
-                                                        {selectedTicket === 'general' && (
-                                                            <CheckCircle2 className="w-5 h-5 text-emerald-600" />
-                                                        )}
-                                                    </div>
-                                                    <p className="text-sm text-zinc-600 dark:text-zinc-400">Access to all sessions</p>
-                                                </div>
-                                                <p className="text-lg font-bold text-emerald-600 dark:text-emerald-500">€15</p>
-                                            </div>
-                                        </button>
-
-                                        {/* VIP Ticket */}
-                                        <button
-                                            onClick={() => setSelectedTicket('vip')}
-                                            className={`w-full text-left p-4 rounded-lg border-2 transition-all ${selectedTicket === 'vip'
-                                                ? 'border-emerald-600 bg-emerald-50 dark:bg-emerald-950/30'
-                                                : 'border-zinc-200 dark:border-zinc-700 hover:border-emerald-300 dark:hover:border-emerald-700'
-                                                }`}
-                                        >
-                                            <div className="flex items-start justify-between">
-                                                <div className="flex-1">
-                                                    <div className="flex items-center gap-2 mb-1">
-                                                        <h4 className="font-bold text-zinc-900 dark:text-white">VIP Access</h4>
-                                                        {selectedTicket === 'vip' && (
-                                                            <CheckCircle2 className="w-5 h-5 text-emerald-600" />
-                                                        )}
-                                                    </div>
-                                                    <p className="text-sm text-zinc-600 dark:text-zinc-400">Premium seating + Meet & Greet</p>
-                                                </div>
-                                                <p className="text-lg font-bold text-emerald-600 dark:text-emerald-500">€25</p>
-                                            </div>
-                                        </button>
+                                    <div className="tt-widget" ref={ticketWidgetRef}>
+                                        <div className="tt-widget-fallback">
+                                            <p>
+                                                <a href={ticketTailorUrl} target="_blank">
+                                                    Click here to buy tickets
+                                                </a>
+                                                <br />
+                                                <small>
+                                                    <a href="https://www.tickettailor.com?rf=wdg_220073" className="tt-widget-powered">
+                                                        Sell tickets online with Ticket Tailor
+                                                    </a>
+                                                </small>
+                                            </p>
+                                        </div>
                                     </div>
-
-                                    <Button
-                                        className="w-full mt-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-6 rounded-lg disabled:opacity-50"
-                                        disabled={!selectedTicket}
-                                        onClick={() => {
-                                            window.open('https://www.tickettailor.com/all-tickets/growingupmuslim/', '_blank');
-                                        }}
-                                    >
-                                        Proceed to Checkout
-                                        <ArrowRight className="w-5 h-5 ml-2" />
-                                    </Button>
                                 </motion.div>
                             </div>
                         </div>
@@ -298,13 +280,17 @@ function CompactCountdown({ targetDate }: { targetDate: Date }) {
             const now = new Date();
             const difference = targetDate.getTime() - now.getTime();
 
-            if (difference > 0) {
-                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
-                const minutes = Math.floor((difference / 1000 / 60) % 60);
-                const seconds = Math.floor((difference / 1000) % 60);
-                setTimeLeft({ days, hours, minutes, seconds });
+            if (difference <= 0) {
+                setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+                clearInterval(interval);
+                return;
             }
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((difference / 1000 / 60) % 60);
+            const seconds = Math.floor((difference / 1000) % 60);
+            setTimeLeft({ days, hours, minutes, seconds });
         }, 1000);
 
         return () => clearInterval(interval);

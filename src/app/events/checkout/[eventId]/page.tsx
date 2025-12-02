@@ -2,7 +2,6 @@
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import Container from "@/components/ui/container";
-import EventbriteCheckout from "@/components/eventbrite-checkout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -10,15 +9,13 @@ import Link from "next/link";
 export const dynamic = 'force-dynamic'; // Ensures the page is always rendered dynamically
 
 interface EventCheckoutPageProps {
-  params: {
+  params: Promise<{
     eventId: string;
-  };
+  }>;
 }
 
-// Make the component async and await params
-export default async function EventCheckoutPage({ params: paramsProp }: EventCheckoutPageProps) {
-  const params = await Promise.resolve(paramsProp);
-  const { eventId } = params;
+export default async function EventCheckoutPage({ params }: EventCheckoutPageProps) {
+  const { eventId } = await params;
 
   if (!eventId) {
     return (
@@ -56,20 +53,15 @@ export default async function EventCheckoutPage({ params: paramsProp }: EventChe
               </CardTitle>
               <div className="mt-2 mx-auto h-[3px] w-20 rounded-full bg-gradient-to-r from-primary to-accent"></div>
             </CardHeader>
-            <CardContent className="pt-6">
-              <EventbriteCheckout eventId={eventId} iframeContainerHeight={700} />
+            <CardContent className="pt-6 space-y-4 text-center">
+              <p className="text-muted-foreground">
+                Ticket sales for this Eventbrite listing have ended.
+              </p>
+              <Button asChild className="bg-primary text-white hover:bg-primary/90">
+                <Link href="/#events">View current events</Link>
+              </Button>
             </CardContent>
           </Card>
-          <div className="text-center mt-8">
-             <a
-                href={`https://www.eventbrite.ie/e/${eventId}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-primary hover:underline hover:text-accent transition-colors"
-             >
-                Problems with the checkout? Click here to open on Eventbrite.
-            </a>
-          </div>
         </Container>
       </main>
       <Footer />

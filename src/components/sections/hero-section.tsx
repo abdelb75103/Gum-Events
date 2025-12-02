@@ -25,6 +25,7 @@ export default function HeroSection() {
   const tiltY = useMotionValue(0);
   const tiltXSpring = useSpring(tiltX, { stiffness: 120, damping: 14 });
   const tiltYSpring = useSpring(tiltY, { stiffness: 120, damping: 14 });
+  const parallaxY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
 
   const goToNext = useCallback(() => {
     if (upcomingEvents.length <= 1) return;
@@ -116,8 +117,6 @@ export default function HeroSection() {
     setGlowPos({ x: 50, y: 50 });
   };
 
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-
   return (
     <section
       ref={ref}
@@ -206,7 +205,7 @@ export default function HeroSection() {
                 exit={{ opacity: 0, scale: 0.9, rotate: 5 }}
                 transition={{ duration: 0.5 }}
                 style={{
-                  y: useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]),
+                  y: parallaxY,
                   rotateX: tiltXSpring,
                   rotateY: tiltYSpring,
                   transformPerspective: "1200px",
