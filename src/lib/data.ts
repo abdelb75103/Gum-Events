@@ -5,9 +5,9 @@ export const events: Event[] = [
   {
     id: "sbw-event-2025",
     title: "Unapologetic",
-    date: "26th December 2025",
+    date: "31st December 2025",
     time: "Doors open 4:30 PM",
-    location: "UCD Astra Hall",
+    location: "RDS Concert Hall",
     description: "Join us for an unforgettable evening.",
     registrationLink: "/events/sbw-event",
     image: "/images/SBW%20Event.JPG",

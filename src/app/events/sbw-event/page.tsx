@@ -31,7 +31,7 @@ export default function SBWEventPage() {
                                     animate={{ opacity: 1, y: 0 }}
                                     className="text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-[0.3em] text-sm transition-colors duration-500"
                                 >
-                                    27 December 2025
+                                    31st December 2025
                                 </motion.p>
 
                                 {/* Main Heading */}
@@ -59,15 +59,54 @@ export default function SBWEventPage() {
                                     Millions have connected with his story from a distance, but this is your chance to hear it directly from him, unfiltered and in person.
                                 </motion.p>
 
-                                {/* Compact Countdown Timer */}
+                                {/* Countdown Timer with Event Details */}
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.3 }}
-                                    className="bg-gradient-to-r from-emerald-600 to-teal-600 rounded-xl p-4 inline-block"
+                                    className="flex flex-col md:flex-row gap-4 items-start"
                                 >
-                                    <p className="text-white text-xs font-bold uppercase tracking-widest mb-2 opacity-90">Event Starts In</p>
-                                    <CompactCountdown targetDate={new Date("2025-12-27T11:00:00")} />
+                                    {/* Countdown Timer */}
+                                    <div className="bg-gradient-to-r from-emerald-600 to-teal-600 rounded-xl p-4">
+                                        <p className="text-white text-xs font-bold uppercase tracking-widest mb-2 opacity-90">Event Starts In</p>
+                                        <CompactCountdown targetDate={new Date("2025-12-31T16:30:00")} />
+                                    </div>
+
+                                    {/* Event Details - Single Compact Card */}
+                                    <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-sm border border-zinc-200 dark:border-zinc-800 transition-colors duration-500 flex flex-col justify-between p-3 min-w-0">
+                                        {/* Date */}
+                                        <div className="flex items-center gap-2 py-1">
+                                            <Calendar className="w-5 h-5 text-emerald-600 dark:text-emerald-500 shrink-0" />
+                                            <div className="min-w-0">
+                                                <p className="text-[10px] text-emerald-600 dark:text-emerald-500 uppercase tracking-wider font-bold">DATE</p>
+                                                <p className="text-sm font-bold text-zinc-900 dark:text-white truncate">December 31st, 2025</p>
+                                            </div>
+                                        </div>
+
+                                        {/* Divider */}
+                                        <div className="h-px bg-zinc-200 dark:bg-zinc-800 my-1"></div>
+
+                                        {/* Time */}
+                                        <div className="flex items-center gap-2 py-1">
+                                            <Clock className="w-5 h-5 text-emerald-600 dark:text-emerald-500 shrink-0" />
+                                            <div className="min-w-0">
+                                                <p className="text-[10px] text-emerald-600 dark:text-emerald-500 uppercase tracking-wider font-bold">TIME</p>
+                                                <p className="text-sm font-bold text-zinc-900 dark:text-white truncate">4:30 PM · Doors Open</p>
+                                            </div>
+                                        </div>
+
+                                        {/* Divider */}
+                                        <div className="h-px bg-zinc-200 dark:bg-zinc-800 my-1"></div>
+
+                                        {/* Venue */}
+                                        <div className="flex items-center gap-2 py-1">
+                                            <MapPin className="w-5 h-5 text-emerald-600 dark:text-emerald-500 shrink-0" />
+                                            <div className="min-w-0">
+                                                <p className="text-[10px] text-emerald-600 dark:text-emerald-500 uppercase tracking-wider font-bold">VENUE</p>
+                                                <p className="text-sm font-bold text-zinc-900 dark:text-white truncate">RDS Concert Hall</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </motion.div>
 
                                 {/* CTA Buttons */}
@@ -132,23 +171,7 @@ export default function SBWEventPage() {
                                                 </p>
                                             </div>
 
-                                            {/* Speakers/Hosts Grid */}
-                                            <div className="grid md:grid-cols-2 gap-6">
-                                                <div className="bg-white dark:bg-zinc-900 p-6 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-sm hover:shadow-md transition-shadow">
-                                                    <p className="text-xs font-bold text-emerald-600 dark:text-emerald-500 uppercase tracking-wider mb-2">Hosted By</p>
-                                                    <h4 className="text-xl font-bold text-zinc-900 dark:text-white mb-2">Faisal Choudhry</h4>
-                                                    <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                                                        From <span className="font-medium text-zinc-900 dark:text-white">Freshly Grounded</span>. Diving into themes of identity, discipline, transformation and spiritual awakening.
-                                                    </p>
-                                                </div>
-                                                <div className="bg-white dark:bg-zinc-900 p-6 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-sm hover:shadow-md transition-shadow">
-                                                    <p className="text-xs font-bold text-emerald-600 dark:text-emerald-500 uppercase tracking-wider mb-2">Spiritual Reminder</p>
-                                                    <h4 className="text-xl font-bold text-zinc-900 dark:text-white mb-2">Ustadh Abdul Ahad</h4>
-                                                    <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                                                        Delivering a reminder designed to <span className="font-medium text-zinc-900 dark:text-white">realign the soul</span> and reconnect you with Allah.
-                                                    </p>
-                                                </div>
-                                            </div>
+
 
                                             {/* Closing Statement */}
                                             <div className="space-y-6 pt-8 border-t border-zinc-200 dark:border-zinc-800">
@@ -156,7 +179,7 @@ export default function SBWEventPage() {
                                                     <strong className="text-zinc-900 dark:text-white">UNAPOLOGETIC</strong> brings together meaningful reflection, uplifting reminders and powerful storytelling. A space to think deeply, feel inspired and walk away with a renewed sense of purpose.
                                                 </p>
                                                 <p className="text-xl md:text-2xl font-serif italic text-emerald-600 dark:text-emerald-500">
-                                                    "Live your truth boldly, sincerely and unapologetically."
+                                                    Live your truth boldly, sincerely and unapologetically.
                                                 </p>
                                             </div>
                                         </div>
@@ -258,49 +281,7 @@ export default function SBWEventPage() {
                     </Container>
                 </section>
 
-                {/* Event Details - Horizontal Cards Matching Reference */}
-                <section className="py-12 bg-zinc-100 dark:bg-zinc-900/50 transition-colors duration-500">
-                    <Container>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                className="bg-white dark:bg-zinc-900 rounded-lg p-6 shadow-sm border border-zinc-200 dark:border-zinc-800 transition-colors duration-500"
-                            >
-                                <Calendar className="w-10 h-10 text-emerald-600 dark:text-emerald-500 mb-3 transition-colors duration-500" />
-                                <p className="text-xs text-emerald-600 dark:text-emerald-500 uppercase tracking-wider font-bold mb-1 transition-colors duration-500">DATE</p>
-                                <p className="text-xl font-bold text-zinc-900 dark:text-white transition-colors duration-500">December 27th</p>
-                                <p className="text-sm text-zinc-500 dark:text-zinc-400 transition-colors duration-500">2025</p>
-                            </motion.div>
 
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: 0.1 }}
-                                className="bg-white dark:bg-zinc-900 rounded-lg p-6 shadow-sm border border-zinc-200 dark:border-zinc-800 transition-colors duration-500"
-                            >
-                                <Clock className="w-10 h-10 text-emerald-600 dark:text-emerald-500 mb-3 transition-colors duration-500" />
-                                <p className="text-xs text-emerald-600 dark:text-emerald-500 uppercase tracking-wider font-bold mb-1 transition-colors duration-500">TIME</p>
-                                <p className="text-xl font-bold text-zinc-900 dark:text-white transition-colors duration-500">11:00 AM</p>
-                                <p className="text-sm text-zinc-500 dark:text-zinc-400 transition-colors duration-500">Doors Open</p>
-                            </motion.div>
-
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: 0.2 }}
-                                className="bg-white dark:bg-zinc-900 rounded-lg p-6 shadow-sm border border-zinc-200 dark:border-zinc-800 transition-colors duration-500"
-                            >
-                                <MapPin className="w-10 h-10 text-emerald-600 dark:text-emerald-500 mb-3 transition-colors duration-500" />
-                                <p className="text-xs text-emerald-600 dark:text-emerald-500 uppercase tracking-wider font-bold mb-1 transition-colors duration-500">VENUE</p>
-                                <p className="text-xl font-bold text-zinc-900 dark:text-white transition-colors duration-500">RDS Concert Hall</p>
-                            </motion.div>
-                        </div>
-                    </Container>
-                </section>
             </main>
 
             <Footer />
