@@ -12,8 +12,8 @@ import { loadStripe, type Stripe } from '@stripe/stripe-js';
 import { cn } from "@/lib/utils";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
-// Use your Stripe LIVE Publishable Key
-const STRIPE_PUBLISHABLE_KEY = "pk_live_51RZYeU03fmxR0FPJMt0o4IRKOQ67JpOPSxVBmA6any2JknMMJpvbjBYVXTy0VmITqqofPaA4e7u5zhKbgj05bdoV00YBfDfUm9";
+// Use your Stripe LIVE Publishable Key via env (must start with NEXT_PUBLIC_ to be available client-side)
+const STRIPE_PUBLISHABLE_KEY = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "";
 
 let stripePromise: Promise<Stripe | null>;
 
