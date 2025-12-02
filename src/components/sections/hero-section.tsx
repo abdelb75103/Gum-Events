@@ -9,6 +9,8 @@ import Image from "next/image";
 import { useRef, useState, useEffect, useCallback, type TouchEvent } from "react";
 import { events } from "@/lib/data";
 
+const AUTO_ROTATE_DELAY = 10000;
+
 export default function HeroSection() {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -19,7 +21,7 @@ export default function HeroSection() {
   const upcomingEvents = events.filter(e => e.status === "upcoming");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [glowPos, setGlowPos] = useState({ x: 50, y: 50 });
   const tiltX = useMotionValue(0);
   const tiltY = useMotionValue(0);
@@ -37,9 +39,16 @@ export default function HeroSection() {
     setCurrentIndex(prev => (prev - 1 + upcomingEvents.length) % upcomingEvents.length);
   }, [upcomingEvents.length]);
 
+  const scheduleNextRotation = useCallback(() => {
+    timerRef.current = setTimeout(() => {
+      goToNext();
+      scheduleNextRotation();
+    }, AUTO_ROTATE_DELAY);
+  }, [goToNext]);
+
   const resetTimer = useCallback(() => {
     if (timerRef.current) {
-      clearInterval(timerRef.current);
+      clearTimeout(timerRef.current);
     }
 
     if (upcomingEvents.length <= 1) {
@@ -47,10 +56,8 @@ export default function HeroSection() {
       return;
     }
 
-    timerRef.current = setInterval(() => {
-      goToNext();
-    }, 10000);
-  }, [goToNext, upcomingEvents.length]);
+    scheduleNextRotation();
+  }, [scheduleNextRotation, upcomingEvents.length]);
 
   useEffect(() => {
     resetTimer();
@@ -120,7 +127,7 @@ export default function HeroSection() {
   return (
     <section
       ref={ref}
-      className="relative h-screen w-full overflow-hidden"
+      className="relative min-h-[90dvh] sm:h-screen w-full overflow-hidden pt-16 pb-10 sm:pt-0 sm:pb-0"
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
@@ -142,7 +149,7 @@ export default function HeroSection() {
 
       {/* Content */}
       <div className="relative z-20 flex h-full flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 items-center w-full max-w-7xl mx-auto">
 
           {/* Text Content */}
           <div className="text-left space-y-8 order-2 lg:order-1 min-h-[400px] flex flex-col justify-center">
@@ -156,7 +163,7 @@ export default function HeroSection() {
                 className="space-y-8"
               >
                 <div>
-                  <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-white mb-6 drop-shadow-2xl">
+                  <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight text-white mb-4 sm:mb-6 drop-shadow-2xl">
                     {featuredEvent.id?.toLowerCase().includes("sbw") ? (
                       <>
                         <span className="block">UNAPOLOGETIC</span>
@@ -169,21 +176,21 @@ export default function HeroSection() {
                       featuredEvent.title
                     )}
                   </h1>
-                  <p className="mt-4 text-xl text-gray-200 max-w-2xl leading-relaxed drop-shadow-md">
+                  <p className="mt-3 text-base sm:text-xl text-gray-200 max-w-2xl leading-relaxed drop-shadow-md">
                     {featuredEvent.description || "Inspiring the next generation to choose Islam with conviction. Join us for transformative events that speak to the heart."}
                   </p>
                 </div>
 
-                <div className="flex flex-wrap gap-4">
+                <div className="flex flex-col sm:flex-row w-full gap-3 sm:gap-4">
                   <Magnetic>
-                    <Button size="lg" variant="gradient" asChild className="text-lg px-8 py-6 h-auto shadow-xl hover:shadow-primary/25">
+                    <Button size="lg" variant="gradient" asChild className="text-base sm:text-lg px-6 sm:px-8 py-5 h-auto shadow-xl hover:shadow-primary/25 w-full sm:w-auto">
                       <Link href={featuredEvent.registrationLink} target={featuredEvent.registrationLink.startsWith("http") ? "_blank" : "_self"} rel={featuredEvent.registrationLink.startsWith("http") ? "noopener noreferrer" : undefined}>
                         Buy Tickets <Ticket className="ml-2 h-5 w-5" />
                       </Link>
                     </Button>
                   </Magnetic>
                   <Magnetic>
-                    <Button size="lg" variant="outline" asChild className="text-lg px-8 py-6 h-auto bg-white/10 backdrop-blur-md border-white/20 text-white hover:bg-white/20 hover:text-white hover:border-white/40 shadow-lg">
+                    <Button size="lg" variant="outline" asChild className="text-base sm:text-lg px-6 sm:px-8 py-5 h-auto bg-white/10 backdrop-blur-md border-white/20 text-white hover:bg-white/20 hover:text-white hover:border-white/40 shadow-lg w-full sm:w-auto">
                       <Link href="#contribute">
                         Support Our Work
                       </Link>
@@ -215,7 +222,7 @@ export default function HeroSection() {
                 className="relative group"
               >
                 <Link href={featuredEvent.registrationLink} target={featuredEvent.registrationLink.startsWith("http") ? "_blank" : "_self"} rel={featuredEvent.registrationLink.startsWith("http") ? "noopener noreferrer" : undefined}>
-                  <div className="relative w-[300px] sm:w-[350px] md:w-[400px] aspect-[3/4] rounded-[18px] overflow-hidden shadow-2xl ring-1 ring-white/15 transition-transform duration-500 cursor-pointer group hover:scale-[1.01]">
+                  <div className="relative w-[260px] sm:w-[330px] md:w-[400px] aspect-[3/4] rounded-[18px] overflow-hidden shadow-2xl ring-1 ring-white/15 transition-transform duration-500 cursor-pointer group hover:scale-[1.01]">
                     <Image
                       src={featuredEvent.image}
                       alt={featuredEvent.title}

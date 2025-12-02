@@ -64,14 +64,14 @@ export default function Header({ hideOnLoad = false }: HeaderProps) {
         "transition-transform duration-300 ease-in-out",
         "translate-y-0"
       )}>
-        <div className="container mx-auto flex h-20 max-w-7xl items-center justify-between px-6 sm:px-8 lg:px-10">
+        <div className="container mx-auto flex h-16 sm:h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-10">
           <Link href="/" className="flex items-center">
             <Image
               src="/images/logo.png"
               alt="GUM Events Logo"
-              width={72}
-              height={72}
-              className="h-[72px] w-[72px]"
+              width={64}
+              height={64}
+              className="h-[56px] w-[56px] sm:h-[64px] sm:w-[64px]"
               data-ai-hint="logo brand"
               priority
               style={{ objectFit: 'contain' }}
@@ -94,14 +94,14 @@ export default function Header({ hideOnLoad = false }: HeaderProps) {
       "transition-transform duration-300 ease-in-out",
       isHeaderVisible ? "translate-y-0" : "-translate-y-full"
     )}>
-      <div className="container mx-auto flex h-20 max-w-7xl items-center justify-between px-6 sm:px-8 lg:px-10">
+      <div className="container mx-auto flex h-16 sm:h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-10">
         <Link href="/" className="flex items-center" onClick={() => setIsMobileMenuOpen(false)}>
           <Image
             src="/images/logo.png"
             alt="GUM Events Logo"
-            width={72}
-            height={72}
-            className="h-[72px] w-[72px]"
+            width={64}
+            height={64}
+            className="h-[56px] w-[56px] sm:h-[64px] sm:w-[64px]"
             data-ai-hint="logo brand"
             priority
             style={{ objectFit: 'contain' }}
@@ -138,9 +138,9 @@ export default function Header({ hideOnLoad = false }: HeaderProps) {
                     <Image
                       src="/images/logo.png"
                       alt="GUM Events Logo"
-                      width={62}
-                      height={62}
-                      className="h-[62px] w-[62px]"
+                      width={56}
+                      height={56}
+                      className="h-[56px] w-[56px]"
                       data-ai-hint="logo brand"
                       style={{ objectFit: 'contain' }}
                     />
