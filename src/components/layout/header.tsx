@@ -9,7 +9,7 @@ import { Menu, X } from "lucide-react";
 import { ThemeToggleButton } from "@/components/theme-toggle-button";
 import { cn } from "@/lib/utils";
 
-const navItems = [
+const NAV_ITEMS = [
   { label: "Home", href: "/" },
   { label: "Our Story", href: "/our-story" },
   { label: "Contribute", href: "/#contribute" },
@@ -110,7 +110,7 @@ export default function Header({ hideOnLoad = false }: HeaderProps) {
 
         <div className="flex items-center gap-1 sm:gap-2">
           <nav className="hidden items-center space-x-0.5 sm:space-x-1 md:flex">
-            {navItems.map((item) => (
+            {NAV_ITEMS.map((item) => (
               <Button
                 key={item.label}
                 variant="ghost"
@@ -153,7 +153,7 @@ export default function Header({ hideOnLoad = false }: HeaderProps) {
                   </SheetTrigger>
                 </div>
                 <nav className="flex flex-col space-y-2">
-                  {navItems.map((item) => (
+                  {NAV_ITEMS.map((item) => (
                     <Button
                       key={item.label}
                       variant="ghost"

@@ -10,15 +10,18 @@ import Image from "next/image";
 export default function GetInvolvedSection() {
     return (
         <section id="get-involved" className="relative py-10 sm:py-16 md:py-28 overflow-hidden px-2 sm:px-0">
-            {/* Parallax Background */}
+            {/* Background with fallback gradient to avoid flashes */}
             <div className="absolute inset-0 w-full h-full">
+                <div className="absolute inset-0 bg-gradient-to-b from-[#0f172a] via-[#0f172a]/80 to-black" />
                 <Image
                     src="/images/_MG_0832.jpeg"
                     alt="Volunteers at Gum Events"
                     fill
                     sizes="100vw"
                     className="object-cover object-[center_30%]"
-                    priority={false}
+                    priority
+                    placeholder="blur"
+                    blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMSIgaGVpZ2h0PSIxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiMwZjE3MmEiLz48L3N2Zz4="
                 />
                 {/* Cinematic Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/20" />

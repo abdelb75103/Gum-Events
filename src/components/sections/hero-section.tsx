@@ -231,6 +231,8 @@ export default function HeroSection() {
                       className="object-cover"
                       priority
                       sizes="(max-width: 768px) 100vw, 50vw"
+                      placeholder="blur"
+                      blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMSIgaGVpZ2h0PSIxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiM0YmE2NzgiLz48L3N2Zz4="
                     />
                     <div
                       className="pointer-events-none absolute inset-0"

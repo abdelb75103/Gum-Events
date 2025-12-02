@@ -10,6 +10,12 @@ import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import Container from "@/components/ui/container";
 
+const DETAIL_ITEMS = [
+    { label: "DATE", value: "December 31st, 2025", Icon: Calendar },
+    { label: "TIME", value: "4:30 PM · Doors Open", Icon: Clock },
+    { label: "VENUE", value: "RDS Concert Hall", Icon: MapPin },
+];
+
 export default function SBWEventPage() {
     const [isAboutVisible, setIsAboutVisible] = useState(false);
     const ticketWidgetRef = useRef<HTMLDivElement | null>(null);
@@ -98,32 +104,15 @@ export default function SBWEventPage() {
                                     {/* Event Details - Single Compact Card */}
                                     <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-sm border border-zinc-200 dark:border-zinc-800 transition-colors duration-500 flex-1 h-full">
                                         <div className="flex flex-col md:flex-row h-full divide-y md:divide-y-0 md:divide-x divide-zinc-200 dark:divide-zinc-800">
-                                        {/* Date */}
-                                        <div className="flex items-center gap-2 py-2 px-3 flex-1 min-w-0">
-                                            <Calendar className="w-5 h-5 text-emerald-600 dark:text-emerald-500 shrink-0" />
-                                            <div className="min-w-0">
-                                                <p className="text-[10px] text-emerald-600 dark:text-emerald-500 uppercase tracking-wider font-bold">DATE</p>
-                                                <p className="text-sm font-bold text-zinc-900 dark:text-white truncate">December 31st, 2025</p>
-                                            </div>
-                                        </div>
-
-                                        {/* Time */}
-                                        <div className="flex items-center gap-2 py-2 px-3 flex-1 min-w-0">
-                                            <Clock className="w-5 h-5 text-emerald-600 dark:text-emerald-500 shrink-0" />
-                                            <div className="min-w-0">
-                                                <p className="text-[10px] text-emerald-600 dark:text-emerald-500 uppercase tracking-wider font-bold">TIME</p>
-                                                <p className="text-sm font-bold text-zinc-900 dark:text-white truncate">4:30 PM · Doors Open</p>
-                                            </div>
-                                        </div>
-
-                                        {/* Venue */}
-                                        <div className="flex items-center gap-2 py-2 px-3 flex-1 min-w-0">
-                                            <MapPin className="w-5 h-5 text-emerald-600 dark:text-emerald-500 shrink-0" />
-                                            <div className="min-w-0">
-                                                <p className="text-[10px] text-emerald-600 dark:text-emerald-500 uppercase tracking-wider font-bold">VENUE</p>
-                                                <p className="text-sm font-bold text-zinc-900 dark:text-white truncate">RDS Concert Hall</p>
-                                            </div>
-                                        </div>
+                                            {DETAIL_ITEMS.map(({ label, value, Icon }) => (
+                                                <div key={label} className="flex items-center gap-2 py-2 px-3 flex-1 min-w-0">
+                                                    <Icon className="w-5 h-5 text-emerald-600 dark:text-emerald-500 shrink-0" />
+                                                    <div className="min-w-0">
+                                                        <p className="text-[10px] text-emerald-600 dark:text-emerald-500 uppercase tracking-wider font-bold">{label}</p>
+                                                        <p className="text-sm font-bold text-zinc-900 dark:text-white leading-tight break-words">{value}</p>
+                                                    </div>
+                                                </div>
+                                            ))}
                                         </div>
                                     </div>
                                 </motion.div>
@@ -222,6 +211,8 @@ export default function SBWEventPage() {
                                         className="object-cover"
                                         priority
                                         sizes="(max-width: 1024px) 100vw, 40vw"
+                                        placeholder="blur"
+                                        blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMSIgaGVpZ2h0PSIxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiM0YmE2NzgiLz48L3N2Zz4="
                                     />
                                 </motion.div>
 
