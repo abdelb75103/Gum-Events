@@ -21,70 +21,53 @@ export default function EventsSection() {
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/20 rounded-full blur-[128px] pointer-events-none mix-blend-multiply dark:mix-blend-screen opacity-50 dark:opacity-20" />
 
       <Container>
-        <ScrollReveal>
-          <div className="mb-16 md:mb-24 text-center relative z-10">
-            <h2 className="text-3xl md:text-6xl font-bold tracking-tight text-foreground mb-2 md:mb-6">
-              Upcoming <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Events</span>
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto text-sm md:text-lg hidden md:block">
-              Join us for our next gathering. Experience the community, inspiration, and connection.
-            </p>
-          </div>
-        </ScrollReveal>
-
-        <div className="space-y-20 md:space-y-32">
-          {upcomingEvents.length > 0 ? (
-            upcomingEvents.map((event, index) => (
-              <EventCard key={event.id} event={event} index={index} />
-            ))
-          ) : (
-            <ScrollReveal>
-              <div className="max-w-3xl mx-auto text-center py-16 md:py-24">
-                {/* Animated decorative element */}
-                <motion.div
-                  className="mb-8 flex justify-center"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.6 }}
-                >
-                  <div className="relative">
-                    <div className="w-20 h-20 md:w-28 md:h-28 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center backdrop-blur-sm border border-white/20 dark:border-white/10">
-                      <motion.div
-                        animate={{ rotate: [0, 10, -10, 0] }}
-                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                      >
-                        <CalendarDays className="w-10 h-10 md:w-14 md:h-14 text-primary" />
-                      </motion.div>
-                    </div>
-                    {/* Subtle glow */}
-                    <div className="absolute inset-0 -z-10 bg-primary/30 blur-2xl rounded-full opacity-50" />
+        <div className="min-h-[40vh] flex items-center justify-center">
+          <ScrollReveal>
+            <div className="max-w-3xl mx-auto text-center py-16 md:py-24">
+              {/* Animated decorative element */}
+              <motion.div
+                className="mb-8 flex justify-center"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="relative">
+                  <div className="w-20 h-20 md:w-28 md:h-28 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center backdrop-blur-sm border border-white/20 dark:border-white/10">
+                    <motion.div
+                      animate={{ rotate: [0, 10, -10, 0] }}
+                      transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      <CalendarDays className="w-10 h-10 md:w-14 md:h-14 text-primary" />
+                    </motion.div>
                   </div>
-                </motion.div>
+                  {/* Subtle glow */}
+                  <div className="absolute inset-0 -z-10 bg-primary/30 blur-2xl rounded-full opacity-50" />
+                </div>
+              </motion.div>
 
-                <h3 className="text-3xl md:text-5xl font-bold tracking-tight mb-4 md:mb-6">
-                  <span className="text-foreground">Something </span>
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Special</span>
-                  <span className="text-foreground"> is Brewing</span>
-                </h3>
+              <h3 className="text-3xl md:text-5xl font-bold tracking-tight mb-4 md:mb-6">
+                <span className="text-foreground">Something </span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Special</span>
+                <span className="text-foreground"> is Brewing</span>
+              </h3>
 
-                <p className="text-muted-foreground text-lg md:text-xl max-w-xl mx-auto leading-relaxed mb-8">
-                  We&apos;re crafting our next gathering with care. Follow us to be the first to know when tickets drop.
-                </p>
+              <p className="text-muted-foreground text-lg md:text-xl max-w-xl mx-auto leading-relaxed mb-8">
+                Follow us to be the first to know when tickets drop.
+              </p>
 
-                <Button
-                  variant="outline"
-                  size="lg"
-                  asChild
-                  className="text-base px-8 py-6 h-auto border-primary/30 hover:border-primary hover:bg-primary/5 transition-all duration-300"
-                >
-                  <Link href="#contribute">
-                    Stay Connected
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Link>
-                </Button>
-              </div>
-            </ScrollReveal>
-          )}
+              <Button
+                variant="outline"
+                size="lg"
+                asChild
+                className="text-base px-8 py-6 h-auto border-primary/30 hover:border-primary hover:bg-primary/5 transition-all duration-300"
+              >
+                <Link href="#footer">
+                  Stay Connected
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+            </div>
+          </ScrollReveal>
         </div>
       </Container>
     </section>
