@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Moon, Sun } from "lucide-react";
@@ -6,12 +5,23 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 
 export function ThemeToggleButton() {
-  // Initialize theme to 'light' by default.
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [theme, setTheme] = useState<"light" | "dark" | null>(null);
 
-  // Effect to apply the theme class to <html>
+  // Effect to read theme from localStorage on mount
   useEffect(() => {
     if (typeof window === "undefined") return;
+
+    const stored = localStorage.getItem("theme") as "light" | "dark" | null;
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+    // Use stored preference, or system preference, or default to light
+    const initialTheme = stored ?? (prefersDark ? "dark" : "light");
+    setTheme(initialTheme);
+  }, []);
+
+  // Effect to apply the theme class to <html> and persist to localStorage
+  useEffect(() => {
+    if (typeof window === "undefined" || theme === null) return;
 
     const root = window.document.documentElement;
     if (theme === "dark") {
@@ -19,18 +29,19 @@ export function ThemeToggleButton() {
     } else {
       root.classList.remove("dark");
     }
+
+    // Persist to localStorage
+    localStorage.setItem("theme", theme);
   }, [theme]);
 
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
   };
 
-  // Prevent rendering the button with the wrong icon during SSR/initial client render mismatch.
-  // This ensures that when the client hydrates, it initially sees a button that matches the 'light' default.
-  if (typeof window === "undefined") {
-     return <Button variant="ghost" size="icon" disabled className="h-10 w-10 shrink-0" />;
+  // Show placeholder during initial render to avoid hydration mismatch
+  if (theme === null) {
+    return <Button variant="ghost" size="icon" disabled className="h-10 w-10 shrink-0 opacity-0" />;
   }
-
 
   return (
     <Button
@@ -48,4 +59,3 @@ export function ThemeToggleButton() {
     </Button>
   );
 }
-
