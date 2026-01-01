@@ -72,8 +72,65 @@ export default function HeroSection() {
   const featuredEvent = upcomingEvents[currentIndex];
   const totalEvents = upcomingEvents.length;
 
+  // Fallback hero section when no upcoming events
   if (!featuredEvent) {
-    return null;
+    return (
+      <section
+        ref={ref}
+        className="relative min-h-[90dvh] sm:h-screen w-full overflow-hidden pt-16 pb-10 sm:pt-0 sm:pb-0"
+      >
+        {/* Video Background */}
+        <div className="absolute inset-0 z-0">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="h-full w-full object-cover"
+          >
+            <source src="/videos/intro.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          {/* Dark Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-background z-10" />
+        </div>
+
+        {/* Content */}
+        <div className="relative z-20 flex h-full flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center max-w-4xl mx-auto space-y-8"
+          >
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight text-white drop-shadow-2xl">
+              <span className="block">Growing Up</span>
+              <span className="block text-primary">Muslim in Ireland</span>
+            </h1>
+            <p className="text-base sm:text-xl text-gray-200 max-w-2xl mx-auto leading-relaxed drop-shadow-md">
+              Inspiring the next generation to choose Islam with conviction. Join us for transformative events that speak to the heart.
+            </p>
+
+            <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 pt-4">
+              <Magnetic>
+                <Button size="lg" variant="gradient" asChild className="text-base sm:text-lg px-6 sm:px-8 py-5 h-auto shadow-xl hover:shadow-primary/25 w-full sm:w-auto">
+                  <Link href="#events">
+                    Browse Events <Ticket className="ml-2 h-5 w-5" />
+                  </Link>
+                </Button>
+              </Magnetic>
+              <Magnetic>
+                <Button size="lg" variant="outline" asChild className="text-base sm:text-lg px-6 sm:px-8 py-5 h-auto bg-white/10 backdrop-blur-md border-white/20 text-white hover:bg-white/20 hover:text-white hover:border-white/40 shadow-lg w-full sm:w-auto">
+                  <Link href="#contribute">
+                    Support Our Work
+                  </Link>
+                </Button>
+              </Magnetic>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+    );
   }
 
   const handleNextClick = () => {
