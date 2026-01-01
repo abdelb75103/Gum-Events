@@ -39,13 +39,49 @@ export default function EventsSection() {
             ))
           ) : (
             <ScrollReveal>
-              <div className="max-w-2xl mx-auto text-center py-20">
-                <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-                  Something Special is Brewing
+              <div className="max-w-3xl mx-auto text-center py-16 md:py-24">
+                {/* Animated decorative element */}
+                <motion.div
+                  className="mb-8 flex justify-center"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <div className="relative">
+                    <div className="w-20 h-20 md:w-28 md:h-28 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center backdrop-blur-sm border border-white/20 dark:border-white/10">
+                      <motion.div
+                        animate={{ rotate: [0, 10, -10, 0] }}
+                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                      >
+                        <CalendarDays className="w-10 h-10 md:w-14 md:h-14 text-primary" />
+                      </motion.div>
+                    </div>
+                    {/* Subtle glow */}
+                    <div className="absolute inset-0 -z-10 bg-primary/30 blur-2xl rounded-full opacity-50" />
+                  </div>
+                </motion.div>
+
+                <h3 className="text-3xl md:text-5xl font-bold tracking-tight mb-4 md:mb-6">
+                  <span className="text-foreground">Something </span>
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Special</span>
+                  <span className="text-foreground"> is Brewing</span>
                 </h3>
-                <p className="text-muted-foreground text-lg">
-                  We are currently planning our next gathering. Stay tuned for announcements.
+
+                <p className="text-muted-foreground text-lg md:text-xl max-w-xl mx-auto leading-relaxed mb-8">
+                  We&apos;re crafting our next gathering with care. Follow us to be the first to know when tickets drop.
                 </p>
+
+                <Button
+                  variant="outline"
+                  size="lg"
+                  asChild
+                  className="text-base px-8 py-6 h-auto border-primary/30 hover:border-primary hover:bg-primary/5 transition-all duration-300"
+                >
+                  <Link href="#contribute">
+                    Stay Connected
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Link>
+                </Button>
               </div>
             </ScrollReveal>
           )}
