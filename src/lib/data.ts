@@ -1,51 +1,5 @@
 
 import type { Event } from "./types";
 
-export const events: Event[] = [
-  {
-    id: "sbw-event-2025",
-    title: "Unapologetic",
-    date: "31st December 2025",
-    time: "Doors open 4:30 PM",
-    location: "RDS Concert Hall",
-    description: "Join us for an unforgettable evening.",
-    registrationLink: "/events/sbw-event",
-    image: "/images/SBW%20Event.JPG",
-    imageHint: "SBW Event Poster",
-    status: "upcoming",
-  },
-  {
-    id: "1",
-    title: "Light Upon Light: Winter Conference",
-    date: "30th December 2025",
-    time: "",
-    location: "International Convention Centre Belfast",
-    description: "",
-    registrationLink: "https://www.tickettailor.com/checkout/view-event/id/6780502/chk/d477/?modal_widget=true&widget=true",
-    image: "/images/LUL X GUM.jpeg",
-    imageHint: "conference event poster",
-    status: "upcoming",
-  },
-  // {
-  //   id: "2",
-  //   title: "Family Fun Day",
-  //   date: "November 10, 2024",
-  //   time: "12:00 PM - 4:00 PM",
-  //   location: "City Park",
-  //   description: "A day of fun activities, games, and food for the whole family. Celebrate community bonds.",
-  //   registrationLink: "#",
-  //   image: "https://placehold.co/600x400.png",
-  //   imageHint: "family park",
-  // },
-  // {
-  //   id: "3",
-  //   title: "Workshop: Navigating Identity",
-  //   date: "December 1, 2024",
-  //   time: "2:00 PM - 4:00 PM",
-  //   location: "Online via Zoom",
-  //   description: "An interactive workshop focusing on identity for Muslim youth in the modern world.",
-  //   registrationLink: "#",
-  //   image: "https://placehold.co/600x400.png",
-  //   imageHint: "workshop online",
-  // },
-];
+// Events array - currently empty as past events have concluded
+export const events: Event[] = [];

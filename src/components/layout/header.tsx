@@ -16,7 +16,7 @@ const NAV_ITEMS = [
   { label: "Events", href: "/#events" },
   { label: "Speakers", href: "/#speakers" },
   { label: "Volunteer", href: "/volunteer" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Contact", href: "/#get-involved" },
 ];
 
 interface HeaderProps {
