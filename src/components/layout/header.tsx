@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -12,6 +11,7 @@ import { cn } from "@/lib/utils";
 const NAV_ITEMS = [
   { label: "Home", href: "/" },
   { label: "Our Story", href: "/our-story" },
+  { label: "Charity Appeal", href: "/#support" },
   { label: "Contribute", href: "/#contribute" },
   { label: "Events", href: "/#events" },
   { label: "Speakers", href: "/#speakers" },
@@ -66,15 +66,13 @@ export default function Header({ hideOnLoad = false }: HeaderProps) {
       )}>
         <div className="container mx-auto flex h-16 sm:h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-10">
           <Link href="/" className="flex items-center">
-            <Image
+            <img
               src="/images/logo.png"
               alt="GUM Events Logo"
               width={64}
               height={64}
               className="h-[56px] w-[56px] sm:h-[64px] sm:w-[64px]"
-              data-ai-hint="logo brand"
-              priority
-              style={{ objectFit: 'contain' }}
+              style={{ objectFit: "contain" }}
             />
           </Link>
           <div className="flex items-center gap-2">
@@ -96,15 +94,13 @@ export default function Header({ hideOnLoad = false }: HeaderProps) {
     )}>
       <div className="container mx-auto flex h-16 sm:h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-10">
         <Link href="/" className="flex items-center" onClick={() => setIsMobileMenuOpen(false)}>
-          <Image
+          <img
             src="/images/logo.png"
             alt="GUM Events Logo"
             width={64}
             height={64}
             className="h-[56px] w-[56px] sm:h-[64px] sm:w-[64px]"
-            data-ai-hint="logo brand"
-            priority
-            style={{ objectFit: 'contain' }}
+            style={{ objectFit: "contain" }}
           />
         </Link>
 
@@ -135,14 +131,13 @@ export default function Header({ hideOnLoad = false }: HeaderProps) {
               <SheetContent side="right" className="w-full max-w-xs bg-background p-6">
                 <div className="mb-6 flex items-center justify-between">
                   <Link href="/" className="flex items-center" onClick={() => setIsMobileMenuOpen(false)}>
-                    <Image
+                    <img
                       src="/images/logo.png"
                       alt="GUM Events Logo"
                       width={56}
                       height={56}
                       className="h-[56px] w-[56px]"
-                      data-ai-hint="logo brand"
-                      style={{ objectFit: 'contain' }}
+                      style={{ objectFit: "contain" }}
                     />
                   </Link>
                   <SheetTrigger asChild>
