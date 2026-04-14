@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 
 const HERO_CONFIG = {
   backgroundImagePath: "/1080x566_SOCIAL AD_GUM.png",
-  posterImagePath: "/1080x1350_SOCIAL AD_GUM (1).png",
+  posterImagePath: "/TH-IR_1080x1350_SOCIAL AD.png",
   ticketsHref: "https://www.time-hoppers.com/movie/time-hoppers-the-silk-road-1/film-info",
   trailerHref: "https://www.youtube.com/watch?v=8LPkVYeaSxY",
 } as const;
