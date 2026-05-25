@@ -1,108 +1,144 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Play } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
-const HERO_CONFIG = {
-  backgroundImagePath: "/1080x566_SOCIAL AD_GUM.png",
-  posterImagePath: "/TH-IR_1080x1350_SOCIAL AD.png",
-  ticketsHref: "https://www.time-hoppers.com/movie/time-hoppers-the-silk-road-1/film-info",
-  trailerHref: "https://www.youtube.com/watch?v=8LPkVYeaSxY",
-} as const;
-
 export default function HeroSection() {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const y = useTransform(scrollYProgress, [0, 0.5], [0, 80]);
+  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 1.05]);
+
   return (
-    <section className="relative h-screen w-full overflow-hidden" aria-label="Homepage hero">
-      <motion.div
-        className="absolute inset-0"
-        initial={{ opacity: 0, scale: 1.02 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-      >
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute inset-[-3%] scale-[1.06]">
-            <Image
-              src={HERO_CONFIG.backgroundImagePath}
-              alt=""
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover blur-xl saturate-110"
-            />
-          </div>
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.12),transparent_45%)]" />
-          <div className="absolute inset-0 bg-black/42" />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,7,10,0.18),rgba(4,7,10,0.72))]" />
-        </div>
+    <section ref={ref} className="relative h-screen w-full overflow-hidden">
+      <motion.div className="absolute inset-0 z-0" style={{ scale }}>
+        <video autoPlay loop muted playsInline className="h-full w-full object-cover">
+          <source src="/videos/intro.mp4" type="video/mp4" />
+        </video>
 
-        <div className="relative z-10 flex h-full w-full flex-col items-center justify-center px-4 py-6 sm:px-6 sm:py-8 lg:px-10">
-          <motion.div
-            className="relative w-full max-w-[21rem] sm:max-w-[26rem] md:max-w-[29rem] lg:max-w-[32rem] xl:max-w-[35rem]"
-            initial={{ opacity: 0, y: 26 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-          >
-            <div className="absolute inset-x-[9%] bottom-[-2rem] top-[90%] rounded-full bg-black/50 blur-3xl" />
-            <Link
-              href={HERO_CONFIG.ticketsHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group block"
-              aria-label="Open event tickets page"
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `linear-gradient(
+              to right,
+              rgba(0, 0, 0, 0.85) 0%,
+              rgba(0, 0, 0, 0.65) 25%,
+              rgba(0, 0, 0, 0.3) 45%,
+              rgba(0, 0, 0, 0.1) 65%,
+              transparent 80%
+            )`,
+          }}
+        />
+
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `linear-gradient(
+              to top,
+              rgba(0, 0, 0, 0.75) 0%,
+              rgba(0, 0, 0, 0.4) 25%,
+              rgba(0, 0, 0, 0.15) 45%,
+              transparent 60%
+            )`,
+          }}
+        />
+
+        <div className="absolute inset-0 bg-black/15" />
+      </motion.div>
+
+      <motion.div className="absolute inset-0 z-10 flex items-center" style={{ opacity, y }}>
+        <div className="w-full px-6 sm:px-12 lg:px-20 xl:px-28">
+          <div className="max-w-2xl">
+            <motion.div
+              className="space-y-6"
+              initial={{ opacity: 0, x: -40 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
             >
-              <div className="relative overflow-hidden rounded-[1.75rem] border border-white/18 bg-white/6 shadow-[0_40px_140px_rgba(0,0,0,0.62)] backdrop-blur-[2px] transition-transform duration-500 group-hover:scale-[1.01]">
-                <Image
-                  src={HERO_CONFIG.posterImagePath}
-                  alt="Growing Up Muslim event poster"
-                  width={1080}
-                  height={1350}
-                  priority
-                  sizes="(min-width: 1024px) 28rem, (min-width: 640px) 25rem, 88vw"
-                  className="h-auto w-full object-contain"
-                />
-              </div>
-            </Link>
-          </motion.div>
-
-          <motion.div
-            className="mt-7 flex w-full justify-center sm:mt-8"
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <div className="flex w-full max-w-[28rem] flex-col gap-3 sm:w-auto sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center">
-              <Button
-                asChild
-                size="lg"
-                className="relative h-auto w-full overflow-hidden rounded-full border border-[#ffd37a]/70 bg-[#f3a42a] px-7 py-5 text-base font-semibold text-[#18120a] shadow-[0_0_0_1px_rgba(255,211,122,0.24),0_16px_45px_rgba(0,0,0,0.28),0_0_34px_rgba(243,164,42,0.42)] transition-all duration-300 hover:scale-[1.03] hover:bg-[#f0ad46] hover:text-[#18120a] hover:shadow-[0_0_0_1px_rgba(255,211,122,0.3),0_20px_55px_rgba(0,0,0,0.32),0_0_42px_rgba(243,164,42,0.5)] sm:w-auto sm:px-8"
+              <motion.div
+                className="flex items-center gap-3"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.5 }}
               >
-                <Link href={HERO_CONFIG.ticketsHref} target="_blank" rel="noopener noreferrer">
-                  <span className="pointer-events-none absolute inset-0 bg-[linear-gradient(120deg,rgba(255,255,255,0.38),transparent_24%,transparent_68%,rgba(255,255,255,0.24))]" />
-                  <span className="relative">Get Your Tickets Now</span>
-                  <ArrowRight className="relative h-5 w-5" />
-                </Link>
-              </Button>
+                <div className="h-px w-12 bg-gradient-to-r from-primary to-primary/40" />
+                <span className="text-sm font-medium uppercase tracking-[0.25em] text-white/60 sm:text-base">
+                  Inspiring Conviction
+                </span>
+              </motion.div>
 
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="h-auto w-full border-white/25 bg-white/8 px-7 py-5 text-base font-semibold text-white backdrop-blur-md transition-all duration-300 hover:scale-[1.03] hover:border-white/40 hover:bg-white/14 hover:text-white sm:w-auto sm:px-8"
+              <h1 className="text-5xl font-bold leading-[0.95] tracking-tight text-white sm:text-6xl md:text-7xl lg:text-8xl">
+                <motion.span
+                  className="block"
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.6 }}
+                >
+                  Growing Up
+                </motion.span>
+                <motion.span
+                  className="block bg-gradient-to-r from-primary via-primary to-primary/70 bg-clip-text text-transparent"
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.75 }}
+                >
+                  Muslim
+                </motion.span>
+              </h1>
+
+              <motion.p
+                className="max-w-lg text-lg font-light leading-relaxed text-white/70 sm:text-xl lg:text-2xl"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.9 }}
               >
-                <Link href={HERO_CONFIG.trailerHref} target="_blank" rel="noopener noreferrer">
-                  Watch the Trailer
-                  <Play className="h-5 w-5 fill-current" />
-                </Link>
-              </Button>
-            </div>
-          </motion.div>
+                Inspiring the next generation to choose Islam with conviction.
+              </motion.p>
+
+              <motion.div
+                className="flex flex-col gap-4 pt-4 sm:flex-row"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 1.1 }}
+              >
+                <Button
+                  variant="ghost"
+                  size="lg"
+                  asChild
+                  className="h-auto border-0 bg-white px-8 py-6 text-base font-medium text-black transition-all duration-300 hover:bg-white/90 hover:text-black"
+                >
+                  <Link href="#contribute">
+                    Support Our Mission
+                    <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                  </Link>
+                </Button>
+
+                <Button
+                  variant="ghost"
+                  size="lg"
+                  asChild
+                  className="group h-auto border border-white/20 px-8 py-6 text-base text-white/90 backdrop-blur-sm transition-all duration-300 hover:bg-white/10 hover:text-white"
+                >
+                  <Link href="#our-story" className="flex items-center gap-3">
+                    <span className="relative flex h-8 w-8 items-center justify-center rounded-full bg-white/10 transition-colors group-hover:bg-white/20">
+                      <Play className="ml-0.5 h-3 w-3 fill-current" />
+                    </span>
+                    Our Story
+                  </Link>
+                </Button>
+              </motion.div>
+            </motion.div>
+          </div>
         </div>
-
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-32 bg-gradient-to-t from-black/30 to-transparent" />
       </motion.div>
     </section>
   );
