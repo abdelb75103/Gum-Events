@@ -21,9 +21,24 @@ export default function EventsSection() {
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/20 rounded-full blur-[128px] pointer-events-none mix-blend-multiply dark:mix-blend-screen opacity-50 dark:opacity-20" />
 
       <Container>
-        <div className="min-h-[40vh] flex items-center justify-center">
-          <ScrollReveal>
-            <div className="max-w-3xl mx-auto text-center py-16 md:py-24">
+        {upcomingEvents.length > 0 ? (
+          <div className="space-y-10 md:space-y-16">
+            <ScrollReveal>
+              <div className="mx-auto max-w-3xl text-center">
+                <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-5xl">
+                  Upcoming Events
+                </h2>
+              </div>
+            </ScrollReveal>
+
+            {upcomingEvents.map((event, index) => (
+              <EventCard key={event.id} event={event} index={index} />
+            ))}
+          </div>
+        ) : (
+          <div className="min-h-[40vh] flex items-center justify-center">
+            <ScrollReveal>
+              <div className="max-w-3xl mx-auto text-center py-16 md:py-24">
               {/* Animated decorative element */}
               <motion.div
                 className="mb-8 flex justify-center"
@@ -66,9 +81,10 @@ export default function EventsSection() {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-            </div>
-          </ScrollReveal>
-        </div>
+              </div>
+            </ScrollReveal>
+          </div>
+        )}
       </Container>
     </section>
   );
@@ -162,7 +178,7 @@ function EventCard({ event, index }: { event: any, index: number }) {
                 {/* Big Date Typography */}
                 <div className={`flex items-baseline space-x-2 md:space-x-3 mb-1 md:mb-2 select-none ${index % 2 === 1 ? 'justify-end' : ''}`}>
                   <span className="text-5xl md:text-9xl font-bold tracking-tighter leading-none text-transparent bg-clip-text bg-gradient-to-b from-foreground to-foreground/10 dark:from-white dark:to-white/10 opacity-80">
-                    {event.date.split(' ')[0].replace(/\D/g, '')}
+                    {event.date.split(' ')[0].replace(/[^\d-]/g, '')}
                   </span>
                   <div className="flex flex-col justify-end h-full pb-1 md:pb-4">
                     <span className="text-base md:text-2xl font-bold uppercase tracking-widest text-primary">
