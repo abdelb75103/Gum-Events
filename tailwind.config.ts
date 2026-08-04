@@ -13,6 +13,10 @@ export default {
       screens: {
         'xs': '480px', // Added xs breakpoint
       },
+      fontFamily: {
+        inter: ['var(--font-inter)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        times: ['"Times New Roman"', 'Times', 'Georgia', 'serif'],
+      },
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',

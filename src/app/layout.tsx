@@ -1,7 +1,13 @@
 
 import type {Metadata} from 'next';
+import {Inter} from 'next/font/google';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
+
+const inter = Inter({
+  variable: '--font-inter',
+  subsets: ['latin'],
+});
 
 export const metadata: Metadata = {
   title: 'Growing Up Muslim Events',
@@ -37,7 +43,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">
+      <body className={`${inter.variable} antialiased`}>
         {children}
         <Toaster />
       </body>
