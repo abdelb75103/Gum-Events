@@ -3,16 +3,16 @@ import type { Event } from "./types";
 
 export const events: Event[] = [
   {
-    id: "digital-sisterhood-retreat",
-    title: "The Digital Sisterhood Retreat",
-    date: "3rd-5th October",
-    time: "",
-    location: "Offaly, Ireland",
-    description: "",
+    id: "connected-by-faith-2026",
+    title: "Connected by Faith with The Digital Sisterhood",
+    date: "Friday 2nd October 2026",
+    time: "6:30 pm",
+    location: "UCD, Astra Hall",
+    description: "An evening of sisterhood, connection and reflection.",
     registrationLink:
-      "https://www.halalticketin.com/events/the-digital-sisterhood-retreat",
-    image: "/images/digital-sisterhood-retreat.jpg",
-    imageHint: "weekend retreat registration poster",
+      "https://www.halalticketin.com/events/connected-by-faith-with-the-digital-sisterhood",
+    image: "/images/connected-by-faith.jpg",
+    imageHint: "Connected by Faith event poster",
     status: "upcoming",
   },
 ];

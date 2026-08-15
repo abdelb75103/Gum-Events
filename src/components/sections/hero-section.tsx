@@ -3,7 +3,7 @@ import Link from "next/link";
 import { events } from "@/lib/data";
 
 const retreat = events.find(
-  (event) => event.id === "digital-sisterhood-retreat"
+  (event) => event.id === "connected-by-faith-2026"
 );
 
 export default function HeroSection() {
@@ -30,7 +30,7 @@ export default function HeroSection() {
       <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center gap-8 px-5 py-10 sm:py-14 lg:flex-row lg:items-center lg:justify-between lg:gap-16 lg:px-8 lg:py-20">
         <div className="order-2 w-full text-center lg:order-1 lg:flex-1 lg:text-left">
           <p className="font-inter text-[0.7rem] uppercase tracking-[0.28em] text-white/70 sm:text-xs">
-            Upcoming retreat
+            Upcoming event
           </p>
           <h1 className="mt-3 font-times text-3xl leading-[1.08] text-white sm:text-4xl lg:mt-4 lg:text-6xl">
             {retreat.title}
