@@ -14,7 +14,7 @@ export default function GetInvolvedSection() {
             <div className="absolute inset-0 w-full h-full">
                 <div className="absolute inset-0 bg-gradient-to-b from-[#0f172a] via-[#0f172a]/80 to-black" />
                 <Image
-                    src="/images/_MG_0832.jpeg"
+                    src="/images/assets/_MG_0832.webp"
                     alt="Volunteers at Gum Events"
                     fill
                     sizes="100vw"

@@ -137,7 +137,7 @@ export default function ContributeSection() {
         controls={isMounted && isPlaying}
         controlsList="nodownload"
         preload="metadata"
-        poster="/images/contribution-cover.jpg"
+        poster="/images/contribution-cover.webp"
         data-ai-hint="contribution video cover"
         className="aspect-video w-full object-cover"
         aria-label="Contribution Information Video"

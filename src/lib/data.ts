@@ -11,7 +11,7 @@ export const events: Event[] = [
     description: "An evening of sisterhood, connection and reflection.",
     registrationLink:
       "https://www.halalticketin.com/events/connected-by-faith-with-the-digital-sisterhood",
-    image: "/images/connected-by-faith.jpg",
+    image: "/images/connected-by-faith.webp",
     imageHint: "Connected by Faith event poster",
     status: "upcoming",
   },
@@ -24,7 +24,7 @@ export const events: Event[] = [
     description: "An evening of sisterhood, connection and reflection. Cork sisters, this one is for you.",
     registrationLink:
       "https://www.halalticketin.com/events/connected-by-faith-with-the-digital-sisterhood-cork",
-    image: "/images/connected-by-faith-cork.jpg",
+    image: "/images/connected-by-faith-cork.webp",
     imageHint: "Connected by Faith Cork event poster",
     status: "upcoming",
   },

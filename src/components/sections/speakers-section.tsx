@@ -14,21 +14,21 @@ interface Speaker {
 }
 
 const featuredSpeakers: Speaker[] = [
-  { name: "Dr. Omar Suleiman", imageUrl: "/images/speakers/omar.JPG", role: "Scholar & Founder" },
-  { name: "Sh. Ali Hammuda", imageUrl: "/images/speakers/alih.jpg", role: "Imam & Author" },
-  { name: "Sh. Abu Bakr Zoud", imageUrl: "/images/speakers/zoud.jpg", role: "International Speaker" },
-  { name: "Sh. Jamal Abinasir", imageUrl: "/images/speakers/jamal.jpg", role: "Community Leader" },
-  { name: "Ustadh Nouman Ali Khan", imageUrl: "/images/speakers/nak.jpg", role: "Quranic Scholar" },
-  { name: "Dr. Sohaib Saeed", imageUrl: "/images/speakers/tafsirdoc.jpg", role: "Quran Specialist" },
-  { name: "Ustadh Abu Taymiyyah", imageUrl: "/images/speakers/abut.jpg", role: "Student of Knowledge" },
-  { name: "Akhi Ayman", imageUrl: "/images/speakers/ayman.jpg", role: "Youth Mentor" },
-  { name: "The Sunnah Guy", imageUrl: "/images/speakers/sunnahg.jpg", role: "Content Creator" },
-  { name: "Sh. Ammar Alshukry", imageUrl: "/images/speakers/ammar.jpg", role: "Poet & Speaker" },
-  { name: "Rhyad Muslim", imageUrl: "/images/speakers/rhyad.jpg", role: "Community Activist" },
-  { name: "Muslim Belal", imageUrl: "/images/speakers/mb.jpg", role: "Spoken Word Artist" },
-  { name: "Faisal Latif", imageUrl: "/images/speakers/fl.jpg", role: "Nasheed Artist" },
-  { name: "Ibby", imageUrl: "/images/speakers/ibby.jpg", role: "Youth Speaker" },
-  { name: "The Digital Sisterhood", imageUrl: "/images/speakers/tds.jpg", role: "Podcast Hosts" },
+  { name: "Dr. Omar Suleiman", imageUrl: "/images/speakers/omar.webp", role: "Scholar & Founder" },
+  { name: "Sh. Ali Hammuda", imageUrl: "/images/speakers/alih.webp", role: "Imam & Author" },
+  { name: "Sh. Abu Bakr Zoud", imageUrl: "/images/speakers/zoud.webp", role: "International Speaker" },
+  { name: "Sh. Jamal Abinasir", imageUrl: "/images/speakers/jamal.webp", role: "Community Leader" },
+  { name: "Ustadh Nouman Ali Khan", imageUrl: "/images/speakers/nak.webp", role: "Quranic Scholar" },
+  { name: "Dr. Sohaib Saeed", imageUrl: "/images/speakers/tafsirdoc.webp", role: "Quran Specialist" },
+  { name: "Ustadh Abu Taymiyyah", imageUrl: "/images/speakers/abut.webp", role: "Student of Knowledge" },
+  { name: "Akhi Ayman", imageUrl: "/images/speakers/ayman.webp", role: "Youth Mentor" },
+  { name: "The Sunnah Guy", imageUrl: "/images/speakers/sunnahg.webp", role: "Content Creator" },
+  { name: "Sh. Ammar Alshukry", imageUrl: "/images/speakers/ammar.webp", role: "Poet & Speaker" },
+  { name: "Rhyad Muslim", imageUrl: "/images/speakers/rhyad.webp", role: "Community Activist" },
+  { name: "Muslim Belal", imageUrl: "/images/speakers/mb.webp", role: "Spoken Word Artist" },
+  { name: "Faisal Latif", imageUrl: "/images/speakers/fl.webp", role: "Nasheed Artist" },
+  { name: "Ibby", imageUrl: "/images/speakers/ibby.webp", role: "Youth Speaker" },
+  { name: "The Digital Sisterhood", imageUrl: "/images/speakers/tds.webp", role: "Podcast Hosts" },
 ];
 
 export default function SpeakersSection() {

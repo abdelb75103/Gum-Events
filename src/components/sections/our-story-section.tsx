@@ -83,7 +83,7 @@ export default function OurStorySection() {
                 controls={isMounted && isPlaying}
                 controlsList="nodownload"
                 preload="metadata"
-                poster="/images/ourstory-cover.jpg"
+                poster="/images/ourstory-cover.webp"
                 data-ai-hint="community video"
                 className="rounded-xl shadow-xl aspect-video w-full"
                 aria-label="Our Story Video"

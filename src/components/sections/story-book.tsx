@@ -73,14 +73,14 @@ const CustomTooltipContent = ({ active, payload, label }: TooltipProps<ValueType
 };
 
 const photos = [
-    "/images/assets/_MG_0832.jpeg",
-    "/images/assets/event1.jpg",
-    "/images/assets/event2.jpg",
-    "/images/assets/event3.jpg",
-    "/images/assets/social2.jpg",
-    "/images/assets/social3.jpg",
-    "/images/assets/social4.jpg",
-    "/images/assets/story-photo.jpg",
+    "/images/assets/_MG_0832.webp",
+    "/images/assets/event1.webp",
+    "/images/assets/event2.webp",
+    "/images/assets/event3.webp",
+    "/images/assets/social2.webp",
+    "/images/assets/social3.webp",
+    "/images/assets/social4.webp",
+    "/images/assets/story-photo.webp",
 ];
 
 // --- Components ---
@@ -345,5 +345,4 @@ function ImpactContent({ isBookLeft = false }: { isBookLeft?: boolean }) {
         </div>
     );
 }
-
 
