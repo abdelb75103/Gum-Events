@@ -28,7 +28,7 @@ export default function EventsSection() {
           <div className="grid gap-8 lg:grid-cols-2">
             {upcomingEvents.map((upcomingEvent) => (
             <div key={upcomingEvent.id} className="group grid overflow-hidden rounded-2xl bg-card shadow-[0_18px_50px_-20px_hsl(220_15%_25%/0.35)] transition-shadow duration-300 hover:shadow-[0_26px_70px_-24px_hsl(220_15%_25%/0.45)] dark:shadow-none dark:ring-1 dark:ring-border sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
-              {/* Poster: exact 3:4 panel matching the artwork, so nothing is cropped */}
+              {/* Keep the full 4:5 poster visible. The details panel fits this height at two-column widths. */}
               <Link
                 href={upcomingEvent.registrationLink}
                 target="_blank"
@@ -49,12 +49,12 @@ export default function EventsSection() {
               </Link>
 
               {/* Details stub. Perforated edge: top on mobile, right on desktop. */}
-              <div className="relative order-2 flex flex-col justify-center border-t-2 border-dashed border-foreground/15 p-7 sm:order-1 sm:border-r-2 sm:border-t-0 sm:p-8 lg:order-2 lg:border-r-0 lg:border-t-2 xl:order-1 xl:border-r-2 xl:border-t-0">
-                <h3 className="font-times text-3xl leading-[1.1] tracking-tight text-foreground">
+              <div className="relative order-2 flex flex-col justify-center border-t-2 border-dashed border-foreground/15 p-7 sm:order-1 sm:border-r-2 sm:border-t-0 sm:p-5 lg:order-2 lg:border-r-0 lg:border-t-2 lg:p-8 xl:order-1 xl:border-r-2 xl:border-t-0 xl:p-5">
+                <h3 className="font-times text-3xl leading-[1.1] tracking-tight text-foreground sm:text-[27px] lg:text-3xl xl:text-[27px]">
                   {upcomingEvent.title}
                 </h3>
 
-                <dl className="mt-6 space-y-3 font-inter text-base text-muted-foreground">
+                <dl className="mt-6 space-y-3 font-inter text-base text-muted-foreground sm:mt-4 sm:space-y-2 sm:text-[15px] sm:leading-5 lg:mt-6 lg:space-y-3 lg:text-base lg:leading-normal xl:mt-4 xl:space-y-2 xl:text-[15px] xl:leading-5">
                   <div className="flex items-center gap-2.5">
                     <dt className="sr-only">Dates</dt>
                     <CalendarDays aria-hidden="true" className="h-5 w-5 shrink-0 text-primary" />
@@ -74,7 +74,7 @@ export default function EventsSection() {
 
                 <Button
                   asChild
-                  className="mt-8 h-auto w-full bg-gradient-to-r from-primary to-accent py-3 font-inter text-base font-semibold text-primary-foreground transition-transform duration-150 hover:from-primary/90 hover:to-accent/90 active:scale-[0.99] sm:w-auto sm:self-start sm:px-8"
+                  className="mt-8 h-auto w-full bg-gradient-to-r from-primary to-accent py-3 font-inter text-base font-semibold text-primary-foreground transition-transform duration-150 hover:from-primary/90 hover:to-accent/90 active:scale-[0.99] sm:mt-5 sm:w-auto sm:self-start sm:px-5 sm:py-2.5 sm:text-[15px] lg:mt-8 lg:px-8 lg:py-3 lg:text-base xl:mt-5 xl:px-5 xl:py-2.5 xl:text-[15px]"
                 >
                   <Link href={upcomingEvent.registrationLink} target="_blank" rel="noopener noreferrer">
                     Book your place <Ticket aria-hidden="true" className="ml-2 h-5 w-5" />
