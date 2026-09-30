@@ -23,7 +23,7 @@ export const events: Event[] = [
     location: "Brookfield Health Sciences Complex, UCC, Cork",
     description: "An evening of sisterhood, connection and reflection. Cork sisters, this one is for you.",
     registrationLink:
-      "https://www.halalticketin.com/events/connected-by-faith-with-the-digital-sisterhood-cork",
+      "https://uccsocieties.ticketsolve.com/shows/1173677223/events",
     image: "/images/connected-by-faith-cork.webp",
     imageHint: "Connected by Faith Cork event poster",
     status: "upcoming",
