@@ -13,7 +13,7 @@ export const events: Event[] = [
       "https://www.halalticketin.com/events/connected-by-faith-with-the-digital-sisterhood",
     image: "/images/connected-by-faith.webp",
     imageHint: "Connected by Faith event poster",
-    status: "upcoming",
+    status: "past",
   },
   {
     id: "connected-by-faith-cork-2026",
@@ -26,6 +26,6 @@ export const events: Event[] = [
       "https://uccsocieties.ticketsolve.com/shows/1173677223/events",
     image: "/images/connected-by-faith-cork.webp",
     imageHint: "Connected by Faith Cork event poster",
-    status: "upcoming",
+    status: "past",
   },
 ];

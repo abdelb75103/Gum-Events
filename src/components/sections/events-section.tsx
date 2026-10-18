@@ -87,7 +87,7 @@ export default function EventsSection() {
         ) : (
           <div className="mx-auto max-w-md rounded-2xl bg-card p-9 text-center shadow-[0_18px_50px_-20px_hsl(220_15%_25%/0.35)] dark:shadow-none dark:ring-1 dark:ring-border">
             <p className="font-times text-2xl leading-tight text-foreground md:text-3xl">
-              Something big is coming soon, insha'Allah.
+              Stay tuned for our next event, insha'Allah.
             </p>
             <p className="mt-3 font-inter text-base text-muted-foreground">
               You won't want to miss it. Keep an eye on our socials for the latest announcements.
